@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Villages extends Model
 {
     use HasFactory;
-    protected $table = 'vilages';
-    protected $primarykey = 'id';
-    protected $fillable = ['code','name'];
+    protected $guarded = [];
+    public $timestamps = false;
 
+    public function subdistrictdetail()
+    {
+        return $this->belongsTo(Subdistricts::class, 'subdistrict');
+    }
     public function mitras()
     {
-        return $this->hasOne(Mitras::class);
-    }
-    public function subdistricts()
-    {
-        return $this->belongsTo(Villages::class);
+        return $this->hasMany(Mitras::class, 'education');
     }
 }

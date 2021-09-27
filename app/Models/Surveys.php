@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Surveys extends Model
 {
     use HasFactory;
-    protected $table = 'surveys';
-    protected $primaryKey = 'id';
-    protected $fillable = ['name','start_date','end_date'];
+    protected $guarded = [];
+    public $timestamps = false;
 
-    public function Mitras_Surveys()
+    public function mitras()
     {
-        return $this->hasMany(Mitras_Surveys::class);
+        return $this->belongsToMany(Mitras::class, 'mitras_surveys', 'survey_id', 'mitra_id', 'id', 'email');
     }
 }

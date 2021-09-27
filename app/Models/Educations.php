@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Educations extends Model
 {
     use HasFactory;
-    protected $table = 'educations';
-    protected $primarykey = 'id';
-    protected $fillable = 'name';
+    protected $guarderd = [];
+    public $timestamps = false;
 
     public function mitras()
     {
-        return $this->hasOne(Mitras::class);
+        return $this->hasMany(Mitras::class, 'education');
     }
 }

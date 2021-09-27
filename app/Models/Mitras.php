@@ -8,30 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Mitras extends Model
 {
     use HasFactory;
-    protected $table = 'mitras';
     protected $primarykey = 'email';
-    protected $fillable = ['code','name','nickname','profession','address','L','P','photo','birthdate'];
+    protected $guarded = [];
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    public function educations()
+    public function educationdetail()
     {
-        return $this->hasOne(Mitras::class);
+        return $this->belongsTo(Educations::class, 'education');
     }
-
-    public function villages()
+    public function villagedetail()
     {
-        return $this->hasOne(Mitras::class);
+        return $this->belongsTo(Villages::class, 'village');
     }
-
-    public function subdistrict()
+    public function subdistrictdetail()
     {
-        return $this->hasOne(Mitras::class);
+        return $this->belongsTo(Subdistricts::class, 'subdistrict');
     }
-    public function mitras_surveys()
+    public function surveys()
     {
-        return this->belongsTo(Mitras::class);
+        return $this->belongsToMany(Surveys::class, 'mitras_surveys', 'mitra_id', 'survey_id', 'email', 'id');
     }
-    public function phone_number()
+    public function phonenumbers()
     {
-        return this->belongsTo(Mitras::class);
+        return $this->hasMany(PhoneNumbers::class, 'mitra_id', 'email');
     }
 }
