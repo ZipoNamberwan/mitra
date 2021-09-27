@@ -17,8 +17,8 @@ class CreateVillagesTable extends Migration
             $table->id();
             $table->string('code',3);
             $table->string('name',50);
-            $table->unsignedBigInteger('district');
-            $table->foreign('district')->references('id')->on('subdistrict');
+            $table->unsignedBigInteger('subdistrict');
+            $table->foreign('subdistrict')->references('id')->on('subdistricts');
         });
     }
 

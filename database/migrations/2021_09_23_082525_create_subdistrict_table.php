@@ -13,7 +13,7 @@ class CreateSubdistrictTable extends Migration
      */
     public function up()
     {
-        Schema::create('subdistrict', function (Blueprint $table) {
+        Schema::create('subdistricts', function (Blueprint $table) {
             $table->id();
             $table->string('code',3);
             $table->string('name',50);

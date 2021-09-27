@@ -15,10 +15,10 @@ class CreateMitrasSurveysTable extends Migration
     {
         Schema::create('mitras_surveys', function (Blueprint $table) {
             $table->id();
-            $table->string('mitras_id');
-            $table->foreign('mitras_id')->references('email')->on('mitras');
-            $table->unsignedBigInteger('surveys_id');
-            $table->foreign('surveys_id')->references('id')->on('surveys');
+            $table->string('mitra_id');
+            $table->foreign('mitra_id')->references('email')->on('mitras');
+            $table->unsignedBigInteger('survey_id');
+            $table->foreign('survey_id')->references('id')->on('surveys');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
         });

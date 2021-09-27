@@ -29,7 +29,7 @@ class CreateMitrasTable extends Migration
             $table->unsignedBigInteger('village');
             $table->foreign('village')->references('id')->on('villages');
             $table->unsignedBigInteger('subdistrict');
-            $table->foreign('subdistrict')->references('id')->on('subdistrict');
+            $table->foreign('subdistrict')->references('id')->on('subdistricts');
         });
     }
 
