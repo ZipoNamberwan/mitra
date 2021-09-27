@@ -20,7 +20,7 @@ class CreateMitrasSurveysTable extends Migration
             $table->unsignedBigInteger('surveys_id');
             $table->foreign('surveys_id')->references('id')->on('surveys');
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('statusses');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 
