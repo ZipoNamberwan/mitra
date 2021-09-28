@@ -16,6 +16,7 @@ class CreatePhoneNumbersTable extends Migration
         Schema::create('phone_numbers', function (Blueprint $table) {
             $table->id();
             $table->string('phone', 30);
+            $table->boolean('is_main');
             $table->string('mitra_id');
             $table->foreign('mitra_id')->references('email')->on('mitras');
         });

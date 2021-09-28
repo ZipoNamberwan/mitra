@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MitraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
+
+Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+
+Route::resources([
+    'mitras' => MitraController::class,
+]);
