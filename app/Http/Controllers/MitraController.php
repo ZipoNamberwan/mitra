@@ -18,6 +18,7 @@ class MitraController extends Controller
      */
     public function index()
     {
+        $mitras = Mitras::all();
         return view('mitra.mitra-index');
     }
 
