@@ -18,7 +18,7 @@ class MitraController extends Controller
      */
     public function index()
     {
-        //
+        return view('mitra.mitra-index');
     }
 
     /**
