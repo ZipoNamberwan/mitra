@@ -46,7 +46,7 @@ class MitraController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('mitra.mitra-view');
     }
 
     /**
@@ -121,7 +121,7 @@ class MitraController extends Controller
             $mitraData["photo"] = asset('storage/' . $mitra->photo);
             $mitraData["nickname"] = $mitra->nickname;
             $mitraData["email"] = $mitra->email;
-            $mitraData["phone"] = $mitra->phonenumbers[0]->phone;
+            $mitraData["phone"] = count($mitra->phonenumbers)>0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;
             $i++;
