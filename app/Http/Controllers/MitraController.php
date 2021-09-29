@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mitras;
+use App\Models\Educations;
+use App\Models\Subdistricts;
+use App\Models\Villages;
 use Illuminate\Http\Request;
 
 class MitraController extends Controller
@@ -24,7 +27,11 @@ class MitraController extends Controller
      */
     public function create()
     {
-        return view('mitra.mitra-create');
+        return view('mitra.mitra-create', [
+            'educations' => Educations::all(),
+            'villages' => Villages::all(),
+            'subdistricts' => Subdistricts::all()
+        ]);
     }
 
     /**
@@ -35,7 +42,37 @@ class MitraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'email' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'nickname' => 'required',
+            'sex' => 'required',
+            'photo' => 'required',
+            'education' => 'required',
+            'birthdate' => 'required',
+            'profession' => 'required',
+            'address' => 'required',
+            'village' => 'required',
+            'subdistrict' => 'required'
+        ]);
+        
+        Mitras::create([
+            'email' => $request->email,
+            'code' => $request->code,
+            'name' => $request->name,
+            'nickname' => $request->nickname,
+            'sex' => $request->sex,
+            'photo' => $request->photo,
+            'education' => $request->education,
+            'birtdate' => $request->birthdate,
+            'profession' => $request->profession,
+            'address' => $request->address,
+            'village' => $request->village,
+            'subdistrict' => $request->subdistrict
+        ]);
+
+        return redirect('/test');
     }
 
     /**
@@ -121,7 +158,7 @@ class MitraController extends Controller
             $mitraData["photo"] = asset('storage/' . $mitra->photo);
             $mitraData["nickname"] = $mitra->nickname;
             $mitraData["email"] = $mitra->email;
-            $mitraData["phone"] = $mitra->phonenumbers[0]->phone;
+            $mitraData["phone"] = count($mitra->phonenumbers)>0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;
             $i++;
