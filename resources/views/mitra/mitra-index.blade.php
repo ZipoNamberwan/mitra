@@ -182,13 +182,13 @@
 </script>
 
 <script>
-    function changeStatus(id) {
-        var checkboxes = document.getElementsByName('published' + id);
+    function changeStatus(email) {
+        var checkboxes = document.getElementsByName('published' + email);
         var loading = document.getElementById('loading-background');
         var value = checkboxes[checkboxes.length - 1].checked;
         loading.style.display = 'block';
         $.ajax({
-            url: "{{url('mitras/changestatus/')}}/" + id,
+            url: "{{url('mitras/changestatus/')}}/" + email,
             success: function(result, status, xhr) {
                 loading.style.display = 'none';
                 checkboxes.forEach(function(item, index) {

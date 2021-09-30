@@ -21,6 +21,8 @@ Route::get('/', function () {
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
 
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+Route::get('/mitra-edit/{$email}', [App\Http\Controllers\MitraController::class, 'edit']);
+
 
 Route::resources([
     'mitras' => MitraController::class,
