@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Mitras;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DB;
+use PhpParser\Node\Expr\AssignOp\Pow;
 
 class MitraController extends Controller
 {
@@ -78,9 +80,10 @@ class MitraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $email)
     {
-        //
+        Mitras::destroy($request->email);
+        return redirect('mitra.mitra-index')->with('sukses', 'Data Telah Dihapus');
     }
 
     public function data(Request $request)

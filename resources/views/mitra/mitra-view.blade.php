@@ -34,16 +34,17 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h3 class="mb-0">Daftar Mitra</h3>
+                            <h3 class="mb-0">Data Mitra</h3>
                         </div>
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Database Mitra</title>
                         <style>
-                            body, h1, p, a,td, span {
-                                font-family: Arial, Helvetica, sans-serif;
+                            body, h1, p, a, td, span {
+                                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                                 text-decoration: none;
+                                color: black;
                             }
                             .wrap {
                                 background-color:rgba(255, 255, 255, 0.7);
@@ -58,12 +59,12 @@
                         </style>
                     </head>
 
-                    <body style="background: url();background-size: cover;background-attachment: fixed;">
+                    <body>
                     <div class="wrap">
-                        <h1 align="center"><span>BIODATA MITRAS</span></h1>
+                        <h1 align="center"><span>BIODATA MITRA</span></h1>
                         <table>
                             <tr>
-                                <td rowspan="12" width="50px"> <img src="" width="150px" style="display: block;border-radius: 10%;border-color:white;margin-right:30px" border="2px" ></td>
+                                <td rowspan="15" width="150px"> <img src="" width="175px" style="display: block;border-radius: 5%;border-color:white;margin-bottom:65px;margin-right:20px" border="2px" ></td>
                             </tr>
                             <tr>
                                 <td><b>E-mail</b></td><td>:</td><td><a href=""></a></td>
