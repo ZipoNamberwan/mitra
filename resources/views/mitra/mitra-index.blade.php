@@ -96,6 +96,7 @@
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
 
+
 <script>
     var table = $('#datatable-id').DataTable({
         "responsive": true,

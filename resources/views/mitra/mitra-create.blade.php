@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottpm"></div>
     <h1 class="h2">Tambah Mitra</h1>
     <div class="col-lg-8">
-        <form method="POST" action="/mitras">
+        <form method="POST" action="/mitras" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6 mb-3">
                 <label class="form-control-label" for="validationCustom03">Email</label>
@@ -48,7 +48,11 @@
 
             <div class="col-md-6 mb-3">
                 <label class="form-control-label" for="validationCustom03">Foto</label>
-                <input type="text" name="photo" class="form-control @error('photo') is-invalid @enderror" id="validationCustom03" >
+                <div class="custom-file">
+                  <input name="photo" type="file" class="custom-file-input @error('photo') is-invalid @enderror"
+                       id="photo" lang="en">
+                  <label class="custom-file-label" for="photo">Select file</label>
+                </div>
                 @error('photo')
                 <div class="invalid-feedback">
                   {{$message}}
@@ -152,4 +156,6 @@
 @section('optionaljs')
   <script src="/assets/vendor/select2/dist/js/select2.min.js"></script>    
   <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
 @endsection

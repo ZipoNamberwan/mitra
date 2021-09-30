@@ -42,13 +42,15 @@ class MitraController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $this->validate($request,[
             'email' => 'required',
             'code' => 'required',
             'name' => 'required',
             'nickname' => 'required',
             'sex' => 'required',
-            'photo' => 'required',
+            'photo' => 'image|file|max:1024',
             'education' => 'required',
             'birthdate' => 'required',
             'profession' => 'required',
@@ -56,6 +58,9 @@ class MitraController extends Controller
             'village' => 'required',
             'subdistrict' => 'required'
         ]);
+
+        
+   
         
         Mitras::create([
             'email' => $request->email,
