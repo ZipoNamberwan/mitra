@@ -80,10 +80,11 @@ class MitraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $email)
+    public function destroy($id)
     {
-        Mitras::destroy($request->email);
-        return redirect('mitra.mitra-index')->with('sukses', 'Data Telah Dihapus');
+        $mit = Mitras::where('email', $id);
+        $mit->delete();
+        return redirect('/test');
     }
 
     public function data(Request $request)
