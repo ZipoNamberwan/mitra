@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Educations;
 use App\Models\Subdistricts;
 use App\Models\Villages;
-
-
+use PharIo\Manifest\Email;
 
 class MitraController extends Controller
 {
@@ -60,15 +59,16 @@ class MitraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($email)
+    public function edit($id)
     {
+        $mitras=Mitras::where('email', $id);
         //if(!$this->Mitras->detailData($email)){
            // abort(404);
         //}
         //$mitraData = [
          //   'mitra' => $this->Mitras->detailData($email)
         //];
-        return view('mitra.mitra-edit', [
+        return view('mitra.mitra-edit', compact('id'), [
             'educations' => Educations::all(),
             'villages' => Villages::all(),
             'subdistricts' => Subdistricts::all()
@@ -99,7 +99,7 @@ class MitraController extends Controller
             'subdistrict' => 'required'
         ]);
         
-        Mitras::edit([
+        Mitras::where([
             'email' => $request->email,
             'code' => $request->code,
             'name' => $request->name,
@@ -125,7 +125,9 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mitras=Mitras::where('email', $id);
+        $mitras->delete();
+        return redirect('/test');
     }
 
     public function data(Request $request)

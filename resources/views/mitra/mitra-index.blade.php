@@ -182,7 +182,7 @@
 </script>
 
 <script>
-    function changeStatus(email) {
+    function changeStatus($id, $email) {
         var checkboxes = document.getElementsByName('published' + email);
         var loading = document.getElementById('loading-background');
         var value = checkboxes[checkboxes.length - 1].checked;
