@@ -7,6 +7,7 @@ use App\Models\Educations;
 use App\Models\Subdistricts;
 use App\Models\Villages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MitraController extends Controller
 {
@@ -27,11 +28,17 @@ class MitraController extends Controller
      */
     public function create()
     {
+        
+        
         return view('mitra.mitra-create', [
             'educations' => Educations::all(),
             'villages' => Villages::all(),
-            'subdistricts' => Subdistricts::all()
+            'subdistricts' => Subdistricts::all(),
+            
         ]);
+    }
+    public function GetSubCatAgainstMainCatEdit($id){
+        echo json_encode(DB::table('villages')->where('subdistrict', $id)->get());
     }
 
     /**
@@ -42,9 +49,8 @@ class MitraController extends Controller
      */
     public function store(Request $request)
     {
-        
 
-        $this->validate($request,[
+        $this->validate($request, [
             'email' => 'required',
             'code' => 'required',
             'name' => 'required',
@@ -59,16 +65,21 @@ class MitraController extends Controller
             'subdistrict' => 'required'
         ]);
 
+        $path = '';
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $path = $image->store('images', 'public');
+        }
+
         
-   
-        
+
         Mitras::create([
             'email' => $request->email,
             'code' => $request->code,
             'name' => $request->name,
             'nickname' => $request->nickname,
             'sex' => $request->sex,
-            'photo' => $request->photo,
+            'photo' => $path,
             'education' => $request->education,
             'birtdate' => $request->birthdate,
             'profession' => $request->profession,
@@ -99,7 +110,7 @@ class MitraController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -111,7 +122,8 @@ class MitraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        
     }
 
     /**
@@ -122,7 +134,7 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
     }
 
     public function data(Request $request)
@@ -163,7 +175,7 @@ class MitraController extends Controller
             $mitraData["photo"] = asset('storage/' . $mitra->photo);
             $mitraData["nickname"] = $mitra->nickname;
             $mitraData["email"] = $mitra->email;
-            $mitraData["phone"] = count($mitra->phonenumbers)>0 ? $mitra->phonenumbers[0]->phone : '';
+            $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;
             $i++;

@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
 
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+Route::get('/mitras/GetSubCatAgainstMainCatEdit/{id}', [App\Http\Controllers\MitraController::class, 'GetSubCatAgainstMainCatEdit']);
 
 Route::resources([
     'mitras' => MitraController::class,
