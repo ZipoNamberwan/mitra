@@ -48,7 +48,8 @@ class MitraController extends Controller
      */
     public function show($id)
     {
-        return view('mitra.mitra-view');
+        $mitra = Mitras::where('email', $id)->first();
+        return view('mitra.mitra-view', compact('mitra'));
     }
 
     /**

@@ -36,13 +36,11 @@
                 <!-- Card header -->
                 <div class="card-header">
                     <div class="row">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Database Mitra</title>
-                            <style>
+                            {{-- <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0"> --}}
+                            {{-- <style>
                                 body, h1, p, a, td, span {
-                                    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                    font-family: sans-serif;
                                     text-decoration: none;
                                     color: black;
                                 } 
@@ -53,61 +51,62 @@
                                     margin: 20px auto;
                                     padding:15px;
                                 }
-                                span {
+                                /* span {
                                     color: black;
-                                }
-                            </style>
-                        </head>
+                                } */
+                            </style> --}}
                     </div>
                 </div>
-                <div class="wrap">
+                <div>
                     <h1 align="center"><span>BIODATA MITRA</span></h1>
-                    <table>
+                    <table class="table" align="center">
                         <tr>
-                            <td rowspan="15" width="150px"> <img src="" alt="null" width="175px" style="display: block;border-radius: 10%;border-color:black;margin:10px" border="2px" ></td>
+                            <td rowspan="12">
+                            <img {{ $mitra->photo }} alt="null" style="border-radius: 10%;border-color:black;margin: 35px"></td>
                         </tr>
                         <tr>
-                            <td><b>E-mail</b></td><td>:</td><td><a href=""></a></td>
+                            <td width="10px"><a>E-mail</a></td>
+                            <td>:</td><td>{{ $mitra->email }}</td>
                         </tr>
                         <tr>
-                            <td><b>Kode</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Kode</a></td>
+                            <td>:</td> <td>{{ $mitra->code }}</td>
                         </tr>
                         <tr>
-                            <td><b>Nama</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Nama</a></td>
+                            <td>:</td> <td>{{ $mitra->name }}</td>
                         </tr>
                         <tr>
-                            <td><b>Nama Panggilan</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Nama Panggilan</a></td>
+                            <td>:</td> <td>{{ $mitra->nickname }}</td>
                         </tr>
                         <tr>
-                            <td><b>Jenis Kelamin</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Jenis Kelamin</a></td>
+                            <td>:</td> <td>{{ $mitra->sex }}</td>
                         </tr>
                         <tr>    
-                            <td><b>Pendidikan</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Pendidikan</a></td>
+                            <td>:</td> <td>{{ $mitra->education }}</td>
                         </tr>
                         <tr>
-                            <td><b>Tanggal Lahir</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Tanggal Lahir</a></td>
+                            <td>:</td> <td>{{ $mitra->birtdate }}</td>
                         </tr>
                         <tr>
-                            <td><b>Profession</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Profesi</a></td>
+                            <td>:</td> <td>{{ $mitra->profession }}</td>
                         </tr>
                         <tr>
-                            <td><b>Alamat</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Alamat</a></td>
+                            <td>:</td> <td>{{ $mitra->address }}</td>
                         </tr>
                         <tr>
-                            <td><b>Desa</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Desa</a></td>
+                            <td>:</td> <td>{{ $mitra->village }}</td>
                         </tr>
                         <tr>
-                            <td><b>Kecamatan</b></td>
-                            <td>:</td> <td></td>
+                            <td><a>Kecamatan</a></td>
+                            <td>:</td> <td>{{ $mitra->subdistrict }}</td>
                         </tr>
                     </table>
                 </div>
