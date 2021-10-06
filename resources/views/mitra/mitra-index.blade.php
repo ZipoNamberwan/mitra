@@ -125,6 +125,9 @@
                 "responsivePriority": 1,
                 "width": "12%",
                 "data": "name",
+                "render": function(data, type, row) {
+                    return "<a href=\"/mitras/"+row.id+"\">"+data+"</a>";
+                }
             },
             {
                 "responsivePriority": 1,

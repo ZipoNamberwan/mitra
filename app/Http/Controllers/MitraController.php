@@ -83,8 +83,8 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
-        $mit = Mitras::where('email', $id);
-        $mit->delete();
+        $mitra = Mitras::where('email', $id);
+        $mitra->delete();
         return redirect('/test');
     }
 
