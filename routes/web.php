@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
+Route::get('/testsurvey', [App\Http\Controllers\SurveyController::class, 'index']);
 
+Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data'] );
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
-Route::get('/mitras/GetSubCatAgainstMainCatEdit/{id}', [App\Http\Controllers\MitraController::class, 'GetSubCatAgainstMainCatEdit']);
+Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 
 Route::resources([
     'mitras' => MitraController::class,
+    'surveys' => SurveyController::class,
 ]);

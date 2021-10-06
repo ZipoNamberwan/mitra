@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mitras;
 use App\Models\Educations;
+use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
 use App\Models\Villages;
 use Illuminate\Http\Request;
@@ -32,13 +33,13 @@ class MitraController extends Controller
         
         return view('mitra.mitra-create', [
             'educations' => Educations::all(),
-            'villages' => Villages::all(),
+        
             'subdistricts' => Subdistricts::all(),
             
         ]);
     }
-    public function GetSubCatAgainstMainCatEdit($id){
-        echo json_encode(DB::table('villages')->where('subdistrict', $id)->get());
+    public function getVillage($id){
+        return json_encode(DB::table('villages')->where('subdistrict', $id)->get());
     }
 
     /**
@@ -73,7 +74,7 @@ class MitraController extends Controller
 
         
 
-        Mitras::create([
+        $mitra = Mitras::create([
             'email' => $request->email,
             'code' => $request->code,
             'name' => $request->name,
@@ -86,6 +87,13 @@ class MitraController extends Controller
             'address' => $request->address,
             'village' => $request->village,
             'subdistrict' => $request->subdistrict
+
+        ]);
+
+        PhoneNumbers::create([
+            'phone' => $request->phone,
+            'is_main' => true,
+            'mitra_id' => $mitra->email
         ]);
 
         return redirect('/test');
