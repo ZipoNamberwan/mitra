@@ -2,6 +2,7 @@
 @section('stylesheet')
     <link rel="stylesheet" href="/assets/vendor/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="/assets/css/container.css">
+    <link rel="stylesheet" href="/assets/css/text.css">
 @endsection
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottpm"></div>
@@ -20,6 +21,16 @@
           </div>
           @enderror
       </div>
+
+      <div class="col-md-14 mb-3">
+        <label class="form-control-label" for="phone">Nomor Handphone</label>
+        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="validationCustom03" >
+        @error('phone')
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @enderror
+    </div>
 
       <div class="col-md-14 mb-3 ">
         <label class="form-control-label " for="validationCustom03">Kode Mitra</label>
@@ -51,6 +62,16 @@
     @enderror
 </div>
 
+<div class="col-md-14 mb-3">
+  <label class="form-control-label" for="">Foto</label>
+  <img class="img-preview img-fluid mb-3 col-sm-5">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="photo" name="photo" lang="en" onchange="previewPhoto()">
+      <label class="custom-file-label" for="customFileLang" id="photolabel">Select file</label>
+    </div>
+  
+</div>
+
   <div class="col-md-14 mb-3">
     <div class="form-group">
       <label class="form-control-label" for="exampleDatepicker">Tanggal Lahir</label>
@@ -64,32 +85,52 @@
   </div>
 
   <div class="col-md-14 mb-3">
-    <label class="form-control-label" for="validationCustom03">Profesi</label>
-    <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03" >
-    @error('profession')
-    <div class="invalid-feedback">
-      {{$message}}
+    <label >Jenis Kelamin</label>
+    <div class="custom-control custom-radio mb-3">
+        <input name="sex" class="custom-control-input" id="sex_radio1" value="L" type="radio" >
+        <label class="custom-control-label" for="sex_radio1" >Laki-laki</label>
     </div>
-    @enderror
+        
+    <div class="custom-control custom-radio mb-3">
+        <input name="sex" class="custom-control-input" id="sex_radio2" value="P" type="radio">
+        <label class="custom-control-label" for="sex_radio2">Perempuan</label>
+      </div>
+      @error('sex')
+  <div class="text-valid">
+    {{ $message }}
+  </div>    
+  @enderror 
 </div>
-
-
 
       </div>
       
       <div class="float-child">
         
         <div class="col-md-14 mb-3">
-          <label class="form-control-label" for="">Foto</label>
-          <img class="img-preview img-fluid mb-3">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="photo" name="photo" lang="en" onchange="previewPhoto()">
-              <label class="custom-file-label" for="customFileLang" id="photolabel">Select file</label>
-            </div>
-          
-        </div>
-        
+          <label class="form-control-label">Pendidikan</label>
+                <select name="education" class="form-control" data-toggle="select" >
+                 <option value="0" disabled selected>Pilih Pendidikan terakhir Anda</option>
+                  @foreach ($educations as $education)
+                  <option value="{{ $education->id }}">{{ $education->name }}</option>  
+              @endforeach
+                </select>
+                @error('education')
+          <div class="text-valid">
+            {{$message}}
+          </div>    
+          @enderror
+          </div>
 
+        <div class="col-md-14 mb-3">
+          <label class="form-control-label" for="validationCustom03">Profesi</label>
+          <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03" >
+          @error('profession')
+          <div class="invalid-feedback">
+            {{$message}}
+          </div>
+          @enderror
+      </div>  
+        
       <div class="col-md-14 mb-3">
           <label class="form-control-label" for="validationCustom03">Alamat</label>
           <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="validationCustom03" >
@@ -99,64 +140,36 @@
           </div>
           @enderror
       </div>
-      <div class="col-md-14 mb-3">
-        <label class="form-control-label">Pendidikan</label>
-              <select name="education" class="form-control" data-toggle="select">
-                @foreach ($educations as $education)
-                <option value="{{ $education->id }}">{{ $education->name }}</option>  
-            @endforeach
-              </select>
-
-        </div>
-        @error('education')
-        <div class="div">
-          error
-        </div>    
-        @enderror
+      
         
-      <div class="col-md-14 mb-3">
-          <label >Jenis Kelamin</label>
-          <div class="custom-control custom-radio mb-3">
-              <input name="sex" class="custom-control-input" id="sex_radio1" value="L" type="radio" >
-              <label class="custom-control-label" for="sex_radio1" >Laki-laki</label>
-          </div>
-              
-          <div class="custom-control custom-radio mb-3">
-              <input name="sex" class="custom-control-input" id="sex_radio2" value="P" type="radio">
-              <label class="custom-control-label" for="sex_radio2">Perempuan</label>
-            </div>
-      </div>
-      @error('sex')
-        <div class="div">
-          error
-        </div>    
-        @enderror
+        
+      
+     
       
         <div class="col-md-14 mb-3">
           <label class="form-control-label">Kecamatan</label>
-                <select name="subdistrict" class="form-control" data-toggle="select" name="subdistrict">
+                <select id="subdistrict" name="subdistrict" class="form-control" data-toggle="select" name="subdistrict" required>
+                  <option value="0" disabled selected> -- Pilih Kecamatan Anda -- </option>
                   @foreach ($subdistricts as $subdistrict)
-                    <option value="{{ $subdistrict->id }}">{{ $subdistrict->name }}</option>  
+                  <option  value="{{ $subdistrict->id }}">{{ $subdistrict->name }}</option>  
                 @endforeach
                 </select>  
           </div>
           @error('subdistrict')
-        <div class="div">
-          error
+        <div class="text-valid">
+          {{ $message }}
         </div>    
         @enderror
 
         <div class="col-md-14 mb-3">
           <label class="form-control-label">Desa</label>
-                <select name="village" class="form-control" data-toggle="select" name="village">
-                  @foreach ($villages as $village)
-                     <option value="{{ $village->id }}">{{ $village->name }}</option>  
-                   @endforeach
+                <select id="village" name="village" class="form-control" data-toggle="select" name="village">
+                  
                 </select>
           </div>
           @error('village')
-          <div class="div">
-            error
+          <div class="text-valid">
+            {{ $message }}
           </div>    
           @enderror
         
@@ -191,6 +204,29 @@
       
   }
   </script>
+ 
+   <script>
+    $(document).ready(function () {
+    $('#subdistrict').on('change', function () {
+    let id = $(this).val();
+    $('#village').empty();
+    $('#village').append(`<option value="0" disabled selected>Processing...</option>`);
+    $.ajax({
+    type: 'GET',
+    url: 'village/' + id,
+    success: function (response) {
+    var response = JSON.parse(response);
+    console.log(response);   
+    $('#village').empty();
+    $('#village').append(`<option value="0" disabled selected>Pilih Desa Anda</option>`);
+    response.forEach(element => {
+        $('#village').append(`<option value="${element['id']}">${element['name']}</option>`);
+        });
+    }
+});
+});
+});
+</script>
   
   
 

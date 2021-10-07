@@ -9,6 +9,7 @@ use App\Models\Subdistricts;
 use App\Models\Villages;
 use PharIo\Manifest\Email;
 use Illuminate\Support\Facades\DB;
+use App\Models\PhoneNumbers;
 
 class MitraController extends Controller
 {
@@ -34,6 +35,8 @@ class MitraController extends Controller
             'villages' => Villages::all(),
             'subdistricts' => Subdistricts::all()
         ]);
+
+        
     }
     
 
@@ -66,7 +69,7 @@ class MitraController extends Controller
             $path = $image->store('images', 'public');
         }
 
-        Mitras::create([
+        $mitra = Mitras::create([
             'email' => $request->email,
             'code' => $request->code,
             'name' => $request->name,
@@ -79,9 +82,17 @@ class MitraController extends Controller
             'address' => $request->address,
             'village' => $request->village,
             'subdistrict' => $request->subdistrict
+
+        ]);
+
+        PhoneNumbers::create([
+            'phone' => $request->phone,
+            'is_main' => true,
+            'mitra_id' => $mitra->email
         ]);
 
         return redirect('/test');
+    
     }
 
     /**
@@ -111,6 +122,9 @@ class MitraController extends Controller
             'subdistricts' => Subdistricts::all()
         ]);
     }
+    public function getVillage($id){
+        return json_encode(DB::table('villages')->where('subdistrict', $id)->get());
+    }
 
     /**
      * Update the specified resource in storage.
@@ -119,7 +133,7 @@ class MitraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         
         $request->validate([
@@ -141,21 +155,16 @@ class MitraController extends Controller
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $path = $image->store('images', 'public');
-        } else {
-        //         ($request->hasFile('photo')); {
-        //         $image = $request->file('photo');
-        //         $path = $image->update('images', 'public');
-        // }
-    }
+        } 
 
-        $ada = DB::table('mitras')->where('email', $id);
+        $mitra = Mitras::where('email', $id)->first();
         $data = ([
             'email' => $request->email,
             'code' => $request->code,
             'name' => $request->name,
             'nickname' => $request->nickname,
             'sex' => $request->sex,
-            'photo' => $path,
+            'photo' => $path =='' ? $mitra->photo : $path,
             'education' => $request->education,
             'birtdate' => $request->birthdate,
             'profession' => $request->profession,
@@ -163,7 +172,10 @@ class MitraController extends Controller
             'village' => $request->village,
             'subdistrict' => $request->subdistrict
         ]);
-        $ada->update($data);
+
+    
+        
+        $mitra->update($data);
         
         return redirect('/test');
         
@@ -234,7 +246,5 @@ class MitraController extends Controller
         ]);
     }
 
-    public function GetSubCatAgainstMainCatEdit($id){
-        echo json_encode(DB::table('villages')->where('subdistrict', $id)->get());
-    }
+    
 }

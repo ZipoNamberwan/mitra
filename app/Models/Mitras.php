@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mitras extends Model
 {
     use HasFactory;
-    protected $primarykey = 'email';
+    protected $primaryKey = 'email';
     protected $guarded = [];
     protected $keyType = 'string';
     public $incrementing = false;

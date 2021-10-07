@@ -21,6 +21,31 @@
           </div>
           @enderror
       </div>
+      
+      <div class="col-md-14 mb-3 ">
+        <label class="form-control-label " for="validationCustom03">Nomor Hp</label>
+        <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" id="validationCustom03" value="{{ $mitra->phone }}">
+        <div class="controls">
+          <a href="#" id="addd_more">Add More</a>
+          <a href="#" id="addd_more">Remove</a>
+        </div>
+        @error('code')
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @enderror
+    </div>
+
+    {{-- <div class="wrapper">
+      <div id='phone'>
+        <input type="text" name="option[]" class="option" size="80" placeholder="phone number">
+        <input type="text" name="option[]" class="option" size="80" placeholder="another phone number">
+      </div>
+      <div class="controls">
+        <a href="#" id="addd_more"><i class=" fa fa-plus"></i>Add More</a>
+        <a href="#" id="addd_more"><i class=" fa fa-plus"></i>Remove</a>
+      </div>
+    </div> --}}
 
       <div class="col-md-14 mb-3 ">
         <label class="form-control-label " for="validationCustom03">Kode Mitra</label>
@@ -53,6 +78,18 @@
 </div>
 
 <div class="col-md-14 mb-3">
+  <label class="form-control-label" for="">Foto</label>
+  <img class="img-preview img-fluid mb-3">
+  <img src="{{ asset('images/').$mitra->photo }}" height="10%" width="20%" alt="" >
+
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="photo" name="photo" lang="en" onchange="previewPhoto()">
+      <label class="custom-file-label" for="customFileLang" id="photolabel">Select file</label>
+    </div>
+  
+</div>
+
+<div class="col-md-14 mb-3">
   <div class="form-group">
     <label class="form-control-label" for="exampleDatepicker">Tanggal Lahir</label>
     <input name="birthdate" class="form-control @error('birthdate') is-invalid @enderror" placeholder="Select date" type="date" value="{{ $mitra->birtdate }}">
@@ -64,34 +101,54 @@
   </div>
 </div>
 
-  <div class="col-md-14 mb-3">
-    <label class="form-control-label" for="validationCustom03">Profesi</label>
-    <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03" value="{{ $mitra->profession }}">
-    @error('profession')
-    <div class="invalid-feedback">
-      {{$message}}
-    </div>
-    @enderror
-</div>
+  
 
-
-
-      </div>
+<div class="col-md-6 mb-3">
+  <label >Jenis Kelamin</label>
+  <div class="custom-control custom-radio mb-3">
+      <input name="sex" class="custom-control-input" id="sex_radio1" value="L" type="radio" {{ $mitra->sex == 'L'? 'checked' : ''}} >
+      <label class="custom-control-label" for="sex_radio1" >Laki-laki</label>
+  </div>
       
-      <div class="float-child">
+  <div class="custom-control custom-radio mb-3">
+      <input name="sex" class="custom-control-input" id="sex_radio2" value="P" type="radio" {{ $mitra->sex == 'P'? 'checked' : ''}}>
+      <label class="custom-control-label" for="sex_radio2">Perempuan</label>
+    </div>
+</div>
+@error('sex')
+<div class="div">
+  error
+</div>    
+@enderror
+   </div>
+      
+      <div class="float-child"> <!-- x -->
         
-        <div class="col-md-14 mb-3">
-          <label class="form-control-label" for="">Foto</label>
-          <img class="img-preview img-fluid mb-3">
-          <img src="{{ asset('images/').$mitra->photo }}" height="10%" width="20%" alt="" >
+        
+        <div class="col-md- mb-14">
+          <label class="form-control-label">Pendidikan</label>
+                <select name="education" class="form-control" data-toggle="select">
+                  @foreach ($educations as $education)
+                  <option value="{{ $education->id }}">{{ $education->name }}</option>  
+              @endforeach
+                </select>
+  
+          </div>
+          @error('education')
+          <div class="div">
+            error
+          </div>    
+          @enderror
 
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="photo" name="photo" lang="en" onchange="previewPhoto()">
-              <label class="custom-file-label" for="customFileLang" id="photolabel">Select file</label>
+          <div class="col-md-14 mb-3">
+            <label class="form-control-label" for="validationCustom03">Profesi</label>
+            <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03" value="{{ $mitra->profession }}">
+            @error('profession')
+            <div class="invalid-feedback">
+              {{$message}}
             </div>
-          
+            @enderror
         </div>
-        
 
       <div class="col-md-14 mb-3">
           <label class="form-control-label" for="validationCustom03">Alamat</label>
@@ -102,42 +159,13 @@
           </div>
           @enderror
       </div>
-      <<div class="col-md-6 mb-3">
-        <label class="form-control-label">Pendidikan</label>
-              <select name="education" class="form-control" data-toggle="select">
-                @foreach ($educations as $education)
-                <option value="{{ $education->id }}">{{ $education->name }}</option>  
-            @endforeach
-              </select>
-
-        </div>
-        @error('education')
-        <div class="div">
-          error
-        </div>    
-        @enderror
+      
         
-        <div class="col-md-6 mb-3">
-          <label >Jenis Kelamin</label>
-          <div class="custom-control custom-radio mb-3">
-              <input name="sex" class="custom-control-input" id="sex_radio1" value="L" type="radio" {{ $mitra->sex == 'L'? 'checked' : ''}} >
-              <label class="custom-control-label" for="sex_radio1" >Laki-laki</label>
-          </div>
-              
-          <div class="custom-control custom-radio mb-3">
-              <input name="sex" class="custom-control-input" id="sex_radio2" value="P" type="radio" {{ $mitra->sex == 'P'? 'checked' : ''}}>
-              <label class="custom-control-label" for="sex_radio2">Perempuan</label>
-            </div>
-      </div>
-      @error('sex')
-        <div class="div">
-          error
-        </div>    
-        @enderror
+        
       
         <div class="col-md-14 mb-3">
           <label class="form-control-label">Kecamatan</label>
-                <select name="subdistrict" class="form-control" data-toggle="select" name="subdistrict" id="subdiftrict">
+                <select name="subdistrict" class="form-control" data-toggle="select" name="subdistrict" id="subdistrict">
                   @foreach ($subdistricts as $subdistrict)
                     <option value="{{ $subdistrict->id }}">{{ $subdistrict->name }}</option>  
                 @endforeach
@@ -203,7 +231,7 @@
     $('#village').append(`<option value="0" disabled selected>Processing...</option>`);
     $.ajax({
     type: 'GET',
-    url: 'GetSubCatAgainstMainCatEdit/' + id,
+    url: '/mitras/village/' + id,
     success: function (response) {
     var response = JSON.parse(response);
     console.log(response);   

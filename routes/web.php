@@ -23,5 +23,5 @@ Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
 Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
 Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
-Route::get('/mitras/GetSubCatAgainstMainCatEdit/{id}', [App\Http\Controllers\MitraController::class, 'GetSubCatAgainstMainCatEdit']);
+Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 Route::resources(['mitras' => MitraController::class,]);
