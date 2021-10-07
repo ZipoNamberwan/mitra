@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="/assets/vendor/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="/assets/css/container.css">
     <link rel="stylesheet" href="/assets/css/text.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 @endsection
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottpm"></div>
@@ -11,7 +12,7 @@
       <form method="POST" action="/mitras" enctype="multipart/form-data">
           @csrf
     <div class="float-container">
-      <div class="float-child">
+      <div class="float-child1">
         <div class="col-md-14 mb-3">
           <label class="form-control-label" for="email">Email</label>
           <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="validationCustom03" placeholder="nama@gmail.com">
@@ -30,6 +31,9 @@
           {{$message}}
         </div>
         @enderror
+    </div>
+    <div class="col-md-2 mb-3">
+            <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
     </div>
 
       <div class="col-md-14 mb-3 ">
@@ -104,7 +108,7 @@
 
       </div>
       
-      <div class="float-child">
+      <div class="float-child2">
         
         <div class="col-md-14 mb-3">
           <label class="form-control-label">Pendidikan</label>
@@ -226,6 +230,35 @@
     }
 });
 });
+});
+</script>
+
+<script>
+    $(document).ready(function(){
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('#add_button'); //Add button selector
+    var wrapper = $('.float-child1'); //Input field wrapper
+    var fieldHTML = '<div class="form-group add"><div class="form-control-label">';
+    fieldHTML=fieldHTML + '<div class="col-md-10"><input class="form-control" type="text" name="phone" /></div>';
+    fieldHTML=fieldHTML + '<div class="col-md-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>';
+    fieldHTML=fieldHTML + '</div></div>'; 
+    var x = 1; //Initial field counter is 1
+     
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+     
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('').parent('').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
 });
 </script>
   

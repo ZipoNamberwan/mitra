@@ -20,6 +20,29 @@ class SurveyController extends Controller
         return view('survey.survey-index');
     }
 
+    public function create()
+    {
+        return view('survey.survey-create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,
+            ['name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required'
+    ]);
+
+        
+        Surveys::create([
+            'name' => $request->name,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
+
+        return redirect('/testsurvey');
+    }
+
     public function data(Request $request)
     {
         $recordsTotal = Surveys::count();
