@@ -23,7 +23,7 @@ class CreateMitrasTable extends Migration
             $table->text('photo')->nullable();
             $table->unsignedBigInteger('education');
             $table->foreign('education')->references('id')->on('educations');
-            $table->date('birtdate');
+            $table->date('birthdate');
             $table->string('profession', 255);
             $table->text('address');
             $table->unsignedBigInteger('village');

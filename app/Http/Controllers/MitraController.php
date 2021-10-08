@@ -76,7 +76,7 @@ class MitraController extends Controller
             'sex' => $request->sex,
             'photo' => $path,
             'education' => $request->education,
-            'birtdate' => $request->birthdate,
+            'birthdate' => $request->birthdate,
             'profession' => $request->profession,
             'address' => $request->address,
             'village' => $request->village,
@@ -174,7 +174,7 @@ class MitraController extends Controller
             $mitraData = array();
             $mitraData["index"] = $i;
             $mitraData["name"] = $mitra->name;
-            $mitraData["photo"] = asset('storage/' . $mitra->photo);
+            $mitraData["photo"] = $mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png');
             $mitraData["nickname"] = $mitra->nickname;
             $mitraData["email"] = $mitra->email;
             $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';

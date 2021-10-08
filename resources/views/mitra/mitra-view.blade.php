@@ -18,7 +18,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="ni ni-app"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Monitoring</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/mitras')}}">Mitra</a></li>
                             <li class="breadcrumb-item active" aria-current="page">View</li>
                         </ol>
                     </nav>
@@ -32,87 +32,105 @@
     <!-- Table -->
     <div class="row">
         <div class="col">
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header">
-                    <div class="row">
-                            {{-- <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0"> --}}
-                            {{-- <style>
-                                body, h1, p, a, td, span {
-                                    font-family: sans-serif;
-                                    text-decoration: none;
-                                    color: black;
-                                } 
-                                .wrap {
-                                    background-color:rgba(255, 255, 255, 0.7);
-                                    width: 800px;
-                                    color:black;
-                                    margin: 20px auto;
-                                    padding:15px;
-                                }
-                                /* span {
-                                    color: black;
-                                } */
-                            </style> --}}
+            <div class="card card-profile">
+                <img src="../../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 order-lg-2">
+                        <div class="card-profile-image">
+                            <a href="#">
+                                <img src="{{$mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png')}}" class="rounded-circle">
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h1 align="center"><span>BIODATA MITRA</span></h1>
-                    <table class="table" align="center">
-                        <tr>
-                            <td rowspan="12">
-                            <img {{ $mitra->photo }} alt="null" style="border-radius: 10%;border-color:black;margin: 35px"></td>
-                        </tr>
-                        <tr>
-                            <td width="10px"><a>E-mail</a></td>
-                            <td>:</td><td>{{ $mitra->email }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Kode</a></td>
-                            <td>:</td> <td>{{ $mitra->code }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Nama</a></td>
-                            <td>:</td> <td>{{ $mitra->name }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Nama Panggilan</a></td>
-                            <td>:</td> <td>{{ $mitra->nickname }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Jenis Kelamin</a></td>
-                            <td>:</td> <td>{{ $mitra->sex }}</td>
-                        </tr>
-                        <tr>    
-                            <td><a>Pendidikan</a></td>
-                            <td>:</td> <td>{{ $mitra->education }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Tanggal Lahir</a></td>
-                            <td>:</td> <td>{{ $mitra->birtdate }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Profesi</a></td>
-                            <td>:</td> <td>{{ $mitra->profession }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Alamat</a></td>
-                            <td>:</td> <td>{{ $mitra->address }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Desa</a></td>
-                            <td>:</td> <td>{{ $mitra->village }}</td>
-                        </tr>
-                        <tr>
-                            <td><a>Kecamatan</a></td>
-                            <td>:</td> <td>{{ $mitra->subdistrict }}</td>
-                        </tr>
-                    </table>
+                <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                    <div class="d-flex justify-content-between">
+                        <a href="#" class="btn btn-sm btn-success mr-4">Edit</a>
+                        <a href="#" class="btn btn-sm btn-danger float-right">Hapus</a>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h5 class="h1">
+                        {{$mitra->name}}, <span class="font-weight-light" id="age"></span>
+                    </h5>
+                    <p>{{$mitra->address}}, {{$mitra->villagedetail->name}}, {{$mitra->subdistrictdetail->name}}</p>
+                </div>
+                <div class="card-body">
+                    <h6 class="heading-small text-muted mb-4">Informasi Umum</h6>
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-username">Email</label>
+                                    <p>{{$mitra->email}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-email">Kode Petugas</label>
+                                    <p>3513{{$mitra->code}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-first-name">Nama Panggilan</label>
+                                    <p>{{$mitra->nickname}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-last-name">Jenis Kelamin</label>
+                                    <p>{{$mitra->sex}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-first-name">No HP</label>
+                                    <p>
+                                        @foreach($mitra->phonenumbers as $phone)
+                                        {{$phone->phone}},
+                                        @endforeach
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <!-- Address -->
+                    <h6 class="heading-small text-muted mb-4">Background</h6>
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-address">Pendidikan</label>
+                                    <p>{{$mitra->educationdetail->name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Pekerjaan</label>
+                                    <p>{{$mitra->profession}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <!-- Address -->
+                    <h6 class="heading-small text-muted mb-4">Pengalaman Survei</h6>
+                    <div class="pl-lg-4">
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @endsection
@@ -122,4 +140,19 @@
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
 
+<script>
+    function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        console.log(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    document.getElementById("age").innerHTML = getAge("{{$mitra->birthdate}}");
+</script>
 @endsection

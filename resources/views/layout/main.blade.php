@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
-    <title>New Rakit Komputer - Backend</title>
+    <title>Aplikasi Database Mitra dan Generator Form Pendaftaran - Backend</title>
     <!-- Favicon -->
     <link rel="icon" href="/assets/img/brand/favicon.png" type="image/png">
     <!-- Fonts -->
@@ -73,7 +73,7 @@
                             <div class="collapse" id="navbar-forms">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">Semua Mitra</a>
+                                        <a href="/mitras" class="nav-link">Semua Mitra</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Rekrutmen Mitra</a>
