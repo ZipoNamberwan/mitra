@@ -18,9 +18,9 @@ class CreateMitrasTable extends Migration
             $table->primary('email');
             $table->string('code', 9);
             $table->string('name', 255);
-            $table->string('nickname', 50);
+            $table->string('nickname', 50)->nullable();
             $table->enum('sex', ['L', 'P']);
-            $table->text('photo');
+            $table->text('photo')->nullable();
             $table->unsignedBigInteger('education');
             $table->foreign('education')->references('id')->on('educations');
             $table->date('birtdate');

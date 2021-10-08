@@ -29,17 +29,15 @@ class MitraController extends Controller
      */
     public function create()
     {
-        
-        
         return view('mitra.mitra-create', [
             'educations' => Educations::all(),
-        
             'subdistricts' => Subdistricts::all(),
-            
+            'code' => sprintf("%05s", count(Mitras::all()) + 1),
         ]);
     }
-    public function getVillage($id){
-        return json_encode(DB::table('villages')->where('subdistrict', $id)->get());
+    public function getVillage($id)
+    {
+        return json_encode(Villages::where('subdistrict', $id)->get());
     }
 
     /**
@@ -51,29 +49,25 @@ class MitraController extends Controller
     public function store(Request $request)
     {
 
-        // $this->validate($request, [
-        //     'email' => 'required',
-        //     'code' => 'required',
-        //     'name' => 'required',
-        //     'nickname' => 'required',
-        //     'sex' => 'required',
-        //     'photo' => 'image|file|max:1024',
-        //     'education' => 'required',
-        //     'birthdate' => 'required',
-        //     'profession' => 'required',
-        //     'address' => 'required',
-        //     'village' => 'required',
-        //     'subdistrict' => 'required'
-        // ]);
+        $this->validate($request, [
+            'email' => 'required|email',
+            'phone' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'sex' => 'required',
+            'education' => 'required',
+            'birthdate' => 'required',
+            'profession' => 'required',
+            'address' => 'required',
+            'village' => 'required',
+            'subdistrict' => 'required'
+        ]);
 
-        
         $path = '';
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $path = $image->store('images', 'public');
         }
-
-        
 
         $mitra = Mitras::create([
             'email' => $request->email,
@@ -97,7 +91,7 @@ class MitraController extends Controller
             'mitra_id' => $mitra->email
         ]);
 
-        return redirect('/test');
+        return redirect('/mitras')->with('success-create', 'Data Mitra telah direkam!');
     }
 
     /**
@@ -119,7 +113,6 @@ class MitraController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -131,8 +124,6 @@ class MitraController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        
     }
 
     /**
@@ -143,7 +134,6 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
-       
     }
 
     public function data(Request $request)

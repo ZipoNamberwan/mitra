@@ -18,7 +18,8 @@ class CreatePhoneNumbersTable extends Migration
             $table->string('phone', 30);
             $table->boolean('is_main');
             $table->string('mitra_id');
-            $table->foreign('mitra_id')->references('email')->on('mitras');
+            $table->foreign('mitra_id')->references('email')->on('mitras')->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
