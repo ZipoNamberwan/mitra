@@ -152,6 +152,8 @@
                         '@csrf' +
                         "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
                         "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
+
+                       
                 }
             }
         ],
@@ -185,13 +187,13 @@
 </script>
 
 <script>
-    function changeStatus(id) {
-        var checkboxes = document.getElementsByName('published' + id);
+    function changeStatus($id, $email) {
+        var checkboxes = document.getElementsByName('published' + email);
         var loading = document.getElementById('loading-background');
         var value = checkboxes[checkboxes.length - 1].checked;
         loading.style.display = 'block';
         $.ajax({
-            url: "{{url('mitras/changestatus/')}}/" + id,
+            url: "{{url('mitras/changestatus/')}}/" + email,
             success: function(result, status, xhr) {
                 loading.style.display = 'none';
                 checkboxes.forEach(function(item, index) {
