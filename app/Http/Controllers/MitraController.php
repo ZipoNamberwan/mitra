@@ -8,7 +8,6 @@ use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
 use App\Models\Villages;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MitraController extends Controller
 {
@@ -102,7 +101,8 @@ class MitraController extends Controller
      */
     public function show($id)
     {
-        //
+        $mitra = Mitras::where('email', $id)->first();
+        return view('mitra.mitra-view', compact('mitra'));
     }
 
     /**
@@ -134,6 +134,9 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
+        $mitra = Mitras::where('email', $id);
+        $mitra->delete();
+        return redirect('/mitras')->with('success-delete', 'Data Mitra telah dihapus!');
     }
 
     public function data(Request $request)

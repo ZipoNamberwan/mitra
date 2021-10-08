@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layout/main')
 @section('stylesheet')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -209,3 +210,6 @@
 </script>
 
 @endsection
+=======
+@extends('layout.main')
+>>>>>>> mitra-view
