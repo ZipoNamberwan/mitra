@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="/assets/vendor/select2/dist/css/select2.min.css">
 <link rel="stylesheet" href="/assets/css/container.css">
 <link rel="stylesheet" href="/assets/css/text.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 @endsection
 @section('container')
 <div class="header bg-primary pb-6">
@@ -36,7 +35,7 @@
           </div>
           <!-- Card body -->
           <div class="card-body">
-            <form method="POST" action="/mitras" enctype="multipart/form-data">
+            <form method="POST" action="/mitras" enctype="multipart/form-data" autocomplete="off">
               @csrf
               <div class="row">
                 <div class="col-md-6">
@@ -60,7 +59,7 @@
                   </div>
                   <div class="col-md-14 mb-3 ">
                     <label class="form-control-label " for="validationCustom03">Kode Mitra*</label>
-                    <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" id="validationCustom03" readonly value="{{$code}}" value="{{@old('code')}}">
+                    <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" id="validationCustom03" readonly value="{{@old('code', $code)}}">
                     @error('code')
                     <div class="invalid-feedback">
                       {{$message}}
@@ -139,7 +138,7 @@
                   </div>
                   <div class="col-md-14 mb-3">
                     <label class="form-control-label" for="validationCustom03">Profesi*</label>
-                    <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03">
+                    <input type="text" name="profession" class="form-control @error('profession') is-invalid @enderror" id="validationCustom03" value="{{@old('profession')}}">
                     @error('profession')
                     <div class="invalid-feedback">
                       {{$message}}
@@ -148,7 +147,7 @@
                   </div>
                   <div class="col-md-14 mb-3">
                     <label class="form-control-label" for="validationCustom03">Alamat*</label>
-                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="validationCustom03" value="{{@old('nickname')}}">
+                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" id="validationCustom03" value="{{@old('address')}}">
                     @error('address')
                     <div class="invalid-feedback">
                       {{$message}}
@@ -189,8 +188,6 @@
     </div>
   </div>
 </div>
-
-
 @endsection
 
 @section('optionaljs')
@@ -228,7 +225,7 @@
     $('#village').append(`<option value="0" disabled selected>Processing...</option>`);
     $.ajax({
       type: 'GET',
-      url: 'village/' + id,
+      url: '/mitras/village/' + id,
       success: function(response) {
         var response = JSON.parse(response);
         $('#village').empty();

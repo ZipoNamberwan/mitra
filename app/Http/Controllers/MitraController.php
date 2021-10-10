@@ -38,7 +38,7 @@ class MitraController extends Controller
     {
         return json_encode(Villages::where('subdistrict', $id)->get());
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -113,14 +113,16 @@ class MitraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {  
-        $mitra = Mitras::where('email',$id)->first();
-        return view('mitra.mitra-edit', 
-        compact('mitra'), [
-            'educations' => Educations::all(),
-            'villages' => Villages::all(),
-            'subdistricts' => Subdistricts::all()
-        ]);
+    {
+        $mitra = Mitras::where('email', $id)->first();
+        return view(
+            'mitra.mitra-edit',
+            compact('mitra'),
+            [
+                'educations' => Educations::all(),
+                'subdistricts' => Subdistricts::all()
+            ]
+        );
     }
 
     /**
@@ -132,14 +134,13 @@ class MitraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
+            // 'phone' => 'required',
             'code' => 'required',
             'name' => 'required',
-            'nickname' => 'required',
             'sex' => 'required',
-            'photo' => 'image|file|max:1024',
             'education' => 'required',
             'birthdate' => 'required',
             'profession' => 'required',
@@ -152,7 +153,7 @@ class MitraController extends Controller
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $path = $image->store('images', 'public');
-        } 
+        }
 
         $mitra = Mitras::where('email', $id)->first();
         $data = ([
@@ -161,22 +162,17 @@ class MitraController extends Controller
             'name' => $request->name,
             'nickname' => $request->nickname,
             'sex' => $request->sex,
-            'photo' => $path =='' ? $mitra->photo : $path,
+            'photo' => $path == '' ? $mitra->photo : $path,
             'education' => $request->education,
-            'birtdate' => $request->birthdate,
+            'birthdate' => $request->birthdate,
             'profession' => $request->profession,
             'address' => $request->address,
             'village' => $request->village,
             'subdistrict' => $request->subdistrict
         ]);
-
-    
-        
         $mitra->update($data);
-        
-        return redirect('/test');
-        
-        
+
+        return redirect('/mitras')->with('success-create', 'Data Mitra telah direkam!');
     }
 
     /**
@@ -187,7 +183,7 @@ class MitraController extends Controller
      */
     public function destroy($id)
     {
-        $mitra = Mitras::where('email', $id);
+        $mitra = Mitras::find($id);
         $mitra->delete();
         return redirect('/mitras')->with('success-delete', 'Data Mitra telah dihapus!');
     }
@@ -242,6 +238,4 @@ class MitraController extends Controller
             "data" => $mitrasArray
         ]);
     }
-
-    
 }

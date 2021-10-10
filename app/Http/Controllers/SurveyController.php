@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Mitras;
-use App\Models\Educations;
-use App\Models\PhoneNumbers;
-use App\Models\Subdistricts;
 use App\Models\Surveys;
-use App\Models\Villages;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
     public function index()
     {
-        
-        return view('survey.survey-index');
+        $surveys = Surveys::all();
+        return view('survey.survey-index', compact('surveys'));
     }
 
     public function create()
@@ -27,27 +20,62 @@ class SurveyController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,
-            ['name' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required'
-    ]);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required'
+            ]
+        );
 
-        
         Surveys::create([
             'name' => $request->name,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date
         ]);
 
-        return redirect('/testsurvey');
+        return redirect('/surveys')->with('success-create', 'Survey telah ditambah!');;
+    }
+
+    public function edit($id)
+    {
+        $survey = Surveys::find($id);
+        return view('survey.survey-edit', compact('survey'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required'
+            ]
+        );
+
+        Surveys::find($id)->update([
+            'name' => $request->name,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
+        ]);
+
+        return redirect('/surveys')->with('success-create', 'Survey telah diubah!');;
+    }
+
+    public function destroy($id)
+    {
+        $survey = Surveys::find($id);
+        $survey->delete();
+        return redirect('/surveys')->with('success-delete', 'Survey telah dihapus!');
     }
 
     public function data(Request $request)
     {
         $recordsTotal = Surveys::count();
         $recordsFiltered = Surveys::where('name', 'like', '%' . $request->search["value"] . '%')->count();
-        
+
         $orderColumn = 'end_date';
         $orderDir = 'DESC';
         if ($request->order != null) {
@@ -56,16 +84,18 @@ class SurveyController extends Controller
             } else {
                 $orderDir = 'desc';
             }
-            if ($request->order[0]['column'] == '2') {
+            if ($request->order[0]['column'] == '1') {
                 $orderColumn = 'name';
+            } else if ($request->order[0]['column'] == '2') {
+                $orderColumn = 'start_date';
             } else if ($request->order[0]['column'] == '3') {
-                $orderColumn = 'email';
+                $orderColumn = 'end_date';
             }
         }
 
-        $surveys = Surveys::where('name', 'like', '%' . $request->search["value"] . '%')            
-        ->orderByRaw($orderColumn . ' ' . $orderDir)
-        ->get();
+        $surveys = Surveys::where('name', 'like', '%' . $request->search["value"] . '%')
+            ->orderByRaw($orderColumn . ' ' . $orderDir)
+            ->get();
         $surveysArray = array();
         $i = 1;
         foreach ($surveys as $survey) {

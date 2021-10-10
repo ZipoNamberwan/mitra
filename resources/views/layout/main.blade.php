@@ -90,12 +90,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#navbar-sensus" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
                                 <i class="fas fa-chart-line text-info"></i>
-                                <span class="nav-link-text">Sensus</span>
+                                <span class="nav-link-text">Survey</span>
                             </a>
                             <div class="collapse" id="navbar-sensus">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">Semua Sensus</a>
+                                        <a href="/surveys" class="nav-link">Semua Survey</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Generate Form Pendaftaran</a>

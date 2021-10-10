@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @extends('layout/main')
 @section('stylesheet')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +18,6 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="ni ni-app"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Produk</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Survey</li>
                         </ol>
                     </nav>
@@ -111,7 +109,7 @@
                 "width": "2.5%",
                 "orderable": false,
                 "data": "index",
-            }, 
+            },
             {
                 "responsivePriority": 1,
                 "width": "12%",
@@ -121,11 +119,25 @@
                 "responsivePriority": 1,
                 "width": "5%",
                 "data": "start_date",
+                "render": function(data, type, row) {
+                    var unixTimestamp = new Date(data).getTime() / 1000 - (new Date).getTimezoneOffset() * 60;
+                    if (type === 'display' || type === 'filter') {
+                        return moment.unix(unixTimestamp).locale('id').format('ll');
+                    }
+                    return unixTimestamp;
+                }
             },
             {
                 "responsivePriority": 1,
                 "width": "5%",
                 "data": "end_date",
+                "render": function(data, type, row) {
+                    var unixTimestamp = new Date(data).getTime() / 1000 - (new Date).getTimezoneOffset() * 60;
+                    if (type === 'display' || type === 'filter') {
+                        return moment.unix(unixTimestamp).locale('id').format('ll');
+                    }
+                    return unixTimestamp;
+                }
             },
             {
                 "responsivePriority": 7,
@@ -171,45 +183,4 @@
         })
     }
 </script>
-
-<script>
-    function changeStatus(id) {
-        var checkboxes = document.getElementsByName('published' + id);
-        var loading = document.getElementById('loading-background');
-        var value = checkboxes[checkboxes.length - 1].checked;
-        loading.style.display = 'block';
-        $.ajax({
-            url: "{{url('surveys/changestatus/')}}/" + id,
-            success: function(result, status, xhr) {
-                loading.style.display = 'none';
-                checkboxes.forEach(function(item, index) {
-                    item.checked = value;
-                });
-            },
-            error: function(xhr, status, error) {
-                loading.style.display = 'none';
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                }).then((result) => {
-                    checkboxes.forEach(function(item, index) {
-                        item.checked = !value;
-                    });
-                });
-            },
-            data: {
-                published: value ? 1 : 0,
-            },
-            type: "patch",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    }
-</script>
-
 @endsection
-=======
-@extends('layout.main')
->>>>>>> mitra-view

@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                     <div class="d-flex justify-content-between">
-                        <a href="#" class="btn btn-sm btn-success mr-4">Edit</a>
+                        <a href="/mitras/{{$mitra->email}}/edit" class="btn btn-sm btn-success mr-4">Edit</a>
                         <a href="#" class="btn btn-sm btn-danger float-right">Hapus</a>
                     </div>
                 </div>
