@@ -51,20 +51,20 @@ class MitraController extends Controller
     public function store(Request $request)
     {
 
-        // $this->validate($request, [
-        //     'email' => 'required',
-        //     'code' => 'required',
-        //     'name' => 'required',
-        //     'nickname' => 'required',
-        //     'sex' => 'required',
-        //     'photo' => 'image|file|max:1024',
-        //     'education' => 'required',
-        //     'birthdate' => 'required',
-        //     'profession' => 'required',
-        //     'address' => 'required',
-        //     'village' => 'required',
-        //     'subdistrict' => 'required'
-        // ]);
+        $this->validate($request, [
+            'email' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'nickname' => 'required',
+            'sex' => 'required',
+            'photo' => 'image|file|max:1024',
+            'education' => 'required',
+            'birthdate' => 'required',
+            'profession' => 'required',
+            'address' => 'required',
+            'village' => 'required',
+            'subdistrict' => 'required'
+        ]);
 
         
         $path = '';

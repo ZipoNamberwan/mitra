@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,12 +22,21 @@ Route::get('/', function () {
 
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
 Route::get('/testsurvey', [App\Http\Controllers\SurveyController::class, 'index']);
+Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::class, 'index']);
 
 Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data'] );
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
+
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
+Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
+
+
+
+
+Route::get('/recruit/{id}', [App\Http\Controllers\RecruitmentController::class, 'getVillage']);
 
 Route::resources([
     'mitras' => MitraController::class,
-    'surveys' => SurveyController::class,
+    'surveys' => SurveyController::class
 ]);
