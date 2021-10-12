@@ -77,10 +77,7 @@
                                      @endforeach
                             </select>
                         </div>  
-                        <div class="form-group" align="center" >
-                            <button type="button" name="filter" id="filter" class="btn btn-info">Filter</button>
-                            <button type="button" name="reset" id="reset" class="btn btn-default">Reset</button>
-                        </div>
+                        
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table" id="datatable-id" width="100%">
@@ -156,8 +153,9 @@
 
     function filterSurvey(){
         var e=document.getElementById('surveys');
-        table.ajax.url('json').load();
-        console.log(e.options[e.selectedIndex].value);
+        var idsurvey = e.options[e.selectedIndex].value;
+        table.ajax.url('/recruitment-data/' + idsurvey ).load();
+        console.log('/recruitment-data/' + idsurvey);
         
 
     }
@@ -219,6 +217,7 @@
         });
     }
 </script>
+
 
 
 
