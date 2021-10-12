@@ -18,6 +18,7 @@ class RecruitmentController extends Controller
 
     public function data(Request $request)
     {
+        $request->id;
         $recordsTotal = Mitras::count();
         $recordsFiltered = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
@@ -62,6 +63,7 @@ class RecruitmentController extends Controller
     public function create()
     {
         return view('recruitment.recruitment-create',[
-    'surveys' => Surveys::all()]);
+    'surveys' => Surveys::all()
+    ]);
     }
 }

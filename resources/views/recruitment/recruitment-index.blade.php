@@ -5,6 +5,8 @@
 <!-- <link rel="stylesheet" href="/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css"> -->
 <link rel="stylesheet" href="/assets/vendor/datatables2/datatables.min.css" />
 <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/fontawesome.min.css" />
+<link rel="stylesheet" href="/assets/vendor/select2/dist/css/select2.min.css">
+
 
 @endsection
 
@@ -68,14 +70,14 @@
                             </a>
                         </div>
                         <div class="col-4">
-                            <select  name="surveys" class="form-control" data-toggle="select"  >
+                            <select  id="surveys" name="surveys" class="form-control" data-toggle="select" onchange="filterSurvey()"  >
                                 <option value="0" disabled selected> -- Pilih Survey -- </option>
                                     @foreach ($surveys as $survey)
                                         <option  value="{{ $survey->id }}">{{ $survey->name }}</option>  
                                      @endforeach
                             </select>
                         </div>  
-                    </div>
+                        
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table" id="datatable-id" width="100%">
@@ -103,7 +105,7 @@
 <script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
-
+<script src="/assets/vendor/select2/dist/js/select2.min.js"></script>    
 
 <script>
     var table = $('#datatable-id').DataTable({
@@ -112,7 +114,7 @@
         "serverSide": true,
         "processing": true,
         "ajax": {
-            "url": '/recruitment-data',
+            "url": '/recruitment-data/1',
             "type": 'GET'
         },
         "columns": [{
@@ -148,6 +150,13 @@
             }
         }
     });
+
+    function filterSurvey(){
+        var e=document.getElementById('surveys');
+        var idsurvey = e.options[e.selectedIndex].value;
+        table.ajax.url('/recruitment-data/' + idsurvey ).load();
+        console.log('/recruitment-data/' + idsurvey);
+    }
 </script>
 
 <script>
@@ -206,5 +215,4 @@
         });
     }
 </script>
-
 @endsection
