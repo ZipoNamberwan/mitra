@@ -27,7 +27,7 @@ class Mitras extends Model
     }
     public function surveys()
     {
-        return $this->belongsToMany(Surveys::class, 'mitras_surveys', 'mitra_id', 'survey_id', 'email', 'id');
+        return $this->belongsToMany(Surveys::class, 'mitras_surveys', 'mitra_id', 'survey_id', 'email', 'id')->withPivot(['status_id', 'survey_id', 'mitra_id']);
     }
     public function phonenumbers()
     {

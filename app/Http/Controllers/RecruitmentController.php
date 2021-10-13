@@ -16,11 +16,32 @@ class RecruitmentController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('recruitment.recruitment-create', [
+            'surveys' => Surveys::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'id.*' => 'required',
+            'survey' => 'required'
+        ]);
+
+        $survey = Surveys::find($request->survey);
+        $survey->mitras()->sync($request->id);
+
+        return $request;
+    }
+
     public function data(Request $request)
     {
-        $request->id;
-        $recordsTotal = Mitras::count();
-        $recordsFiltered = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')->count();
+        $survey = Surveys::find($request->id);
+        $mitras = $survey->mitras;
+        $recordsTotal = count($mitras);
+        $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
         $orderColumn = 'created_at';
         $orderDir = 'DESC';
@@ -36,9 +57,9 @@ class RecruitmentController extends Controller
                 $orderColumn = 'email';
             }
         }
-        $mitras = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
-            ->orderByRaw($orderColumn . ' ' . $orderDir)
-            ->get();
+        // $mitras = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
+        //     ->orderByRaw($orderColumn . ' ' . $orderDir)
+        //     ->get();
         $mitrasArray = array();
         $i = 1;
         foreach ($mitras as $mitra) {
@@ -47,7 +68,8 @@ class RecruitmentController extends Controller
             $mitraData["name"] = $mitra->name;
             $mitraData["email"] = $mitra->email;
             $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
-            $mitraData["status_id"] = Statuses::find($mitra->surveys[0]->pivot->status_id)->name; 
+            $mitraData["status_id"] = Statuses::find($mitra->surveys[0]->pivot->status_id)->name;
+            // $mitraData["status_id"] = $mitra->surveys[0]->name;
             $mitraData["id"] = $mitra->id;
             $mitrasArray[] = $mitraData;
             $i++;
@@ -58,12 +80,5 @@ class RecruitmentController extends Controller
             "recordsFiltered" => $recordsFiltered,
             "data" => $mitrasArray
         ]);
-    }
-    
-    public function create()
-    {
-        return view('recruitment.recruitment-create',[
-    'surveys' => Surveys::all()
-    ]);
     }
 }
