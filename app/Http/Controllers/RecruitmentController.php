@@ -17,30 +17,27 @@ class RecruitmentController extends Controller
         ]);
     }
 
-    // public function json(Request $request)
-    // {
+    public function create()
+    {
+        return view('recruitment.recruitment-create', [
+            'surveys' => Surveys::all()
+        ]);
+    }
 
-    //     if ($request->survey_id) {
-    //         $members = Mitras::where('survey_id', $request->survey_id)->get();
-    //         return response()->json(['data' => $members]);
-    //     } else {
-    //         $members = Mitras::get();
-    //         return response()->json(['data' => $members]);
-    //     }
-    // }
+    public function store(Request $request)
+    {
+        //method nambah mitra ke survey
+        dd($request);
+    }
 
     public function data(Request $request)
     {
         $survey = Surveys::find($request->id);
         $mitras = $survey->mitras;
         $recordsTotal = count($mitras);
-       
-        $recordsFiltered =  $mitras->where('name', 'like', '%' . $request->search["value"] . '%')
-            ->count();
+        $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
-        
-
-        $orderColumn = 'name';
+        $orderColumn = 'created_at';
         $orderDir = 'DESC';
         if ($request->order != null) {
             if ($request->order[0]['dir'] == 'asc') {
@@ -54,11 +51,8 @@ class RecruitmentController extends Controller
                 $orderColumn = 'email';
             }
         }
-        // $mitras = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')
-            
-        //     ->sortBy ($orderColumn . ' ' . $orderDir)
-        //     ->skip($request->start)
-        //     ->take($request->length)
+        // $mitras = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
+        //     ->orderByRaw($orderColumn . ' ' . $orderDir)
         //     ->get();
         $mitrasArray = array();
         $i = 1;
@@ -69,8 +63,8 @@ class RecruitmentController extends Controller
             $mitraData["email"] = $mitra->email;
             $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["status_id"] = Statuses::find($mitra->surveys[0]->pivot->status_id)->name;
-            
-            $mitraData["id"] = $mitra->id;
+            //$mitraData["status_id"] = $mitra->surveys[0]->name;
+            $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;
             $i++;
         }
