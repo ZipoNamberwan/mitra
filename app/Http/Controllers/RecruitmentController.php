@@ -6,6 +6,8 @@ use App\Models\Mitras;
 use App\Models\Statuses;
 use App\Models\Surveys;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class RecruitmentController extends Controller
 {
@@ -29,11 +31,12 @@ class RecruitmentController extends Controller
             'id.*' => 'required',
             'survey' => 'required'
         ]);
-
+       
         $survey = Surveys::find($request->survey);
-        $survey->mitras()->sync($request->id);
+        //$survey -> mitras()->detach();
+        $survey->mitras()->attach($request->id, ['status_id' => 2]);
 
-        return $request;
+        return redirect('/recruitments');
     }
 
     public function data(Request $request)
