@@ -74,8 +74,9 @@
                                     <span class="btn-inner--text">Tambah</span>
                                 </a>
                             </div>
-                            <div class="col-4">
-                                <select id="surveys" name="surveys" class="form-control" data-toggle="select"
+
+                            <div class="col-4 mb-3">
+                                <select id="survey" name="survey" class="form-control" data-toggle="select"
                                     onchange="filterSurvey()">
                                     <option value="0" disabled selected> -- Pilih Survey -- </option>
                                     @foreach ($surveys as $survey)
@@ -83,8 +84,37 @@
                                     @endforeach
                                 </select>
                             </div>
+                        </div>
+
+
+                        <div class="col-md-14 mb-3 ">
+                            <div class="form-group">
+                                <form id="submit-form" onsubmit="return onClickAccept()" action="/recruitments/accept"
+                                    method="POST">
+                                    @csrf
+                                    <input type="hidden" id="surveyid" name="surveyid" />
+                                    <button id="accept-button" type="submit" class="btn btn-success btn-md"
+                                        disabled>Terima</button>
+                                </form>
+                            </div>
+
+                            <div class="form-group">
+                                <form id="reject-form" onsubmit="return onClickReject()" action="/recruitments/reject"
+                                    method="POST">
+                                    @csrf
+                                    <input type="hidden" id="surveyid" name="surveyid" />
+                                    <button id="reject-button" type="submit" class="btn btn-danger btn-md"
+                                        disabled>Tolak</button>
+                                </form>
+
+                            </div>
+
+
 
                         </div>
+
+
+
                         <div class="table-responsive ">
                             <table class="table" id="datatable-id" width="100%">
                                 <thead class="thead-light">
@@ -101,10 +131,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <form id="submit-form" onsubmit="return onClickAccept()" action="/recruitments" method="POST">
-                            <button id="accept-button" type="submit" class="btn btn-success btn-md" disabled>Terima</button>
-                        </form>
-                        <button id="reject-button" type="submit" class="btn btn-danger btn-md" disabled>Tolak</button>
                     </div>
                 </div>
             </div>
@@ -127,13 +153,16 @@
                 "processing": true,
                 "ajax": {
                     "url": '/recruitment-data/1',
-                    "type": 'GET'
+                    "type": 'GET',
+                    // beforeSend: function(filterSurvey){
+                    //     table.ajax.url('/recruitment-data/1').destroy();
+                    // }
                 },
                 "select": {
                     "style": 'multi',
                 },
                 "columns": [{
-                        
+
                         "width": "2.5%",
                         "orderable": false,
                         "data": "id",
@@ -214,12 +243,15 @@
             });
 
 
-            // function filterSurvey() {
-            //     var e = document.getElementById('surveys');
-            //     var idsurvey = e.options[e.selectedIndex].value;
-            //     table.ajax.url('/recruitment-data/' + idsurvey).load();
-            //     console.log('/recruitment-data/' + idsurvey);
-            // }
+            function filterSurvey() {
+                var e = document.getElementById('survey');
+                var idsurvey = e.options[e.selectedIndex].value;
+                table.ajax.url('/recruitment-data/' + idsurvey).load();
+                var surveyselects = document.getElementsByName('surveyid');
+                surveyselects.forEach(element => {
+                    element.value = e.value;
+                });
+            }
         </script>
 
         <script>
@@ -236,22 +268,37 @@
                         .val(rowId)
                     );
                 });
-                // acceptForm.submit();
+                acceptForm.submit();
+                Swal.fire({
+                    
+                    icon: 'success',
+                    title: 'Mitra telah diterima',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
             }
 
             function onClickReject() {
                 event.preventDefault();
-                var submitForm = document.getElementById('submit-form');
+                var rejectForm = document.getElementById('reject-form');
                 var rows_selected = table.column(0).checkboxes.selected();
                 $.each(rows_selected, function(index, rowId) {
-                    $(submitForm).append(
+                    $(rejectForm).append(
                         $('<input>')
                         .attr('type', 'hidden')
-                        .attr('status_id', 'id[]')
+                        .attr('name', 'id[]')
                         .val(rowId)
                     );
                 });
-                submitForm.submit();
+                rejectForm.submit();
+                Swal.fire({
+                    
+                    icon: 'warning',
+                    title: 'Mitra telah ditolak',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         </script>
 

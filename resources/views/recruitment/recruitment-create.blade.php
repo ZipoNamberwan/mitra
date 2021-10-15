@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <h3 class="mb-4">Tambah Mitra Survey</h3>
-                                </div>
+                                </div >
                             </div>
                         </div>
                         <div class="card-body">

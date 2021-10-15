@@ -30,6 +30,20 @@ class RecruitmentController extends Controller
         dd($request);
     }
 
+    public function accept(Request $request)
+    {
+        $survey = Surveys::find($request->surveyid);
+        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 2]);
+        return redirect('/testmitrasurvey');
+    }
+
+    public function reject(Request $request)
+    {
+        $survey = Surveys::find($request->surveyid);
+        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 3]);
+        return redirect('/testmitrasurvey');
+    }
+
     public function data(Request $request)
     {
         $survey = Surveys::find($request->id);
