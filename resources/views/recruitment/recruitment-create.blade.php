@@ -32,15 +32,6 @@
     <!-- Page content -->
 
     <div class="container-fluid mt--6">
-        @if (session('success-save'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <span class="alert-icon"><i class="fas fa-check-circle"></i></span>
-                <span class="alert-text"><strong>Sukses! </strong>{{ session('success-save') }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-        @endif
         <!-- Table -->
         <div class="row">
             <div class="col">
@@ -51,19 +42,25 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h3 class="mb-4">Tambah Mitra Survey</h3>
+                                    <h3 class="mb-1">Tambah Mitra Survey</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="col-md-6 mb-5">
                                 <label class="form-control-label" for="phone">1. Pilih Survey*</label>
-                                <select name="surveys" class="form-control" data-toggle="select">
-                                    <option value="0" disabled selected> -- Pilih Survey -- </option>
+                                <select onchange="onChangeSurvey(this)" id="survey" name="survey"
+                                    class="form-control @error('survey') is-invalid @enderror" data-toggle="select">
+                                    <option value="0" selected disabled> -- Pilih Survey -- </option>
                                     @foreach ($surveys as $survey)
                                         <option value="{{ $survey->id }}">{{ $survey->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('survey')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-md-6 mb-2">
                                 <label class="form-control-label" for="phone">2. Pilih Mitra*</label>
@@ -84,8 +81,8 @@
                             </div>
                             <button id="submit-button" class="btn btn-primary mt-3" type="submit" disabled>Simpan</button>
                         </div>
-                    </form>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -129,9 +126,6 @@
                     "responsivePriority": 1,
                     "width": "12%",
                     "data": "name",
-                    "render": function(data, type, row) {
-                        return "<a href=\"/mitras/" + row.id + "\">" + data + "</a>";
-                    }
                 },
                 {
                     "responsivePriority": 1,
@@ -160,25 +154,30 @@
         });
 
         var submitButton = document.getElementById('submit-button');
+        var surveyselect = document.getElementById('survey');
+
         table.on('select', function(e, dt, type, indexes) {
-            var count = table.rows({
-                selected: true
-            }).count();
-            if (count > 0) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
+            validateSaveButton();
         }).on('deselect', function(e, dt, type, indexes) {
+            validateSaveButton();
+        });
+
+        function onChangeSurvey(sel) {
+            validateSaveButton();
+        }
+
+        function validateSaveButton() {
+            var selectedsurvey = surveyselect.options[surveyselect.selectedIndex].value;
+
             var count = table.rows({
                 selected: true
             }).count();
-            if (count > 0) {
+            if (count > 0 && selectedsurvey != 0) {
                 submitButton.disabled = false;
             } else {
                 submitButton.disabled = true;
             }
-        });
+        }
     </script>
 
     <script>
@@ -194,7 +193,6 @@
                     .val(rowId)
                 );
             });
-            // submitForm.submit();
             Swal.fire({
                 title: 'Apakah yakin ingin menyimpan ini?',
                 showDenyButton: true,
@@ -204,7 +202,8 @@
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    Swal.fire('Berhasil!', 'Data Berhasil Disimpan', 'success')
+                    Swal.fire('Berhasil!', 'Data Berhasil Disimpan', 'success');
+                    submitForm.submit();
                 } else if (result.isDenied) {
                     Swal.fire('Perubahan Tidak Tersimpan', '')
                 }
