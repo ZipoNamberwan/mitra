@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
+
 class RecruitmentController extends Controller
 {
     public function index()
@@ -32,11 +33,19 @@ class RecruitmentController extends Controller
             'survey' => 'required'
         ]);
        
-        $survey = Surveys::find($request->survey);
-        //$survey -> mitras()->detach();
-        $survey->mitras()->attach($request->id, ['status_id' => 2]);
+        // $survey = Surveys::find($request->survey);
+        // $survey->mitras()->attach($request->id, ['status_id' => 2]);
+        // // $survey -> mitras()->detach(where::$request->id == id);
 
-        return redirect('/recruitments');
+        // return redirect('/recruitments');
+
+         $survey = Surveys::create($request->surveys);
+         //Get skills id to link with contract
+         $data = $request->mitras;
+         //syncs with additional data
+         $survey->mitras()->sync(array_column($data, 'id'), ['id'=>auth()->user()->id]);
+ 
+         return $survey->refresh()->mitras;
     }
 
     public function data(Request $request)

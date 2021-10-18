@@ -22,16 +22,16 @@ Route::get('/', function () {
 
 Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
 Route::get('/testsurvey', [App\Http\Controllers\SurveyController::class, 'index']);
-Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::class, 'index'] );
-
-Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data'] );
+Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::class, 'index']);
+//
+Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data']);
 Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
-
+//
 Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
 Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
-
+//
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 
 
