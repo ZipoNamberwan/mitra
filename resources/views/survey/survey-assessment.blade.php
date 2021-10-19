@@ -58,14 +58,9 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h3 class="mb-0">Daftar Survey</h3>
+                            <h3 class="mb-0">Nilai Mitra</h3>
                         </div>
-                        <div class="col-6 text-right">
-                            <a href="{{url('/surveys/create')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Tambah survey">
-                                <span class="btn-inner--icon"><i class="fas fa-plus-circle"></i></span>
-                                <span class="btn-inner--text">Tambah</span>
-                            </a>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="table-responsive py-4">
@@ -74,9 +69,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Berakhir</th>
-                                <th>Action</th>
+                                <th>Nilai</th>
+                                
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -113,37 +108,15 @@
             }, 
             {
                 "responsivePriority": 1,
-                "width": "12%",
+                "width": "2,5%",
                 "data": "name",
             },
             {
                 "responsivePriority": 1,
-                "width": "5%",
-                "data": "start_date",
+                "width": "2,5%",
+                "data": "value",
             },
-            {
-                "responsivePriority": 1,
-                "width": "5%",
-                "data": "end_date",
-            },
-            {
-                "responsivePriority": 7,
-                "width": "7%",
-                "orderable": false,
-                "data": "id",
-                "render": function(data, type, row) {
-                    return "<a href=\"/surveys/" + data + "/edit\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Ubah Data\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-edit\"></i></span></a>" + 
-                        "<a href=\"/surveys/" + data + "/rate\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Nilai Mitra\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-star\"></i></span></a>"
-                        +
-                        "<form class=\"d-inline\" id=\"formdelete" + data + "\" name=\"formdelete" + data + "\" onsubmit=\"deletesurvey('" + data + "','" + row.name + "')\" method=\"POST\" action=\"/surveys/" + data + "\">" +
-                        '@method("delete")' +
-                        '@csrf' +
-                        "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
-                }
-            }
+           
         ],
         "language": {
             'paginate': {

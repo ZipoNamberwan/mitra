@@ -43,6 +43,11 @@ class SurveyController extends Controller
         return redirect('/testsurvey');
     }
 
+    public function getSurveyMitra()
+    {
+        return view('survey.survey-assessment');
+    }
+
     public function data(Request $request)
     {
         $recordsTotal = Surveys::count();

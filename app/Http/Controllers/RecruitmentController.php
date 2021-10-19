@@ -47,7 +47,12 @@ class RecruitmentController extends Controller
     public function data(Request $request)
     {
         $survey = Surveys::find($request->id);
-        $mitras = $survey->mitras;
+        if ($survey->count() == 0){
+            
+        }else{
+            $mitras = $survey->mitras;
+        }
+        
         $recordsTotal = count($mitras);
         $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
@@ -59,15 +64,15 @@ class RecruitmentController extends Controller
             } else {
                 $orderDir = 'desc';
             }
-            if ($request->order[0]['column'] == '2') {
+            if ($request->order[0]['column'] == '3') {
                 $orderColumn = 'name';
-            } else if ($request->order[0]['column'] == '3') {
+            } else if ($request->order[0]['column'] == '4') {
                 $orderColumn = 'email';
             }
         }
-        // $mitras = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
-        //     ->orderByRaw($orderColumn . ' ' . $orderDir)
-        //     ->get();
+        $mitra = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
+            ->orderByRaw($orderColumn . ' ' . $orderDir)
+            ->get();
         $mitrasArray = array();
         $i = 1;
         foreach ($mitras as $mitra) {

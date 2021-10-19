@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhoneNumbersTable extends Migration
+class CreateAssessmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePhoneNumbersTable extends Migration
      */
     public function up()
     {
-        Schema::create('phone_numbers', function (Blueprint $table) {
+        Schema::create('assessments', function (Blueprint $table) {
             $table->id();
-            $table->string('phone', 30);
-            $table->boolean('is_main');
-            $table->string('mitra_id');
-            $table->foreign('mitra_id')->references('email')->on('mitras')
-            ->onDelete('cascade');
+            $table->string('kerjasama',2);
+            $table->string('komunikasi',2);
+            $table->string('disiplin',2);
+            $table->string('sikap',2);
+            $table->string('integritas',2);
         });
     }
 
@@ -30,6 +30,6 @@ class CreatePhoneNumbersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone_numbers');
+        Schema::dropIfExists('assessments');
     }
 }

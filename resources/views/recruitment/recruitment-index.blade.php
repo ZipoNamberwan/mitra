@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/assets/vendor/datatables2/datatables.min.css" />
     <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/fontawesome.min.css" />
     <link rel="stylesheet" href="/assets/vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/css/container.css">
     <link href="/assets/css/text.css">
     <link rel="stylesheet" href="/assets/vendor/datatables2/CheckBox/dataTables.checkboxes.css" rel="stylesheet" />
 
@@ -86,9 +87,10 @@
                             </div>
                         </div>
 
+                        
 
-                        <div class="col-md-14 mb-3 ">
-                            <div class="form-group">
+                        <div class="col-md-14 mb-3 inline ">
+                            <div class="inline ">
                                 <form id="submit-form" onsubmit="return onClickAccept()" action="/recruitments/accept"
                                     method="POST">
                                     @csrf
@@ -98,7 +100,7 @@
                                 </form>
                             </div>
 
-                            <div class="form-group">
+                            <div class="inline">
                                 <form id="reject-form" onsubmit="return onClickReject()" action="/recruitments/reject"
                                     method="POST">
                                     @csrf
@@ -154,9 +156,8 @@
                 "ajax": {
                     "url": '/recruitment-data/1',
                     "type": 'GET',
-                    // beforeSend: function(filterSurvey){
-                    //     table.ajax.url('/recruitment-data/1').destroy();
-                    // }
+                    
+      
                 },
                 "select": {
                     "style": 'multi',
