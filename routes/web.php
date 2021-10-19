@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
@@ -38,5 +39,6 @@ Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\Recruitment
 Route::resources([
     'mitras' => MitraController::class,
     'surveys' => SurveyController::class,
-    'recruitments' => RecruitmentController::class
+    'recruitments' => RecruitmentController::class,
+    'assessments' => AssessmentController::class
 ]);
