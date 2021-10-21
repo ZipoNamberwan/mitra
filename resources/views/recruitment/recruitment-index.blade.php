@@ -271,7 +271,6 @@
                 });
                 acceptForm.submit();
                 Swal.fire({
-                    
                     icon: 'success',
                     title: 'Mitra telah diterima',
                     showConfirmButton: false,

@@ -27,11 +27,12 @@ Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::clas
 Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data'] );
 Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+Route::get('/assessment-data/{id}', [App\Http\Controllers\AssessmentController::class, 'data']);
 
 Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
 Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
-Route::get('/surveys/{id}/rate', [App\Http\Controllers\SurveyController::class, 'getSurveyMitra']);
+Route::get('/surveys/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'getSurveyMitra']);
 
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 

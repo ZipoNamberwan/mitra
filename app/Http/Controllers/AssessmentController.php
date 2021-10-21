@@ -6,42 +6,12 @@ use App\Models\Mitras;
 use App\Models\Statuses;
 use App\Models\Surveys;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class RecruitmentController extends Controller
+class AssessmentController extends Controller
 {
-    public function index()
+    public function getSurveyMitra()
     {
-        return view('recruitment.recruitment-index', [
-            'surveys' => Surveys::all()
-        ]);
-    }
-
-    public function create()
-    {
-        return view('recruitment.recruitment-create', [
-            'surveys' => Surveys::all()
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        //method nambah mitra ke survey
-        dd($request);
-    }
-
-    public function accept(Request $request)
-    {
-        $survey = Surveys::find($request->surveyid);
-        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 2]);
-        return redirect('/testmitrasurvey');
-    }
-
-    public function reject(Request $request)
-    {
-        $survey = Surveys::find($request->surveyid);
-        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 3]);
-        return redirect('/testmitrasurvey');
+        return view('survey.survey-assessment');
     }
 
     public function data(Request $request)

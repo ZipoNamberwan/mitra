@@ -63,20 +63,22 @@
                         
                     </div>
                 </div>
+                <form action="">
+
+                </form>
                 <div class="table-responsive py-4">
                     <table class="table" id="datatable-id" width="100%">
                         <thead class="thead-light">
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Nilai</th>
-                                
-                                
+                                <th>Penilaian</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
+                    <button id="accept-button" type="submit" class="col-mb-6 btn btn-primary" >Simpan</button>
                 </div>
             </div>
         </div>
@@ -97,7 +99,7 @@
         "serverSide": true,
         "processing": true,
         "ajax": {
-            "url": '/survey-data',
+            "url": '/assessment-data/1',
             "type": 'GET'
         },
         "columns": [{
@@ -108,16 +110,22 @@
             }, 
             {
                 "responsivePriority": 1,
-                "width": "2,5%",
+                "width": "2.5%",
                 "data": "name",
             },
+            
             {
                 "responsivePriority": 1,
-                "width": "2,5%",
-                "data": "value",
+                "width" : "0.5%",
+                "orderable"         : false,
+                "searchable"       : false,
+                "render"            : function (data, type, row, meta) {
+                    return '<input type="text" class="form-control" >';
+                }
             },
            
         ],
+       
         "language": {
             'paginate': {
                 'previous': '<i class="fas fa-angle-left"></i>',
@@ -125,63 +133,10 @@
             }
         }
     });
+
+   
 </script>
 
-<script>
-    function deletesurvey($id, $name) {
-        event.preventDefault();
-        Swal.fire({
-            title: 'Yakin Hapus Survey Ini?',
-            text: $name,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('formdelete' + $id).submit();
-            }
-        })
-    }
-</script>
 
-<script>
-    function changeStatus(id) {
-        var checkboxes = document.getElementsByName('published' + id);
-        var loading = document.getElementById('loading-background');
-        var value = checkboxes[checkboxes.length - 1].checked;
-        loading.style.display = 'block';
-        $.ajax({
-            url: "{{url('surveys/changestatus/')}}/" + id,
-            success: function(result, status, xhr) {
-                loading.style.display = 'none';
-                checkboxes.forEach(function(item, index) {
-                    item.checked = value;
-                });
-            },
-            error: function(xhr, status, error) {
-                loading.style.display = 'none';
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                }).then((result) => {
-                    checkboxes.forEach(function(item, index) {
-                        item.checked = !value;
-                    });
-                });
-            },
-            data: {
-                published: value ? 1 : 0,
-            },
-            type: "patch",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    }
-</script>
 
 @endsection

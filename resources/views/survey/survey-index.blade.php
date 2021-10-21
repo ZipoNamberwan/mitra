@@ -135,7 +135,7 @@
                     return "<a href=\"/surveys/" + data + "/edit\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Ubah Data\">" +
                         "<span class=\"btn-inner--icon\"><i class=\"fas fa-edit\"></i></span></a>" + 
                         "<a href=\"/surveys/" + data + "/rate\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Nilai Mitra\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-star\"></i></span></a>"
+                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-star\" ></i></span></a>"
                         +
                         "<form class=\"d-inline\" id=\"formdelete" + data + "\" name=\"formdelete" + data + "\" onsubmit=\"deletesurvey('" + data + "','" + row.name + "')\" method=\"POST\" action=\"/surveys/" + data + "\">" +
                         '@method("delete")' +
@@ -152,6 +152,7 @@
             }
         }
     });
+
 </script>
 
 <script>
