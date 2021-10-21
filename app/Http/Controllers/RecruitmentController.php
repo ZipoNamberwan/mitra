@@ -26,8 +26,24 @@ class RecruitmentController extends Controller
 
     public function store(Request $request)
     {
-        //method nambah mitra ke survey
-        dd($request);
+        $this->validate($request, [
+            'id.*' => 'required',
+            'survey' => 'required'
+        ]);
+
+        // $survey = Surveys::find($request->survey);
+        // $survey->mitras()->attach($request->id, ['status_id' => 2]);
+        // // $survey -> mitras()->detach(where::$request->id == id);
+
+        // return redirect('/recruitments');
+
+        $survey = Surveys::create($request->surveys);
+        //Get skills id to link with contract
+        $data = $request->mitras;
+        //syncs with additional data
+        $survey->mitras()->sync(array_column($data, 'id'), ['id' => auth()->user()->id]);
+
+        return $survey->refresh()->mitras;
     }
 
     public function accept(Request $request)

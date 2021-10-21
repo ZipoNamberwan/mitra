@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h3 class="mb-1">Tambah Mitra Survey</h3>
+                                    <h3 class="mb-4">Tambah Mitra Survey</h3>
                                 </div>
                             </div>
                         </div>
@@ -90,6 +90,9 @@
 @endsection
 @section('optionaljs')
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> recruitment_create
     <script src="/assets/vendor/datatables2/datatables.min.js"></script>
     <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
     <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
@@ -127,6 +130,9 @@
                     "responsivePriority": 1,
                     "width": "12%",
                     "data": "name",
+                    // "render": function(data, type, row) {
+                    //     return "<a href=\"/mitras/" + row.id + "\">" + data + "</a>";
+                    "data":"name",
                 },
                 {
                     "responsivePriority": 1,
@@ -209,10 +215,12 @@
                     Swal.fire('Perubahan Tidak Tersimpan', '')
                 }
             })
+            submitForm.submit();
         }
     </script>
 
 @endsection
+<<<<<<< HEAD
 =======
 <script src="/assets/vendor/datatables2/datatables.min.js"></script>
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
@@ -321,3 +329,5 @@
 </script>
 @endsection
 >>>>>>> index_mitrasurveys
+=======
+>>>>>>> recruitment_create
