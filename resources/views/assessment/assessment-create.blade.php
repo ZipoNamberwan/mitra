@@ -18,6 +18,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="ni ni-app"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/surveys')}}">Survey</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Penilaian</li>
                         </ol>
                     </nav>
@@ -69,8 +70,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Nilai</th>
-                                {{-- <th>Tanggal Berakhir</th>
-                                <th>Action</th> --}}
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -78,15 +78,12 @@
                     </table>
                 </div>
             </div>
-
-            <div class="col-6 text-right">
-                <a href="{{url('/surveys/create')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Simpan">
-                    {{-- <span class="btn-inner--icon"><i class="fas fa-plus-circle"></i></span> --}}
-                    <span class="btn-inner--text">Simpan</span>
-                </a>
-            </div>
-
         </div>
+    </div>
+    <div class="col-6">
+        <a href="{{url('/assessments/create')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Simpan">
+            <span class="btn-inner--text">Simpan</span>
+        </a>
     </div>
 </div>
 
@@ -97,14 +94,14 @@
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
 
-{{-- <script>
+<script>
     var table = $('#datatable-id').DataTable({
         "responsive": true,
         "order": [],
         "serverSide": true,
         "processing": true,
         "ajax": {
-            "url": '/assessments',
+            "url": '/mitra-data',
             "type": 'GET'
         },
         "columns": [{
@@ -119,44 +116,13 @@
                 "data": "name",
             },
             {
-                "responsivePriority": 1,
+                "responsivePriority": 9,
                 "width": "5%",
-                "data": "start_date",
-                "render": function(data, type, row) {
-                    var unixTimestamp = new Date(data).getTime() / 1000 - (new Date).getTimezoneOffset() * 60;
-                    if (type === 'display' || type === 'filter') {
-                        return moment.unix(unixTimestamp).locale('id').format('ll');
-                    }
-                    return unixTimestamp;
-                }
-            },
-            {
-                "responsivePriority": 1,
-                "width": "5%",
-                "data": "end_date",
-                "render": function(data, type, row) {
-                    var unixTimestamp = new Date(data).getTime() / 1000 - (new Date).getTimezoneOffset() * 60;
-                    if (type === 'display' || type === 'filter') {
-                        return moment.unix(unixTimestamp).locale('id').format('ll');
-                    }
-                    return unixTimestamp;
-                }
-            },
-            {
-                "responsivePriority": 7,
-                "width": "7%",
-                "orderable": false,
                 "data": "id",
                 "render": function(data, type, row) {
-                    return "<a href=\"/surveys/" + data + "/edit\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Ubah Data\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-edit\"></i></span></a>" +
-                        "<form class=\"d-inline\" id=\"formdelete" + data + "\" name=\"formdelete" + data + "\" onsubmit=\"deletesurvey('" + data + "','" + row.name + "')\" method=\"POST\" action=\"/surveys/" + data + "\">" +
-                        '@method("delete")' +
-                        '@csrf' +
-                        "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
+                    return "<input type=text  class=form-control>"
                 }
-            }
+            },
         ],
         "language": {
             'paginate': {
@@ -165,25 +131,5 @@
             }
         }
     });
-</script> --}}
-
-{{-- <script>
-    function deletesurvey($id, $name) {
-        event.preventDefault();
-        Swal.fire({
-            title: 'Yakin Hapus Survey Ini?',
-            text: $name,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('formdelete' + $id).submit();
-            }
-        })
-    }
-</script> --}}
+</script> 
 @endsection

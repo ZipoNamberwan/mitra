@@ -33,19 +33,21 @@ class RecruitmentController extends Controller
             'survey' => 'required'
         ]);
        
-        // $survey = Surveys::find($request->survey);
-        // $survey->mitras()->attach($request->id, ['status_id' => 2]);
+        $survey = Surveys::find($request->survey);
+        $survey->mitras()->attach($request->id, ['status_id' => 2]);
         // // $survey -> mitras()->detach(where::$request->id == id);
 
         // return redirect('/recruitments');
 
-         $survey = Surveys::create($request->surveys);
-         //Get skills id to link with contract
-         $data = $request->mitras;
-         //syncs with additional data
-         $survey->mitras()->sync(array_column($data, 'id'), ['id'=>auth()->user()->id]);
+        //  $survey = Surveys::create($request->surveys);
+        //  //Get skills id to link with contract
+        //  $data = $request->mitras;
+        //  //syncs with additional data
+        //  $survey->mitras()->sync(array_column($data, 'id'), ['id'=>auth()->user()->id]);
  
-         return $survey->refresh()->mitras;
+        return view('recruitment.recruitment-index', [
+            'surveys' => Surveys::all()
+        ]);
     }
 
     public function data(Request $request)

@@ -28,17 +28,19 @@ Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::clas
 Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data']);
 Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
 Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
+Route::get('/assessments-data', [App\Http\Controllers\AssessmentController::class, 'data']);
 //
 Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
 Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 //
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
+Route::get('/assessments/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'index']);
 
 
 Route::resources([
     'mitras' => MitraController::class,
     'surveys' => SurveyController::class,
     'recruitments' => RecruitmentController::class,
-    'assessments' => AssessmentController::class
+    'assessments' => AssessmentController::class,
 ]);
