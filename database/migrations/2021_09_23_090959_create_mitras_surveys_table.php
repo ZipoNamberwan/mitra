@@ -21,7 +21,7 @@ class CreateMitrasSurveysTable extends Migration
             $table->foreign('survey_id')->references('id')->on('surveys');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
-            $table->unsignedBigInteger('assessment');
+            $table->unsignedBigInteger('assessment')->nullable();
             $table->foreign('assessment')->references('id')->on('assessments');
         });
     }
