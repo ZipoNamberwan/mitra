@@ -89,6 +89,7 @@
 
 @endsection
 @section('optionaljs')
+<<<<<<< HEAD
     <script src="/assets/vendor/datatables2/datatables.min.js"></script>
     <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
     <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
@@ -212,3 +213,111 @@
     </script>
 
 @endsection
+=======
+<script src="/assets/vendor/datatables2/datatables.min.js"></script>
+<script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
+<script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
+<script src="/assets/vendor/select2/dist/js/select2.min.js"></script>
+<script src="/assets/vendor/datatables2/CheckBox/dataTables.checkboxes.min.js"></script>
+
+<script>
+    var table = $('#datatable-id').DataTable({
+        "responsive": true,
+        "order": [],
+        "serverSide": true,
+        "processing": true,
+        "ajax": {
+            "url": '/mitra-data',
+            "type": 'GET'
+        },
+        "select": {
+            "style": 'multi',
+        },
+        "columns": [{
+                "orderable": false,
+                "width": "2.5%",
+                "data": "id"
+            }, {
+                "responsivePriority": 2,
+                "width": "5%",
+                "orderable": false,
+                "data": "photo",
+                "render": function(data, type, row) {
+                    return "<div class=\"avatar bg-transparent\">" +
+                        "<img src=\"" + data + "\" />" +
+                        "</div>";
+                }
+            }, {
+                "responsivePriority": 1,
+                "width": "12%",
+                "data": "name",
+                "render": function(data, type, row) {
+                    return "<a href=\"/mitras/" + row.id + "\">" + data + "</a>";
+                }
+            },
+            {
+                "responsivePriority": 1,
+                "width": "5%",
+                "data": "email",
+            },
+
+        ],
+        // untuk check box
+        "columnDefs": [{
+            "targets": 0,
+            "checkboxes": {
+                "selectRow": true,
+            }
+        }],
+        "select": {
+            "style": "multi",
+        },
+        // sampai sini
+        "language": {
+            'paginate': {
+                'previous': '<i class="fas fa-angle-left"></i>',
+                'next': '<i class="fas fa-angle-right"></i>'
+            }
+        }
+    });
+
+    var submitButton = document.getElementById('submit-button');
+    table.on('select', function(e, dt, type, indexes) {
+        var count = table.rows({
+            selected: true
+        }).count();
+        if (count > 0) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }).on('deselect', function(e, dt, type, indexes) {
+        var count = table.rows({
+            selected: true
+        }).count();
+        if (count > 0) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    function onClickSave() {
+        event.preventDefault();
+        var submitForm = document.getElementById('submit-form');
+        var rows_selected = table.column(0).checkboxes.selected();
+        $.each(rows_selected, function(index, rowId) {
+            $(submitForm).append(
+                $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'id[]')
+                .val(rowId)
+            );
+        });
+        submitForm.submit();
+    }
+</script>
+@endsection
+>>>>>>> index_mitrasurveys

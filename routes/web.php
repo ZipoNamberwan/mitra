@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecruitmentController;
@@ -33,6 +34,9 @@ Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
+
+Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept'] );
+Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject'] );
 
 
 Route::resources([

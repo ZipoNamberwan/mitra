@@ -6,6 +6,7 @@ use App\Models\Mitras;
 use App\Models\Statuses;
 use App\Models\Surveys;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecruitmentController extends Controller
 {
@@ -25,14 +26,22 @@ class RecruitmentController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'id.*' => 'required',
-            'survey' => 'required'
-        ]);
+        //method nambah mitra ke survey
+        dd($request);
+    }
 
-        $survey = Surveys::find($request->survey);
-        $survey->mitras()->attach($request->id, ['status_id' => true]);
-        return $request;
+    public function accept(Request $request)
+    {
+        $survey = Surveys::find($request->surveyid);
+        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 2]);
+        return redirect('/testmitrasurvey');
+    }
+
+    public function reject(Request $request)
+    {
+        $survey = Surveys::find($request->surveyid);
+        $survey->mitras()->updateExistingPivot($request->id, ['status_id' => 3]);
+        return redirect('/testmitrasurvey');
     }
 
     public function data(Request $request)
@@ -68,8 +77,8 @@ class RecruitmentController extends Controller
             $mitraData["email"] = $mitra->email;
             $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["status_id"] = Statuses::find($mitra->surveys[0]->pivot->status_id)->name;
-            // $mitraData["status_id"] = $mitra->surveys[0]->name;
-            $mitraData["id"] = $mitra->id;
+            //$mitraData["status_id"] = $mitra->surveys[0]->name;
+            $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;
             $i++;
         }
