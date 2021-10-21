@@ -20,9 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', [App\Http\Controllers\MitraController::class, 'index']);
-Route::get('/testsurvey', [App\Http\Controllers\SurveyController::class, 'index']);
-Route::get('/testmitrasurvey', [App\Http\Controllers\RecruitmentController::class, 'index']);
 //
 Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data']);
 Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
@@ -34,12 +31,10 @@ Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class,
 //
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 
-
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 
 Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept'] );
 Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject'] );
-
 
 Route::resources([
     'mitras' => MitraController::class,

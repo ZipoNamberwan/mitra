@@ -197,7 +197,7 @@ class MitraController extends Controller
             ->count();
 
         $orderColumn = 'created_at';
-        $orderDir = 'DESC';
+        $orderDir = 'desc';
         if ($request->order != null) {
             if ($request->order[0]['dir'] == 'asc') {
                 $orderDir = 'asc';
