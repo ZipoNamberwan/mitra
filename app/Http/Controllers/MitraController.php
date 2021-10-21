@@ -31,7 +31,7 @@ class MitraController extends Controller
         return view('mitra.mitra-create', [
             'educations' => Educations::all(),
             'subdistricts' => Subdistricts::all(),
-            'code' => sprintf("%05s", count(Mitras::all()) + 1),
+            'code' => sprintf("%05s", count(Mitras::withTrashed()->get()) + 1),
         ]);
     }
     public function getVillage($id)

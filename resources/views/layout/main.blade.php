@@ -76,7 +76,7 @@
                                         <a href="/mitras" class="nav-link">Semua Mitra</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">Rekrutmen Mitra</a>
+                                        <a href="/recruitments" class="nav-link">Rekrutmen Mitra</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Beban Kerja</a>

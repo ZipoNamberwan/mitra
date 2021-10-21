@@ -4,7 +4,6 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RecruitmentController;
 
 /*
 |--------------------------------------------------------------------------
