@@ -66,17 +66,17 @@
                     <hr class="my-3">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+                            <a class="nav-link @if(str_contains(url()->current(), url('/mitras')) || str_contains(url()->current(), url('/recruitments'))) active @endif" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="@if(str_contains(url()->current(), url('/mitras')) || str_contains(url()->current(), url('/recruitments'))) true @else false @endif" aria-controls="navbar-forms">
                                 <i class="fa fa-laptop-code text-green"></i>
                                 <span class="nav-link-text">Mitra</span>
                             </a>
-                            <div class="collapse" id="navbar-forms">
+                            <div class="collapse @if(str_contains(url()->current(), url('/mitras')) || str_contains(url()->current(), url('/recruitments'))) show @endif" id="navbar-forms">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="/mitras" class="nav-link">Semua Mitra</a>
+                                        <a href="/mitras" class="nav-link @if(str_contains(url()->current(), url('/mitras'))) active @endif">Semua Mitra</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="/recruitments" class="nav-link">Rekrutmen Mitra</a>
+                                        <a href="/recruitments" class="nav-link @if(str_contains(url()->current(), url('/recruitments'))) active @endif">Rekruitmen Mitra</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Beban Kerja</a>
@@ -88,14 +88,14 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#navbar-sensus" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+                            <a class="nav-link @if(str_contains(url()->current(), url('surveys'))) active @endif" href="#navbar-sensus" data-toggle="collapse" role="button" aria-expanded="@if(str_contains(url()->current(), url('surveys'))) true @else false @endif" aria-controls="navbar-forms">
                                 <i class="fas fa-chart-line text-info"></i>
                                 <span class="nav-link-text">Survey</span>
                             </a>
-                            <div class="collapse" id="navbar-sensus">
+                            <div class="collapse @if(str_contains(url()->current(), url('surveys'))) show @endif" id="navbar-sensus">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="/surveys" class="nav-link">Semua Survey</a>
+                                        <a href="/surveys" class="nav-link @if(str_contains(url()->current(), url('surveys'))) active @endif">Semua Survey</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Generate Form Pendaftaran</a>

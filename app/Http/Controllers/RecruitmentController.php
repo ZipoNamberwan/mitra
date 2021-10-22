@@ -32,18 +32,13 @@ class RecruitmentController extends Controller
         ]);
 
         $survey = Surveys::find($request->survey);
-        $survey->mitras()->attach($request->id, ['status_id' => 2]);
-        // $survey -> mitras()->detach(where::$request->id == id);
+        $pivotarray = [];
+        foreach ($request->id as $id) {
+            $pivotarray[$id] = ['status_id' => 2];
+        }
+        $survey->mitras()->syncWithoutDetaching($pivotarray);
 
-        return redirect('/recruitments');
-
-        // $survey = Surveys::find($request->survey);
-        // //Get skills id to link with contract
-        // $data = $request->mitras;
-        // //syncs with additional data
-        // $survey->mitras()->sync(array_column($data, 'id'), ['id' => auth()->user()->id]);
-
-        return $survey->refresh()->mitras;
+        return redirect('/recruitments')->with(['survey-id' => $request->survey, 'message' => 'Mitra telah diterima sebagai petugas ' . $survey->name, 'type' => 'approve']);
     }
 
     public function accept(Request $request)
