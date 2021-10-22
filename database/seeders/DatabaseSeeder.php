@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             EducationSeeder::class,
             StatusSeeder::class,
             AreaSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

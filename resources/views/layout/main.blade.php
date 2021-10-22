@@ -56,7 +56,7 @@
                 <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/pages/widgets.html">
+                            <a class="nav-link @if(url()->current() == url('/')) active @endif" href="/">
                                 <i class="fas fa-home text-primary"></i>
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
@@ -143,7 +143,6 @@
                         <!-- Navbar links -->
                         <ul class="navbar-nav align-items-center ml-md-auto">
                             <li class="nav-item d-xl-none">
-                                <!-- Sidenav toggler -->
                                 <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
                                     <div class="sidenav-toggler-inner">
                                         <i class="sidenav-toggler-line"></i>
@@ -162,18 +161,45 @@
                                     <i class="ni ni-bell-55"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
-                                    <!-- Dropdown header -->
                                     <div class="px-3 py-3">
                                         <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
                                     </div>
-                                    <!-- List group -->
-
-                                    <!-- View all -->
                                     <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
                                 </div>
                             </li>
                         </ul>
-
+                        <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="media align-items-center">
+                                        <span class="avatar avatar-sm rounded-circle">
+                                            <img alt="" @if(Auth::user()->avatar) src="{{asset('storage/'.Auth::user()->avatar)}}" @else src="" @endif>
+                                        </span>
+                                        <div class="media-body ml-2 d-none d-lg-block">
+                                            <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-header noti-title">
+                                        <h6 class="text-overflow m-0">Welcome!</h6>
+                                    </div>
+                                    <a href="#!" class="dropdown-item">
+                                        <i class="ni ni-single-02"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="ni ni-user-run"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -184,25 +210,9 @@
                     <div class="row align-items-center justify-content-lg-between">
                         <div class="col-lg-6">
                             <div class="copyright text-center text-lg-left text-muted">
-                                &copy; 2021 <a href="https://github.com/ZipoNamberwan/" class="font-weight-bold ml-1" target="_blank">Zipo Namberwan</a>
+                                &copy; 2021 <a href="https://probolinggokab.bps.go.id" class="font-weight-bold ml-1" target="_blank">BPS Kabupaten Probolinggo</a>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link" target="_blank">License</a>
-                </li>
-              </ul>
-            </div> -->
                     </div>
                 </footer>
             </div>

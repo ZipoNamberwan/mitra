@@ -38,7 +38,7 @@
                             @method('PUT')
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-control-label" for="name">Nama Survey</label>
+                                    <label class="form-control-label" for="name">Nama Survey*</label>
                                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="validationCustom03" value="{{@old('name', $survey->name)}}">
                                     @error('name')
                                     <div class="invalid-feedback">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-control-label" for="start_date">Tanggal Mulai</label>
+                                    <label class="form-control-label" for="start_date">Tanggal Mulai*</label>
                                     <input name="start_date" class="form-control @error('start_date') is-invalid @enderror" placeholder="Select date" type="date" value="{{@old('start_date', $survey->start_date)}}">
                                     @error('start_date')
                                     <div class="invalid-feedback">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-control-label" for="end_date">Tanggal Berakhir</label>
+                                    <label class="form-control-label" for="end_date">Tanggal Berakhir*</label>
                                     <input name="end_date" class="form-control @error('end_date') is-invalid @enderror" placeholder="Select date" type="date" value="{{@old('end_date', $survey->end_date)}}">
                                     @error('end_date')
                                     <div class="invalid-feedback">
