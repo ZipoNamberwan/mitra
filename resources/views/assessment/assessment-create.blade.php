@@ -81,9 +81,7 @@
         </div>
     </div>
     <div class="col-6">
-        <a href="{{url('/assessments/create')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Simpan">
-            <span class="btn-inner--text">Simpan</span>
-        </a>
+       <button id="simpan-assessment" type="submit" class="btn btn-primary mt-3" value="Simpan">Simpan</button>
     </div>
 </div>
 
