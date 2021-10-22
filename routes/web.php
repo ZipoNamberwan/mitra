@@ -38,6 +38,7 @@ Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\Recruitment
 
 Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept'] );
 Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject'] );
+Route::post('/surveys/assessment', [App\Http\Controllers\AssessmentController::class, 'create'] );
 
 
 Route::resources([

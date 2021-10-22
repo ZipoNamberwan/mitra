@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessments;
 use App\Models\Mitras;
 use App\Models\Statuses;
 use App\Models\Surveys;
@@ -12,6 +13,17 @@ class AssessmentController extends Controller
     public function getSurveyMitra()
     {
         return view('survey.survey-assessment');
+    }
+
+    public function create(Request $request)
+    {
+       
+        
+        $request->validate( ['kerjasama' => 'required']);
+        $input =$request->all();
+        $post = Assessments::create($input);
+        
+        
     }
 
     public function data(Request $request)

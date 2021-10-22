@@ -63,23 +63,25 @@
                         
                     </div>
                 </div>
-                <form action="">
-
+                <form action="/surveys/assessment" method="POST">
+                    @csrf
+                    <div class="table-responsive py-4">
+                        <table class="table" id="datatable-id" width="100%">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Penilaian</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <button id="accept-button" type="submit" class="col-mb-6 btn btn-primary" >Simpan</button>
+                    </div>
                 </form>
-                <div class="table-responsive py-4">
-                    <table class="table" id="datatable-id" width="100%">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Penilaian</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <button id="accept-button" type="submit" class="col-mb-6 btn btn-primary" >Simpan</button>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -120,7 +122,7 @@
                 "orderable"         : false,
                 "searchable"       : false,
                 "render"            : function (data, type, row, meta) {
-                    return '<input type="text" class="form-control" >';
+                    return '<input type="text" class="form-control" id="kerjasama"  >';
                 }
             },
            
