@@ -81,9 +81,9 @@
                                     <li class="nav-item">
                                         <a href="" class="nav-link">Beban Kerja</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="" class="nav-link">Statistik</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>
@@ -97,9 +97,9 @@
                                     <li class="nav-item">
                                         <a href="/surveys" class="nav-link @if(str_contains(url()->current(), url('surveys'))) active @endif">Semua Survey</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="" class="nav-link">Generate Form Pendaftaran</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>

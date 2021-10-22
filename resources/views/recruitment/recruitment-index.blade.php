@@ -51,7 +51,9 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h3 class="mb-0">Rekrutmen Mitra</h3>
+                            <h3 class="mb-2">Rekrutmen Mitra</h3>
+                            <p class="mb-0"><small>Menu ini digunakan untuk melakukan approval (terima/tolak) mitra yang sudah mendaftar.</small></p>
+                            <p class="mb-0"><small>Pertama: pilih survei. Kedua: pilih mitra yang akan diterima/ditolak sebagai petugas.</small></p>
                         </div>
                         <div class="col-6 text-right">
                             <a href="{{ url('/recruitments/create') }}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Tambah mitra">

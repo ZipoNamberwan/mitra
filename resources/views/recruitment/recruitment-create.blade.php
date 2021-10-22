@@ -40,8 +40,8 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="mb-4">Penerimaan Mitra</h3>
-                            <p class="mb-0"><small>Menu ini digunakan untuk menambah mitra survei tertentu. Status dari mitra yang ditambah otomatis 'diterima' digunakan untuk menambah mitra survei tertentu. Status dari mitra yang ditambah otomatis 'diterima' </small></p>
+                            <h3 class="mb-2">Penerimaan Mitra</h3>
+                            <p class="mb-0"><small>Menu ini digunakan untuk menambah mitra survei tertentu. Status dari mitra yang ditambah otomatis 'diterima'.</small></p>
                             <p class="mb-0"><small>Pertama: pilih survei. Kedua: pilih mitra yang akan diterima sebagai petugas.</small></p>
                         </div>
                     </div>
