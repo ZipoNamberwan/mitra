@@ -77,7 +77,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button id="submit-button" class="btn btn-primary mt-3" type="submit">Simpan</button>
+                            <button id="submit-button" value="Save Changes" onClick="SaveData()" class="btn btn-primary mt-3" type="submit">Simpan</button>
                         </div>
                 </div>
                 </form>
@@ -132,17 +132,13 @@
         }
     });
     var submitButton = document.getElementById('submit-button');
-        var surveyselect = document.getElementById('survey');
-
+        
         table.on('select', function(e, dt, type, indexes) {
             validateSaveButton();
         }).on('deselect', function(e, dt, type, indexes) {
             validateSaveButton();
         });
-        function onChangeSurvey(sel) {
-            validateSaveButton();
-        }
-
+        
         function validateSaveButton() {
             var selectedsurvey = surveyselect.options[surveyselect.selectedIndex].value;
 
@@ -158,7 +154,7 @@
 </script>
 
 <script>
-        function onClickSave() {
+        function onClickSaveData() {
             event.preventDefault();
             var submitForm = document.getElementById('submit-form');
             var rows_selected = table.column(0).checkboxes.selected();
