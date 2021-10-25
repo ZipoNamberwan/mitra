@@ -53,8 +53,6 @@
     <div class="row">
             <div class="col">
                 <div class="card">
-                    <form id="submit-form" onsubmit="return onClickSave()" action="/recruitments" method="POST">
-                        @csrf
                         <!-- Card header -->
                         <div class="card-header">
                             <div class="row">
@@ -63,6 +61,8 @@
                                 </div>
                             </div>
                         </div>
+                    <form action="/surveys/assessment" method="POST">
+                        @csrf
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" id="datatable-id" width="100%">
@@ -77,10 +77,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button id="submit-button" value="Save Changes" onClick="SaveData()" class="btn btn-primary mt-3" type="submit">Simpan</button>
+                            <button id="accept-button" type="submit" class="btn btn-primary mt-3">Simpan</button>
                         </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
 </div>
@@ -99,7 +99,7 @@
         "serverSide": true,
         "processing": true,
         "ajax": {
-            "url": '/mitra-data',
+            "url": '/assessment-data/1',
             "type": 'GET'
         },
         "columns": [{
@@ -120,7 +120,7 @@
                 "data": "id",
                 "stateSave": true,
                 "render": function(data, type, row) {
-                    return "<input type=text class=form-control placeholder=MasukkanNilai>";
+                    return '<input type="text" class="form-control" id="kerjasama" name="penilaian" placeholder="MasukkanNilai">';
                 }
             }
         ],
@@ -131,61 +131,5 @@
             }
         }
     });
-    var submitButton = document.getElementById('submit-button');
-        
-        table.on('select', function(e, dt, type, indexes) {
-            validateSaveButton();
-        }).on('deselect', function(e, dt, type, indexes) {
-            validateSaveButton();
-        });
-        
-        function validateSaveButton() {
-            var selectedsurvey = surveyselect.options[surveyselect.selectedIndex].value;
-
-            var count = table.rows({
-                selected: true
-            }).count();
-            if (count > 0 && selectedsurvey != 0) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
-        }
-</script>
-
-<script>
-        function onClickSaveData() {
-            event.preventDefault();
-            var submitForm = document.getElementById('submit-form');
-            var rows_selected = table.column(0).checkboxes.selected();
-            $.each(rows_selected, function(index, rowId) {
-                $(submitForm).append(
-                    $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'id[]')
-                    .val(rowId)
-                );
-            });
-            Swal.fire({
-                title: 'Apakah yakin ingin menyimpan ini?',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Simpan',
-                denyButtonText: `Jangan Simpan`,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    Swal.fire('Berhasil!', 'Data Berhasil Disimpan', 'success');
-                    submitForm.submit();
-                } else if (result.isDenied) {
-                    Swal.fire('Perubahan Tidak Tersimpan', '')
-                }
-            })
-        }
-    </script>
-
-<script type="text/javascript"> 
-var elem = document.getElementById("example"); // Get text field
-elem.value = "My default value"; // Change field
 </script>
 @endsection
