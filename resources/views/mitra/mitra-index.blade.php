@@ -68,6 +68,12 @@
                     </div>
                 </div>
                 <div class="table-responsive py-4">
+                    <div class="col-6 text-left">
+                            <a href="{{url('/exportmitra')}}" class="btn btn-primary btn-round btn-icon mb-3" data-toggle="tooltip" data-original-title="Unduh mitra">
+                                <span class="btn-inner--icon"><i class="fas fa-download"></i></span>
+                                <span class="btn-inner--text">Export ke Excel</span>
+                            </a>
+                    </div>
                     <table class="table" id="datatable-id" width="100%">
                         <thead class="thead-light">
                             <tr>
@@ -152,8 +158,6 @@
                         '@csrf' +
                         "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
                         "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
-
-                       
                 }
             }
         ],
@@ -186,6 +190,25 @@
     }
 </script>
 
+<script>
+    function unduhmitra($id, $name) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Yakin Unduh Mitra Ini?',
+            text: $name,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('formunduh' + $id).submit();
+            }
+        })
+    }
+</script>
 <script>
     function changeStatus($id, $email) {
         var checkboxes = document.getElementsByName('published' + email);

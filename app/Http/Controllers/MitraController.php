@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use \PhpOffice\PhpSpreadsheet\Spreadsheet;
+use \PhpOffice\PhpSpreadsheet\IOFactory;
+use \PhpOffice\PhpSpreadsheet\Style\Alignment;
+use \PhpOffice\PhpSpreadsheet\Style\Border;
+use App\Http\Controllers\Controller;
 use App\Models\Mitras;
 use App\Models\Educations;
 use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
 use App\Models\Villages;
+use App\Exports\MitrasExport;
 use Illuminate\Http\Request;
 
 class MitraController extends Controller
@@ -237,5 +243,82 @@ class MitraController extends Controller
             "recordsFiltered" => $recordsFiltered,
             "data" => $mitrasArray
         ]);
+    }
+
+    public function mitrasexport(){
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $i = 1;
+
+        $mitras = Mitras::all();
+        foreach ($mitras as $mitra) {
+            $sheet->setCellValue('A' . $i, $i);
+            $sheet->setCellValue('B' . $i, $mitra['email']);
+            $sheet->setCellValue('C' . $i, $mitra['name']);
+            $i++;
+        }
+        $sheet->insertNewRowBefore(1, 1);
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Email');
+        $sheet->setCellValue('C1', 'Nama');
+        //style table body
+        $styleArray = [
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['argb' => '0000BFF'],
+                    ],
+                ],
+            ];
+
+        $sheet->getStyle('A1:C' . $i)
+        ->applyFromArray($styleArray);
+        //style table header
+        $styleArray = [
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                ],
+                'borders' => [
+                    'bottom' => [
+                        'borderStyle' => Border::BORDER_MEDIUM,
+                        'color' => ['argb' => '0000BFF'],
+                    ],
+                ],
+                'font' => [
+                    'bold' => true,
+                ],
+            ];
+
+        $sheet->getStyle('A1:C1')
+        ->applyFromArray($styleArray);
+        //auto width all columns
+        foreach (range('A', 'C') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+        //title
+        $sheet->insertNewRowBefore(1, 3)
+        ->mergeCells('A2:C2')
+        ->getRowDimension('2')
+        ->setRowHeight('20');
+        $sheet->setCellValue('A2', 'Data Mitra');
+
+        unset($styleArray['borders']);
+        $styleArray['font']['size'] = '16pt';
+        $styleArray['alignment']['vertical'] = Alignment::VERTICAL_CENTER;
+
+        $sheet->getStyle('A2:C2')
+        ->applyFromArray($styleArray);
+
+        $sheet->insertNewColumnBefore('A', '2');
+
+        //HTTP Header Information
+        header('Content-Type: application\vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="Data Mitra.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        
     }
 }

@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 
+    Route::get('/exportmitra', [App\Http\Controllers\MitraController::class, 'MitrasExport']);
+
     Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept']);
     Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject']);
 
