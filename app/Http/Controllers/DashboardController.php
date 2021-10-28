@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers; 
+use App\Models\Mitras;
+use Request;
 
 class DashboardController extends Controller
 {
@@ -14,6 +14,7 @@ class DashboardController extends Controller
     public function index()
     {
         // buat dashboard di sini
-        return view('home');
+        $jumlah = Mitras::total();
+        return view('home', ['jumlah'=>$jumlah]);
     }
 }

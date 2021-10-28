@@ -48,10 +48,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
-                                                <h5 class="card-title text-uppercase text-muted mb-0">Total traffic</h5>
-                                                <span class="h2 font-weight-bold mb-0">350,897</span>
+                                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Total Mitra</h5>
+                                                <span class="h2 font-weight-bold mb-0">{{ $jumlah }}</span>
                                             </div>
-                                            <div class="col-auto">
+                                            {{-- <div class="col-auto">
                                                 <div
                                                     class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                                                     <i class="ni ni-active-40"></i>
@@ -60,7 +60,7 @@
                                             <p class="mt-3 mb-0 text-sm">
                                                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                                                 <span class="text-nowrap">Since last month</span>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                     <!-- Card header -->
                     <div class="card-header">
                         <!-- Title -->
-                        <h5 class="h3 mb-0">Team members</h5>
+                        <h5 class="h3 mb-0">Survey yang Sedang Berjalan</h5>
                     </div>
                     <!-- Card body -->
                     <div class="card-body">
@@ -193,7 +193,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="mb-0">Social traffic</h3>
+                                <h3 class="mb-0">Mitra Dengan Penilaian Terbaik</h3>
                             </div>
                             <div class="col text-right">
                                 <a href="#!" class="btn btn-sm btn-primary">See all</a>
