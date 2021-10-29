@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers; 
 use App\Models\Mitras;
-use Request;
+use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,9 @@ class DashboardController extends Controller
     public function index()
     {
         // buat dashboard di sini
-        $jumlah = Mitras::total();
-        return view('home', ['jumlah'=>$jumlah]);
+        // $jumlah = Mitras::total();
+        // dd($jumlah);
+        $jumlah = Mitras::where('email')::total();
+        return view('home');
     }
 }

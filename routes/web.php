@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept']);
     Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject']);
 
-    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'total']);
+    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
 
     Route::resources([
         'mitras' => MitraController::class,
