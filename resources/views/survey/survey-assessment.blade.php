@@ -123,7 +123,9 @@
                     "searchable": false,
                     "data": "id",
                     "render": function(data, type, row) {
-                        return '<input type="text" class="form-control" id="kerjasama" name="penilaian"  >';
+                        return '<input type="text" class="form-control" name="rating"  >' +
+                            '<input type="hidden" class="form-control" value="' + row.idpivot +
+                            '" name="idpivot">';
                     }
                 },
             ],

@@ -6,7 +6,9 @@ use App\Models\Assessments;
 use App\Models\Mitras;
 use App\Models\Statuses;
 use App\Models\Surveys;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class AssessmentController extends Controller
@@ -24,20 +26,31 @@ class AssessmentController extends Controller
         $this->validate(
             $request,
             [
-                'penilaian' => 'required',
-
+                'rating' => 'required',
+                'idpivot' => 'required'
             ]
         );
 
-        Assessments::create([
-            'kerjasama' => $request->penilaian,
-            'komunikasi' => $request->penilaian,
-            'disiplin' => $request->penilaian,
-            'sikap' => $request->penilaian,
-            'integritas' => $request->penilaian,
+        foreach ($request->idpivot as $key=>$insert){
+            $data = [
+                'id' => $request->idpivot[$key],
+                'kerjasama' => $request->rating[$key],
+                'komunikasi' => $request->rating[$key],
+                'disiplin' => $request->rating[$key],
+                'sikap' => $request->rating[$key],
+                'integritas' => $request->rating[$key],
+                
+            ];
+            
+            DB::table('assessments')->insert($data);
+        }
 
-        ]);
+      
 
+
+        
+
+      
         return redirect('/surveys')->with('success-create', ' penilaian telah ditambah!');
     }
 
