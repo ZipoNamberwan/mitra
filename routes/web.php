@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
 
     //
     Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data']);

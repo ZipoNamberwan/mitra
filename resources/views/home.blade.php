@@ -42,16 +42,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6 mt-3">
                                 <div class="card card-stats">
                                     <!-- Card body -->
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
-                                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Total Mitra</h5>
-                                                <span class="h2 font-weight-bold mb-0">{{ $jumlah }}</span>
+                                                <h5 class="card-title text-uppercase mb-0">Jumlah Total Mitra</h5>
+                                                <span class="h2 font-weight-bold mb-0">{{ $total_mitra }}</span>
                                             </div>
-                                            {{-- <div class="col-auto">
+                                            <div class="col-auto">
                                                 <div
                                                     class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                                                     <i class="ni ni-active-40"></i>
@@ -60,7 +60,7 @@
                                             <p class="mt-3 mb-0 text-sm">
                                                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                                                 <span class="text-nowrap">Since last month</span>
-                                            </p> --}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
@@ -90,8 +90,10 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-xl-4">
+        <div class="row">
+            <div class="col-xl-6">
                 <!-- Members list group card -->
                 <div class="card">
                     <!-- Card header -->
@@ -102,93 +104,28 @@
                     <!-- Card body -->
                     <div class="card-body">
                         <!-- List group -->
-                        <ul class="list-group list-group-flush list my--3">
+                        <ul class="list-group list-group-flush list my--3" id="list-group">
                             <li class="list-group-item px-0">
+                                @foreach($surveys as $survey => $saiki)
                                 <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <a href="#" class="avatar rounded-circle">
-                                            <img alt="Image placeholder" src="../../assets/img/theme/team-1.jpg">
-                                        </a>
-                                    </div>
                                     <div class="col ml--2">
                                         <h4 class="mb-0">
-                                            <a href="#!">John Michael</a>
+                                            <a> {{ $survey->name }} </a>
                                         </h4>
                                         <span class="text-success">●</span>
-                                        <small>Online</small>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-sm btn-primary">Add</button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item px-0">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <a href="#" class="avatar rounded-circle">
-                                            <img alt="Image placeholder" src="../../assets/img/theme/team-2.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="col ml--2">
-                                        <h4 class="mb-0">
-                                            <a href="#!">Alex Smith</a>
-                                        </h4>
+                                        <small>{{ $survey->start_date }} - </small>
                                         <span class="text-warning">●</span>
-                                        <small>In a meeting</small>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-sm btn-primary">Add</button>
+                                        <small>{{ $survey->end_date }}</small>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="list-group-item px-0">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <a href="#" class="avatar rounded-circle">
-                                            <img alt="Image placeholder" src="../../assets/img/theme/team-3.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="col ml--2">
-                                        <h4 class="mb-0">
-                                            <a href="#!">Samantha Ivy</a>
-                                        </h4>
-                                        <span class="text-danger">●</span>
-                                        <small>Offline</small>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-sm btn-primary">Add</button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item px-0">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <a href="#" class="avatar rounded-circle">
-                                            <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="col ml--2">
-                                        <h4 class="mb-0">
-                                            <a href="#!">John Michael</a>
-                                        </h4>
-                                        <span class="text-success">●</span>
-                                        <small>Online</small>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-sm btn-primary">Add</button>
-                                    </div>
-                                </div>
+                                @endforeach
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-4">
+            <div class="col-xl-6">
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
@@ -319,7 +256,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
@@ -427,136 +364,8 @@
     <script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
     <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
-
-
-    <script>
-        var table = $('#datatable-id').DataTable({
-            "responsive": true,
-            "order": [],
-            "serverSide": true,
-            "processing": true,
-            "ajax": {
-                "url": '/mitra-data',
-                "type": 'GET'
-            },
-            "columns": [{
-                    "responsivePriority": 8,
-                    "width": "2.5%",
-                    "orderable": false,
-                    "data": "index",
-                }, {
-                    "responsivePriority": 2,
-                    "width": "5%",
-                    "orderable": false,
-                    "data": "photo",
-                    "render": function(data, type, row) {
-                        return "<div class=\"avatar bg-transparent\">" +
-                            "<img src=\"" + data + "\" />" +
-                            "</div>";
-                    }
-                }, {
-                    "responsivePriority": 1,
-                    "width": "12%",
-                    "data": "name",
-                    "render": function(data, type, row) {
-                        return "<a href=\"/mitras/" + row.id + "\">" + data + "</a>";
-                    }
-                },
-                {
-                    "responsivePriority": 1,
-                    "width": "5%",
-                    "data": "email",
-                },
-                {
-                    "responsivePriority": 1,
-                    "width": "5%",
-                    "data": "phone",
-                },
-                {
-                    "responsivePriority": 7,
-                    "width": "7%",
-                    "orderable": false,
-                    "data": "id",
-                    "render": function(data, type, row) {
-                        return "<a href=\"/mitras/" + data +
-                            "/edit\" class=\"btn btn-outline-info  btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Ubah Data\">" +
-                            "<span class=\"btn-inner--icon\"><i class=\"fas fa-edit\"></i></span></a>" +
-                            "<form class=\"d-inline\" id=\"formdelete" + data + "\" name=\"formdelete" +
-                            data + "\" onsubmit=\"deletemitra('" + data + "','" + row.name +
-                            "')\" method=\"POST\" action=\"/mitras/" + data + "\">" +
-                            '@method("delete")' +
-                            '@csrf' +
-                            "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
-                            "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
-
-
-                    }
-                }
-            ],
-            "language": {
-                'paginate': {
-                    'previous': '<i class="fas fa-angle-left"></i>',
-                    'next': '<i class="fas fa-angle-right"></i>'
-                }
-            }
-        });
-    </script>
-
-    <script>
-        function deletemitra($id, $name) {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Yakin Hapus Mitra Ini?',
-                text: $name,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Tidak',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('formdelete' + $id).submit();
-                }
-            })
-        }
-    </script>
-
-    <script>
-        function changeStatus($id, $email) {
-            var checkboxes = document.getElementsByName('published' + email);
-            var loading = document.getElementById('loading-background');
-            var value = checkboxes[checkboxes.length - 1].checked;
-            loading.style.display = 'block';
-            $.ajax({
-                url: "{{ url('mitras/changestatus/') }}/" + email,
-                success: function(result, status, xhr) {
-                    loading.style.display = 'none';
-                    checkboxes.forEach(function(item, index) {
-                        item.checked = value;
-                    });
-                },
-                error: function(xhr, status, error) {
-                    loading.style.display = 'none';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    }).then((result) => {
-                        checkboxes.forEach(function(item, index) {
-                            item.checked = !value;
-                        });
-                    });
-                },
-                data: {
-                    published: value ? 1 : 0,
-                },
-                type: "patch",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        }
-    </script>
+    <script src="/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
 @endsection
+
