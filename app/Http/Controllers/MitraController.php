@@ -254,14 +254,37 @@ class MitraController extends Controller
         $mitras = Mitras::all();
         foreach ($mitras as $mitra) {
             $sheet->setCellValue('A' . $i, $i);
-            $sheet->setCellValue('B' . $i, $mitra['email']);
-            $sheet->setCellValue('C' . $i, $mitra['name']);
+            $sheet->setCellValue('B' . $i, $mitra['code']);
+            $sheet->setCellValue('C' . $i, $mitra['email']);
+            $sheet->setCellValue('D' . $i, $mitra['phone']);
+            $sheet->setCellValue('E' . $i, $mitra['name']);
+            $sheet->setCellValue('F' . $i, $mitra['nickname']);
+            $sheet->setCellValue('G' . $i, $mitra['sex']);
+            $sheet->setCellValue('H' . $i, $mitra['photo']);
+            $sheet->setCellValue('I' . $i, $mitra->educationdetail->name);
+            $sheet->setCellValue('J' . $i, $mitra['birthdate']);
+            $sheet->setCellValue('K' . $i, $mitra['profession']);
+            $sheet->setCellValue('L' . $i, $mitra['address']);
+            $sheet->setCellValue('M' . $i, $mitra->subdistrictdetail->name);
+            $sheet->setCellValue('N' . $i, $mitra->villagedetail->name);
             $i++;
         }
         $sheet->insertNewRowBefore(1, 1);
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Email');
-        $sheet->setCellValue('C1', 'Nama');
+        $sheet->setCellValue('B1', 'Code');
+        $sheet->setCellValue('C1', 'Email');
+        $sheet->setCellValue('D1', 'No Handphone');
+        $sheet->setCellValue('E1', 'Nama Lengkap');
+        $sheet->setCellValue('F1', 'Nama Panggilan');
+        $sheet->setCellValue('G1', 'Jenis Kelamin');
+        $sheet->setCellValue('H1', 'Foto');
+        $sheet->setCellValue('I1', 'Pendidikan');
+        $sheet->setCellValue('J1', 'Tanggal Lahir');
+        $sheet->setCellValue('K1', 'Profesi');
+        $sheet->setCellValue('L1', 'Alamat');
+        $sheet->setCellValue('M1', 'Kecamatan');
+        $sheet->setCellValue('N1', 'Kelurahan');
+
         //style table body
         $styleArray = [
                 'borders' => [
@@ -272,8 +295,9 @@ class MitraController extends Controller
                 ],
             ];
 
-        $sheet->getStyle('A1:C' . $i)
+        $sheet->getStyle('A1:N' . $i)
         ->applyFromArray($styleArray);
+
         //style table header
         $styleArray = [
                 'alignment' => [
@@ -290,15 +314,17 @@ class MitraController extends Controller
                 ],
             ];
 
-        $sheet->getStyle('A1:C1')
+        $sheet->getStyle('A1:N1')
         ->applyFromArray($styleArray);
+
         //auto width all columns
-        foreach (range('A', 'C') as $columnID) {
+        foreach (range('A', 'N') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
+
         //title
         $sheet->insertNewRowBefore(1, 3)
-        ->mergeCells('A2:C2')
+        ->mergeCells('A2:N2')
         ->getRowDimension('2')
         ->setRowHeight('20');
         $sheet->setCellValue('A2', 'Data Mitra');
@@ -307,10 +333,10 @@ class MitraController extends Controller
         $styleArray['font']['size'] = '16pt';
         $styleArray['alignment']['vertical'] = Alignment::VERTICAL_CENTER;
 
-        $sheet->getStyle('A2:C2')
+        $sheet->getStyle('A2:N2')
         ->applyFromArray($styleArray);
 
-        $sheet->insertNewColumnBefore('A', '2');
+        // $sheet->insertNewColumnBefore('A', '2');
 
         //HTTP Header Information
         header('Content-Type: application\vnd.openxmlformats-officedocument.spreadsheetml.sheet');
