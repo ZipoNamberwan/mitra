@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers; 
+namespace App\Http\Controllers;
+
 use App\Models\Mitras;
 use App\Models\Surveys;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 
 class DashboardController extends Controller
@@ -14,18 +18,43 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // buat dashboard di sini
-        // $jumlah = Mitras::total();
-        // dd($jumlah);
+
         $total_mitra = count(Mitras::all());
 
-        // $saiki = Carbon::now()->toDateTimeString();
-        $start_date = Surveys::get('start_date');
-        $end_date = Surveys::get('end_date');
-        $surveys = Surveys::whereBetween('saiki', [$start_date, $end_date])->get();
+        $surveys = Surveys::all();
+        $now = new DateTime(date("Y-m-d"));
+        $currentsurveys = [];
+        foreach ($surveys as $survey) {
+            $start = $survey->start_date;
+            $end = $survey->end_date;
 
-        return view('home', compact('total_mitra', 'surveys'));
+            $s =  new DateTime($start);
+            $e =  new DateTime($end);
+            if ($now > $s && $now < $e)
+                $currentsurveys[] = $survey;
+        }
+
+        $mitras = Mitras::all();
+        // $nama_mitra = [];
+        // foreach($mitras as $mitra){
+        // $nama_mitra []= $mitra->name;
+        // // $nama_mitra = $mitra->name;
+        // dd($nama_mitra);
+        // }
+
+        
+        // foreach($mitras as $mitra => ){
+        //     $mitra= $mitras->hasMany->mitra_id;
+        //     dd($mitra);
+        // }
+
+        // $survey = Surveys::find($request->id);
+        //     $mitras = $survey->mitras;
+        //     $recordsTotal = count($mitras);
+        //     $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
+
+        return view('home', compact('total_mitra', 'currentsurveys', 'mitras'));
     }
 }

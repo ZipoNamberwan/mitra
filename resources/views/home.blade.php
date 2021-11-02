@@ -106,13 +106,13 @@
                         <!-- List group -->
                         <ul class="list-group list-group-flush list my--3" id="list-group">
                             <li class="list-group-item px-0">
-                                @foreach($surveys as $survey => $saiki)
+                                @foreach($currentsurveys as $survey)
                                 <div class="row align-items-center">
-                                    <div class="col ml--2">
+                                    <div class="col ml--2 mb-3">
                                         <h4 class="mb-0">
                                             <a> {{ $survey->name }} </a>
                                         </h4>
-                                        <span class="text-success">●</span>
+                                        <span class="text-success ml-3">●</span>
                                         <small>{{ $survey->start_date }} - </small>
                                         <span class="text-warning">●</span>
                                         <small>{{ $survey->end_date }}</small>
@@ -273,82 +273,29 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Page name</th>
-                                    <th scope="col">Visitors</th>
-                                    <th scope="col">Unique users</th>
-                                    <th scope="col">Bounce rate</th>
+                                    <th scope="col">Nama Mitra</th>
+                                    <th scope="col">Nama Survey</th>
+                                    <th scope="col">Tanggal Mulai</th>
+                                    <th scope="col">Tanggal Berakhir</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($currentsurveys as $survey)
                                 <tr>
                                     <th scope="row">
-                                        /argon/
+                                        {{-- {{ $mitra->name }} --}}
                                     </th>
                                     <td>
-                                        4,569
+                                        {{ $survey->name }}
                                     </td>
                                     <td>
-                                        340
+                                        {{ $survey->start_date }}
                                     </td>
                                     <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+                                        {{ $survey->end_date }}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/index.html
-                                    </th>
-                                    <td>
-                                        3,985
-                                    </td>
-                                    <td>
-                                        319
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/charts.html
-                                    </th>
-                                    <td>
-                                        3,513
-                                    </td>
-                                    <td>
-                                        294
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/tables.html
-                                    </th>
-                                    <td>
-                                        2,050
-                                    </td>
-                                    <td>
-                                        147
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/profile.html
-                                    </th>
-                                    <td>
-                                        1,795
-                                    </td>
-                                    <td>
-                                        190
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                    </td>
+                                @endforeach
                                 </tr>
                             </tbody>
                         </table>
