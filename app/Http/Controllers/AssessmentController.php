@@ -2,63 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessments;
 use App\Models\Mitras;
-use App\Models\Subdistricts;
+use App\Models\Statuses;
 use App\Models\Surveys;
-use Carbon\Carbon;
-use DateTime;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
-
-
-class DashboardController extends Controller
+class AssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getSurveyMitra(Request $request)
     {
-        $total_mitra = count(Mitras::all());
-        $mitras = Mitras::all();
+        $idsurvey = $request->id;
+        return view('survey.survey-assessment', compact('idsurvey'));
+    }
 
-        $surveys = Surveys::all();
-        $now = new DateTime(date("Y-m-d"));
-        $currentsurveys = [];
-        foreach ($surveys as $survey) {
-            $start = $survey->start_date;
-            $end = $survey->end_date;
+    public function create(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'rating' => 'required',
+                'idpivot' => 'required'
+            ]
+        );
 
-            $s =  new DateTime($start);
-            $e =  new DateTime($end);
-            if ($now > $s && $now < $e)
-                $currentsurveys[] = $survey;
+        foreach ($request->idpivot as $key => $insert) {
+            $data = [
+                'id' => $request->idpivot[$key],
+                'kerjasama' => $request->rating[$key],
+                'komunikasi' => $request->rating[$key],
+                'disiplin' => $request->rating[$key],
+                'sikap' => $request->rating[$key],
+                'integritas' => $request->rating[$key],
+
+            ];
+            DB::table('assessments')->insert($data);
         }
-
-        return view('home', compact('total_mitra', 'currentsurveys', 'mitras'));
-
-        $record = Subdistricts::select()
-        ->where('created_at', '>', Carbon::today()->subDay(6))
-        ->groupBy('day_name', 'day')
-        ->orderBy('day')
-        ->get();
-
-        $data = [];
-
-        foreach ($record as $row) {
-            $data['label'][] = $row->day_name;
-            $data['data'][] = (int) $row->count;
-        }
-
-        $data['chart_data'] = json_encode($data);
-        return view('chart-js', $data);
+        return redirect('/surveys')->with('success-create', ' penilaian telah ditambah!');
     }
 
     public function data(Request $request)
     {
+
         if ($request->id == 0) {
             return json_encode([
                 "draw" => $request->draw,
@@ -108,9 +96,7 @@ class DashboardController extends Controller
                 $mitraData = array();
                 $mitraData["index"] = $i;
                 $mitraData["name"] = $mitra->name;
-                $mitraData["email"] = $mitra->email;
-                $mitraData["photo"] = $mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png');
-                $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
+                $mitraData["idpivot"] = $mitra->pivot->id;
                 $mitraData["id"] = $mitra->email;
                 $mitrasArray[] = $mitraData;
                 $i++;
@@ -122,5 +108,10 @@ class DashboardController extends Controller
                 "data" => $mitrasArray
             ]);
         }
+    }
+
+    public function store()
+    {
+        
     }
 }

@@ -115,4 +115,9 @@ class SurveyController extends Controller
             "data" => $surveysArray
         ]);
     }
+
+    public function show()
+    {
+        // $surveys = Surveys::all();
+    }
 }
