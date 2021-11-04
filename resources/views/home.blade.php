@@ -238,8 +238,8 @@
     
 
     <script type="text/javascript">
-        var labels = ["Dringu", "Gending", "Tongas", "Leces", "Dingu", "Krucil", "Wonoasih", "Paiton"];
-        var data = ["19","11","7","21","12","22","14","11"];
+        var labels = [{{ $subdistricts }}];
+        var data = [{{ $jumlah }}];
         var ctx = document.getElementById("mataChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',

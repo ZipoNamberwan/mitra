@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mitras;
+use App\Models\Subdistricts;
 use App\Models\Surveys;
 use DateTime;
 use Illuminate\Http\Request;
@@ -37,25 +38,12 @@ class DashboardController extends Controller
         }
 
         $mitras = Mitras::all();
-        // $nama_mitra = [];
-        // foreach($mitras as $mitra){
-        // $nama_mitra []= $mitra->name;
-        // // $nama_mitra = $mitra->name;
-        // dd($nama_mitra);
-        // }
-
         
-        // foreach($mitras as $mitra => ){
-        //     $mitra= $mitras->hasMany->mitra_id;
-        //     dd($mitra);
-        // }
+        // grafik
+        $subdistricts = Subdistricts::all();
+        $jumlah = count(Mitras::where($mitras->subdistrict == $subdistricts->id));
 
-        // $survey = Surveys::find($request->id);
-        //     $mitras = $survey->mitras;
-        //     $recordsTotal = count($mitras);
-        //     $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
-
-        return view('home', compact('total_mitra', 'currentsurveys', 'mitras'));
+        return view('home', compact('total_mitra', 'currentsurveys', 'mitras', 'subdistricts'));
     }
 
     public function data(Request $request)
@@ -110,8 +98,6 @@ class DashboardController extends Controller
                 $mitraData["index"] = $i;
                 $mitraData["name"] = $mitra->name;
                 $mitraData["email"] = $mitra->email;
-                $mitraData["photo"] = $mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png');
-                $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
                 $mitraData["id"] = $mitra->email;
                 $mitrasArray[] = $mitraData;
                 $i++;
