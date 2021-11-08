@@ -31,8 +31,10 @@ class AssessmentController extends Controller
             ]
         );
 
-        foreach ($request->idpivot as $key=>$insert){
-            $data = [
+        
+
+        foreach ((array)$request->rating as $key=>$insert){
+            $data = array(
                 'id' => $request->idpivot[$key],
                 'kerjasama' => $request->rating[$key],
                 'komunikasi' => $request->rating[$key],
@@ -40,9 +42,9 @@ class AssessmentController extends Controller
                 'sikap' => $request->rating[$key],
                 'integritas' => $request->rating[$key],
                 
-            ];
-            
-            DB::table('assessments')->insert($data);
+            );
+          
+            Assessments::insert($data);
         }
 
       
