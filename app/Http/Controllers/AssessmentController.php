@@ -33,19 +33,25 @@ class AssessmentController extends Controller
 
         
 
-        foreach ((array)$request->rating as $key=>$insert){
+        for ($i = 0; $i < count($request->rating); $i++){
             $data = array(
-                'id' => $request->idpivot[$key],
-                'kerjasama' => $request->rating[$key],
-                'komunikasi' => $request->rating[$key],
-                'disiplin' => $request->rating[$key],
-                'sikap' => $request->rating[$key],
-                'integritas' => $request->rating[$key],
-                
+                'kerjasama' => $request->rating[$i],
+                'komunikasi' => $request->rating[$i],
+                'disiplin' => $request->rating[$i],
+                'sikap' => $request->rating[$i],
+                'integritas' => $request->rating[$i],
             );
-          
-            Assessments::insert($data);
+            $assessment = Assessments::create($data);
+             DB::table('mitras_surveys')
+                    ->where('id', $request->idpivot[$i])
+                    ->update(['assessment_id'=> $assessment->id]);
+
+            
+            
+           
         }
+
+        
 
       
 

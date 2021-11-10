@@ -41,6 +41,7 @@ Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController:
 Route::post('/surveys/assessment', [App\Http\Controllers\AssessmentController::class, 'create'] );
 
 
+
 Route::resources([
     'mitras' => MitraController::class,
     'surveys' => SurveyController::class,
