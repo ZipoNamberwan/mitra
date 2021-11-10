@@ -19,7 +19,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $id)
     {
 
         $total_mitra = count(Mitras::all());
@@ -38,12 +38,36 @@ class DashboardController extends Controller
         }
 
         $mitras = Mitras::all();
-        
-        // grafik
-        $subdistricts = Subdistricts::all();
-        $jumlah = count(Mitras::where($mitras->subdistrict == $subdistricts->id));
+        $kecamatan = Subdistricts::all();
+        $data = [];
 
-        return view('home', compact('total_mitra', 'currentsurveys', 'mitras', 'subdistricts'));
+        foreach ($kecamatan as $dt) {
+            $data[$dt->name] = 0;
+        }
+
+        foreach ($mitras as $mitra) {
+            $data[$mitra->subdistrictdetail->name]++;
+        }
+        $label = [];
+        $total = [];
+
+        foreach ($data as $key => $value) {
+            $label[] = $key;
+            $total[] = $value;
+        }
+
+        return view('home', compact('total_mitra', 'mitras', 'currentsurveys', 'label', 'total'));
+    }
+
+
+    public function showproject(Request $request)
+    {
+        $dt = Subdistricts::all();
+        $project = count(Mitras::where('mitras', $request->subdistrict)->with('subdistricts', $request->id)->first());
+        return response()->json([
+            'sucess' => true,
+            'data' => $project,
+        ]);
     }
 
     public function data(Request $request)

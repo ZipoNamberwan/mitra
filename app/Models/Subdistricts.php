@@ -17,6 +17,6 @@ class Subdistricts extends Model
     }
     public function mitras()
     {
-        return $this->hasMany(Mitras::class, 'education');
+        return $this->hasMany(Mitras::class, 'education', 'subdistrict');
     }
 }

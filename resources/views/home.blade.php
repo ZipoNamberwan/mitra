@@ -115,10 +115,10 @@
                                 @foreach ($currentsurveys as $survey)
                                     <div class="row align-items-center">
                                         <div class="col ml--2 mb-3">
-                                            <h4 class="mb-0">
+                                            <h4 class="mb-0 ml-4">
                                                 <a> {{ $survey->name }} </a>
                                             </h4>
-                                            <span class="text-success ml-3">●</span>
+                                            <span class="text-success ml-5">●</span>
                                             <small>{{ $survey->start_date }} - </small>
                                             <span class="text-warning">●</span>
                                             <small>{{ $survey->end_date }}</small>
@@ -238,16 +238,16 @@
     
 
     <script type="text/javascript">
-        var labels = [{{ $subdistricts }}];
-        var data = [{{ $jumlah }}];
+        var label = {!!json_encode($label)!!};
+        var data = {!!json_encode($total)!!};
         var ctx = document.getElementById("mataChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: label,
                 datasets: [{
-                    label: 'Statistik User',
-                    backgroundColor: '#008080',
+                    label: 'Jumlah Mitra',
+                    backgroundColor: '#137AE1',
                     borderColor: '#00FA9A',
                     data: data
                 }],
@@ -294,6 +294,13 @@
                     "data": "email",
                 },
             ],
+            
+        "language": {
+            'paginate': {
+                'previous': '<i class="fas fa-angle-left"></i>',
+                'next': '<i class="fas fa-angle-right"></i>'
+            }
+        }
         });
 
         function filterSurvey() {
