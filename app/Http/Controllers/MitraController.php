@@ -12,7 +12,6 @@ use App\Models\Educations;
 use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
 use App\Models\Villages;
-use App\Exports\MitrasExport;
 use Illuminate\Http\Request;
 
 class MitraController extends Controller
@@ -245,7 +244,8 @@ class MitraController extends Controller
         ]);
     }
 
-    public function mitrasexport(){
+    public function mitrasexport()
+    {
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -287,35 +287,35 @@ class MitraController extends Controller
 
         //style table body
         $styleArray = [
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['argb' => '0000BFF'],
-                    ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '0000BFF'],
                 ],
-            ];
+            ],
+        ];
 
         $sheet->getStyle('A1:N' . $i)
-        ->applyFromArray($styleArray);
+            ->applyFromArray($styleArray);
 
         //style table header
         $styleArray = [
-                'alignment' => [
-                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'borders' => [
+                'bottom' => [
+                    'borderStyle' => Border::BORDER_MEDIUM,
+                    'color' => ['argb' => '0000BFF'],
                 ],
-                'borders' => [
-                    'bottom' => [
-                        'borderStyle' => Border::BORDER_MEDIUM,
-                        'color' => ['argb' => '0000BFF'],
-                    ],
-                ],
-                'font' => [
-                    'bold' => true,
-                ],
-            ];
+            ],
+            'font' => [
+                'bold' => true,
+            ],
+        ];
 
         $sheet->getStyle('A1:N1')
-        ->applyFromArray($styleArray);
+            ->applyFromArray($styleArray);
 
         //auto width all columns
         foreach (range('A', 'N') as $columnID) {
@@ -324,9 +324,9 @@ class MitraController extends Controller
 
         //title
         $sheet->insertNewRowBefore(1, 3)
-        ->mergeCells('A2:N2')
-        ->getRowDimension('2')
-        ->setRowHeight('20');
+            ->mergeCells('A2:N2')
+            ->getRowDimension('2')
+            ->setRowHeight('20');
         $sheet->setCellValue('A2', 'Data Mitra');
 
         unset($styleArray['borders']);
@@ -334,7 +334,7 @@ class MitraController extends Controller
         $styleArray['alignment']['vertical'] = Alignment::VERTICAL_CENTER;
 
         $sheet->getStyle('A2:N2')
-        ->applyFromArray($styleArray);
+            ->applyFromArray($styleArray);
 
         // $sheet->insertNewColumnBefore('A', '2');
 
@@ -345,6 +345,5 @@ class MitraController extends Controller
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
-        
     }
 }

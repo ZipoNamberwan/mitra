@@ -3,67 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessments;
-use App\Models\Mitras;
-use App\Models\Statuses;
 use App\Models\Surveys;
-use Illuminate\Database\Eloquent\Model;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class AssessmentController extends Controller
 {
-    public function getSurveyMitra(Request $request )
+    public function create(Request $request)
     {
         $idsurvey = $request->id;
-        $asses = Assessments::where('id',$request->idpivot);
-        $average = DB::table('assessments')
-        ->where('id', $request->id)
-        ->avg('kerjasama','disiplin','komunikasi','sikap','integritas');
         return view('survey.survey-assessment', compact('idsurvey'));
     }
 
-    public function create(Request $request)
+    public function assess(Request $request)
     {
+        $response = array();
+        try {
+            $pivot = DB::table('mitras_surveys')
+                ->where('id', '=', $request->idpivot)
+                ->first();
 
-
-        $this->validate(
-            $request,
-            [
-                'rating' => 'required',
-                'idpivot' => 'required'
-            ]
-        );
-
-        
-
-        for ($i = 0; $i < count($request->rating); $i++){
-            $data = array(
-                'kerjasama' => $request->rating[$i],
-                'komunikasi' => $request->rating[$i],
-                'disiplin' => $request->rating[$i],
-                'sikap' => $request->rating[$i],
-                'integritas' => $request->rating[$i],
-            );
-            $assessment = Assessments::create($data);
-             DB::table('mitras_surveys')
-                    ->where('id', $request->idpivot[$i])
-                    ->update(['assessment_id'=> $assessment->id]);
-
-            
-            
-           
+            if ($pivot->assessment_id != null) {
+                $assessment = Assessments::find($pivot->assessment_id);
+                $assessment->kerjasama = $request->value;
+                $assessment->komunikasi = $request->value;
+                $assessment->disiplin = $request->value;
+                $assessment->sikap = $request->value;
+                $assessment->integritas = $request->value;
+                $assessment->save();
+            } else {
+                $data = array(
+                    'kerjasama' => $request->value,
+                    'komunikasi' => $request->value,
+                    'disiplin' => $request->value,
+                    'sikap' => $request->value,
+                    'integritas' => $request->value,
+                );
+                $assessment = Assessments::create($data);
+                DB::table('mitras_surveys')
+                    ->where('id', $request->idpivot)
+                    ->update(['assessment_id' => $assessment->id]);
+            }
+            $response['is_success'] = true;
+            $response['test'] = $pivot->assessment_id;
+        } catch (Exception $e) {
+            $response['is_success'] = false;
+            $response['message'] = 'djasdjas';
         }
 
-        
-
-      
-
-
-        
-
-      
-        return redirect('/surveys')->with('success-create', ' penilaian telah ditambah!');
+        return $response;
     }
 
     public function data(Request $request)
@@ -118,6 +108,22 @@ class AssessmentController extends Controller
                 $mitraData = array();
                 $mitraData["index"] = $i;
                 $mitraData["name"] = $mitra->name;
+                $assessmentid = DB::table('mitras_surveys')
+                    ->where('id', '=', $mitra->pivot->id)
+                    ->first()->assessment_id;
+                if ($assessmentid != null) {
+                    $assessment = Assessments::find($assessmentid);
+                    $value = ($assessment->kerjasama
+                        + $assessment->komunikasi
+                        + $assessment->disiplin
+                        + $assessment->sikap
+                        + $assessment->integritas) / 5;
+
+                    $mitraData["value"] = $value;
+                } else {
+                    $mitraData["value"] = 7;
+                }
+
                 $mitraData["idpivot"] = $mitra->pivot->id;
                 $mitraData["id"] = $mitra->email;
                 $mitrasArray[] = $mitraData;

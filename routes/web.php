@@ -23,42 +23,22 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
 
-<<<<<<< HEAD
-    //
     Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data']);
     Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
     Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
-    //
+    Route::get('/assessment-data/{id}', [App\Http\Controllers\AssessmentController::class, 'data']);
+
     Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
     Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
     Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
-    //
-    Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
-
-    Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
-=======
-Route::get('/survey-data', [App\Http\Controllers\SurveyController::class, 'data'] );
-Route::get('/recruitment-data/{id}', [App\Http\Controllers\RecruitmentController::class, 'data']);
-Route::get('/mitra-data', [App\Http\Controllers\MitraController::class, 'data']);
-Route::get('/assessment-data/{id}', [App\Http\Controllers\AssessmentController::class, 'data']);
-
-Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'edit']);
-Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
-Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
-Route::get('/surveys/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'getSurveyMitra', 'edit']);
->>>>>>> assessment
 
     Route::get('/exportmitra', [App\Http\Controllers\MitraController::class, 'MitrasExport']);
 
-<<<<<<< HEAD
     Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept']);
     Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject']);
-=======
-Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept'] );
-Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject'] );
-Route::post('/surveys/assessment', [App\Http\Controllers\AssessmentController::class, 'create'] );
 
->>>>>>> assessment
+    Route::post('/assessment', [App\Http\Controllers\AssessmentController::class, 'assess']);
+    Route::get('/surveys/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'create']);
 
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
 

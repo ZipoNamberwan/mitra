@@ -33,7 +33,7 @@ class DashboardController extends Controller
 
             $s =  new DateTime($start);
             $e =  new DateTime($end);
-            if ($now > $s && $now < $e)
+            if ($now >= $s && $now <= $e)
                 $currentsurveys[] = $survey;
         }
 
