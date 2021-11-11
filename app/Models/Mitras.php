@@ -35,4 +35,10 @@ class Mitras extends Model
     {
         return $this->hasMany(PhoneNumbers::class, 'mitra_id', 'email');
     }
+    // public function total()
+	// {
+	// 	$sql = "SELECT * FROM mitras";
+	// 	$query = $this->db->query($sql);
+    // 	return $query->num_rows();
+	// }
 }
