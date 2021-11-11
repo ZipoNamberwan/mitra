@@ -13,9 +13,13 @@ use Illuminate\Support\Str;
 
 class AssessmentController extends Controller
 {
-    public function getSurveyMitra(Request $request)
+    public function getSurveyMitra(Request $request )
     {
         $idsurvey = $request->id;
+        $asses = Assessments::where('id',$request->idpivot);
+        $average = DB::table('assessments')
+        ->where('id', $request->id)
+        ->avg('kerjasama','disiplin','komunikasi','sikap','integritas');
         return view('survey.survey-assessment', compact('idsurvey'));
     }
 
