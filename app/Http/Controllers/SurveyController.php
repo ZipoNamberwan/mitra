@@ -71,6 +71,11 @@ class SurveyController extends Controller
         return redirect('/surveys')->with('success-delete', 'Survey telah dihapus!');
     }
 
+    public function getSurveyMitra()
+    {
+        return view('survey.survey-assessment');
+    }
+
     public function data(Request $request)
     {
         $recordsTotal = Surveys::count();
