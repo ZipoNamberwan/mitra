@@ -58,17 +58,7 @@ class DashboardController extends Controller
 
         return view('home', compact('total_mitra', 'mitras', 'currentsurveys', 'label', 'total'));
     }
-
-
-    public function showproject(Request $request)
-    {
-        $dt = Subdistricts::all();
-        $project = count(Mitras::where('mitras', $request->subdistrict)->with('subdistricts', $request->id)->first());
-        return response()->json([
-            'sucess' => true,
-            'data' => $project,
-        ]);
-    }
+    
 
     public function data(Request $request)
     {
