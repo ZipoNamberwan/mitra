@@ -56,9 +56,12 @@ class DashboardController extends Controller
             $total[] = $value;
         }
 
+        $label = json_encode($label);
+        $total = json_encode($total);
+
         return view('home', compact('total_mitra', 'mitras', 'currentsurveys', 'label', 'total'));
     }
-    
+
 
     public function data(Request $request)
     {
