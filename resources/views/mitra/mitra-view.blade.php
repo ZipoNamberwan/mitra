@@ -54,7 +54,9 @@
                         {{$mitra->name}}, <span class="font-weight-light" id="age"></span>
                     </h5>
                     <p>{{$mitra->address}}, {{$mitra->villagedetail->name}}, {{$mitra->subdistrictdetail->name}}</p>
+                    <div class="display-4 mt-0"><i class="fas fa-star text-yellow"></i> {{$mitra->avgrating()}}</div>
                 </div>
+
                 <div class="card-body">
                     <h6 class="heading-small text-muted mb-4">Informasi Umum</h6>
                     <div class="pl-lg-4">
@@ -124,7 +126,15 @@
                     <!-- Address -->
                     <h6 class="heading-small text-muted mb-4">Pengalaman Survei</h6>
                     <div class="pl-lg-4">
-
+                        @if(count($mitra->surveys) > 0)
+                        <p>
+                            @foreach($mitra->surveys as $survey)
+                            {{$survey->name}},
+                            @endforeach
+                        </p>
+                        @else
+                        <p>-</p>
+                        @endif
                     </div>
                 </div>
             </div>

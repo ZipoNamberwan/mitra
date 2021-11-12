@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Surveys;
 use Illuminate\Http\Request;
+use DateTime;
+
 
 class SurveyController extends Controller
 {
@@ -24,8 +26,8 @@ class SurveyController extends Controller
             $request,
             [
                 'name' => 'required',
-                'start_date' => 'required',
-                'end_date' => 'required'
+                'start_date' => 'required|before:end_date',
+                'end_date' => 'required|after:start_date'
             ]
         );
 
@@ -50,8 +52,8 @@ class SurveyController extends Controller
             $request,
             [
                 'name' => 'required',
-                'start_date' => 'required',
-                'end_date' => 'required'
+                'start_date' => 'required|before:end_date',
+                'end_date' => 'required|after:start_date'
             ]
         );
 
@@ -98,6 +100,7 @@ class SurveyController extends Controller
             }
         }
 
+        $now = new DateTime(date("Y-m-d"));
         $surveys = Surveys::where('name', 'like', '%' . $request->search["value"] . '%')
             ->orderByRaw($orderColumn . ' ' . $orderDir)
             ->get();
@@ -109,6 +112,11 @@ class SurveyController extends Controller
             $surveyData["name"] = $survey->name;
             $surveyData["start_date"] = $survey->start_date;
             $surveyData["end_date"] = $survey->end_date;
+            if ($now > new DateTime($survey->end_date)) {
+                $surveyData["can_assess"] = true;
+            } else {
+                $surveyData["can_assess"] = false;
+            }
             $surveyData["id"] = $survey->id;
             $surveysArray[] = $surveyData;
             $i++;

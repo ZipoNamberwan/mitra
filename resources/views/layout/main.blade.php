@@ -78,9 +78,9 @@
                                     <li class="nav-item">
                                         <a href="/recruitments" class="nav-link @if(str_contains(url()->current(), url('/recruitments'))) active @endif">Rekruitmen Mitra</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="" class="nav-link">Beban Kerja</a>
-                                    </li>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a href="" class="nav-link">Statistik</a>
                                     </li> -->
@@ -104,7 +104,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/images')}}">
+                            <a class="nav-link" href="/download">
                                 <i class="fas fa-folder-open text-danger"></i>
                                 <span class="nav-link-text">Unduh</span>
                             </a>

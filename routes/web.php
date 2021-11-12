@@ -38,9 +38,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject']);
 
     Route::post('/assessment', [App\Http\Controllers\AssessmentController::class, 'assess']);
-    Route::get('/surveys/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'create']);
+    Route::get('/surveys/{id}/assessment', [App\Http\Controllers\AssessmentController::class, 'create']);
 
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
+
+    Route::get('/download', [App\Http\Controllers\DownloadController::class, 'index']);
 
     Route::resources([
         'mitras' => MitraController::class,

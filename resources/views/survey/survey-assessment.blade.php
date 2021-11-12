@@ -37,8 +37,10 @@
                     <div class="row">
                         <div class="col-6">
                             <h3 class="mb-0">Penilaian Mitra</h3>
+                            <p class="mb-0"><small>Menu ini digunakan untuk melakukan penilaian mitra</small></p>
+                            <p class="mb-0"><small>Range nilai yang bisa diberikan adalah 1 (Sangat Buruk) sampai 10 (Sangat Baik). Nilai default adalah 7 (Sedang)</small></p>
+                            <p class="mb-0"><small>Jika indikator input warna hijau berarti nilai sudah tersimpan, jika merah berarti gagal simpan</small></p>
                         </div>
-
                     </div>
                 </div>
                 <div class="table-responsive py-4">
@@ -120,7 +122,6 @@
             success: function(result, status, xhr) {
                 if (result.is_success) {
                     element.classList.add("is-valid");
-                    console.log(result.test);
                 } else {
                     element.classList.add("is-invalid");
                 }

@@ -124,17 +124,17 @@
 
                         </thead>
                         <tbody>
-                            @foreach ($mitras as $mitra)
+                            @foreach ($bestmitras as $bestmitra)
                             <tr>
                                 <th scope="row">
-                                    {{ $mitra->name }}
+                                    {{ $bestmitra->name }}
                                 </th>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-2">100</span>
+                                        <span class="mr-2"><strong>{{ number_format((float)$bestmitra->totalaverage, 2, '.', '');  }}</strong></span>
                                         <div>
                                             <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{(int)$bestmitra->totalaverage * 10}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
     <div class="row">
         <div class="col">

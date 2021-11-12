@@ -7,6 +7,7 @@ use App\Models\Subdistricts;
 use App\Models\Surveys;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -59,7 +60,9 @@ class DashboardController extends Controller
         $label = json_encode($label);
         $total = json_encode($total);
 
-        return view('home', compact('total_mitra', 'mitras', 'currentsurveys', 'label', 'total'));
+        $bestmitras = DB::select('SELECT `assessmentvalue`.`mitra_id`, `assessmentvalue`.`cooperation`, `assessmentvalue`.`communication`, `assessmentvalue`.`dicipline`, `assessmentvalue`.`itskill`, `assessmentvalue`.`integrity`, `mitras`.`name`, (`assessmentvalue`.`cooperation` + `assessmentvalue`.`communication` + `assessmentvalue`.`dicipline`+ `assessmentvalue`.`itskill`+ `assessmentvalue`.`integrity`)/5 AS `totalaverage` FROM (SELECT `mitra_id`, AVG(`cooperation`) AS `cooperation`, AVG(`communication`) AS `communication`, AVG(`dicipline`) AS `dicipline`, AVG(`itskill`) AS `itskill`, AVG(`integrity`) AS `integrity` FROM `assessments`, `mitras_surveys` WHERE `assessments`.`id` = `mitras_surveys`.`assessment_id` GROUP BY `mitra_id`) AS `assessmentvalue`, `mitras` WHERE `mitras`.email = `assessmentvalue`.mitra_id ORDER BY `totalaverage` DESC  LIMIT 10');
+
+        return view('home', compact('total_mitra', 'bestmitras', 'currentsurveys', 'label', 'total'));
     }
 
 

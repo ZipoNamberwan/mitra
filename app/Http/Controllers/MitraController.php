@@ -231,6 +231,7 @@ class MitraController extends Controller
             $mitraData["photo"] = $mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png');
             $mitraData["nickname"] = $mitra->nickname;
             $mitraData["email"] = $mitra->email;
+            $mitraData["rating"] = $mitra->avgrating();
             $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
             $mitraData["id"] = $mitra->email;
             $mitrasArray[] = $mitraData;

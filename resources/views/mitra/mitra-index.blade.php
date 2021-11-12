@@ -80,6 +80,7 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>No HP Utama</th>
+                                <th>Rating</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -127,10 +128,10 @@
                 }
             }, {
                 "responsivePriority": 1,
-                "width": "12%",
+                "width": "8%",
                 "data": "name",
                 "render": function(data, type, row) {
-                    return "<a href=\"/mitras/" + row.id + "\">" + data + "</a>";
+                    return "<a target=\"_blank\" href=\"/mitras/" + row.id + "\">" + data + "</a>";
                 }
             },
             {
@@ -142,6 +143,11 @@
                 "responsivePriority": 1,
                 "width": "5%",
                 "data": "phone",
+            },
+            {
+                "responsivePriority": 1,
+                "width": "5%",
+                "data": "rating",
             },
             {
                 "responsivePriority": 7,
