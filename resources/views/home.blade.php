@@ -73,39 +73,6 @@
 
     <div class="row">
         <div class="col-xl-6">
-            <!-- Members list group card -->
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header">
-                    <!-- Title -->
-                    <h5 class="h3 mb-0">Survey yang Sedang Berjalan</h5>
-                </div>
-                <!-- Card body -->
-                <div class="card-body">
-                    <!-- List group -->
-                    <ul class="list-group list-group-flush list my--3" id="list-group">
-                        @foreach ($currentsurveys as $survey)
-                        <li class="list-group-item px-0">
-                            <div class="row align-items-center">
-                                <div class="col ml--2 mb-2">
-                                    <h4 class="mb-2 ml-4">
-                                        <a> {{ $survey->name }} </a>
-                                    </h4>
-                                    <span class="text-success ml-5">●</span>
-                                    <small id="start{{$survey->id}}"></small>
-                                    <small>&emsp;</small>
-                                    <span class="text-warning">●</span>
-                                    <small id="end{{$survey->id}}"></small>
-                                </div>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-6">
             <div class="card">
                 <div class="card-header border-0">
                     <div class="row align-items-center">
@@ -146,27 +113,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h5 class="h3 mb-0">Jumlah Mitra Per Kecamatan</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="ct-chart ct-double-octave"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
+        <div class="col-lg-6">
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
@@ -208,6 +155,62 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="h3 mb-0">Jumlah Mitra Per Kecamatan</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="ct-chart ct-double-octave"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (count($currentsurveys) > 0)
+    <div class="row">
+        <div class="col-12">
+            <!-- Members list group card -->
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <!-- Title -->
+                    <h5 class="h3 mb-0">Survey yang Sedang Berjalan</h5>
+                </div>
+                <!-- Card body -->
+                <div class="card-body">
+                    <!-- List group -->
+                    <ul class="list-group list-group-flush list my--3" id="list-group">
+                        @foreach ($currentsurveys as $survey)
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                                <div class="col ml--2 mb-2">
+                                    <h4 class="mb-2 ml-4">
+                                        <a> {{ $survey->name }} </a>
+                                    </h4>
+                                    <span class="text-success ml-5">●</span>
+                                    <small id="start{{$survey->id}}"></small>
+                                    <small>&emsp;</small>
+                                    <span class="text-warning">●</span>
+                                    <small id="end{{$survey->id}}"></small>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endif
+
 </div>
 
 @endsection

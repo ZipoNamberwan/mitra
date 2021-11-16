@@ -1,0 +1,36 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Mitras;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class MitrasFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+
+    protected $model = Mitras::class;
+
+    public function definition()
+    {
+        $sexvalues = ['L', 'P'];
+        return [
+            'email' => $this->faker->unique()->safeEmail(),
+            'code' => $this->faker->numberBetween(340000000, 340099999),
+            'name' => $this->faker->name(),
+            'nickname' => $this->faker->name(),
+            'sex' => $sexvalues[$this->faker->numberBetween(0, 1)],
+            'photo' => $this->faker->imageUrl($width = 640, $height = 480),
+            'education' => $this->faker->numberBetween(1, 6),
+            'birthdate' => $this->faker->date,
+            'profession' => $this->faker->text,
+            'address' => $this->faker->address,
+            'village' => $this->faker->numberBetween(1, 7),
+            'subdistrict' => $this->faker->numberBetween(1, 3),
+        ];
+    }
+}

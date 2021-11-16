@@ -68,7 +68,6 @@ class RecruitmentController extends Controller
             $survey = Surveys::find($request->id);
             $mitras = $survey->mitras;
             $recordsTotal = count($mitras);
-            $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
             $orderColumn = 'name';
             $orderDir = 'desc';
@@ -92,6 +91,8 @@ class RecruitmentController extends Controller
                     return Str::contains(strtolower($q['name']), strtolower($searchkeyword));
                 });
             }
+            $recordsFiltered = $mitras->count();
+
             if ($orderDir == 'asc') {
                 $mitras = $mitras->sortBy($orderColumn)->skip($request->start)
                     ->take($request->length);
@@ -101,15 +102,16 @@ class RecruitmentController extends Controller
             }
 
             $mitrasArray = array();
-            $i = 1;
+            $i = $request->start + 1;
             foreach ($mitras as $mitra) {
                 $mitraData = array();
                 $mitraData["index"] = $i;
                 $mitraData["name"] = $mitra->name;
                 $mitraData["email"] = $mitra->email;
                 $mitraData["photo"] = $mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png');
-                $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
-                $status = Statuses::find($mitra->surveys[0]->pivot->status_id);
+                // $mitraData["phone"] = count($mitra->phonenumbers) > 0 ? $mitra->phonenumbers[0]->phone : '';
+                $mitraData["phone"] = $mitra->pivot->phone_survey ?? '-';
+                $status = Statuses::find($mitra->pivot->status_id);
                 $mitraData["status_id"] = $status->name;
                 $mitraData["status_color"] = 'secondary';
                 if ($status->id == 2) {

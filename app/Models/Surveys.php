@@ -13,6 +13,6 @@ class Surveys extends Model
 
     public function mitras()
     {
-        return $this->belongsToMany(Mitras::class, 'mitras_surveys', 'survey_id', 'mitra_id', 'id', 'email')->withPivot('id');
+        return $this->belongsToMany(Mitras::class, 'mitras_surveys', 'survey_id', 'mitra_id', 'id', 'email')->withPivot('id', 'status_id', 'assessment_id', 'phone_survey');
     }
 }

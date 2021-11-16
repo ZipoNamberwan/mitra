@@ -60,10 +60,6 @@
                             <h3 class="mb-0">Daftar Mitra</h3>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="{{url('/exportmitra')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Tambah mitra">
-                                <span class="btn-inner--icon"><i class="fas fa-download"></i></span>
-                                <span class="btn-inner--text">Export ke Excel</span>
-                            </a>
                             <a href="{{url('/mitras/create')}}" class="btn btn-primary btn-round btn-icon mb-2" data-toggle="tooltip" data-original-title="Tambah mitra">
                                 <span class="btn-inner--icon"><i class="fas fa-plus-circle"></i></span>
                                 <span class="btn-inner--text">Tambah</span>

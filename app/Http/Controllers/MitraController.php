@@ -13,6 +13,7 @@ use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
 use App\Models\Villages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MitraController extends Controller
 {
@@ -196,10 +197,6 @@ class MitraController extends Controller
     public function data(Request $request)
     {
         $recordsTotal = Mitras::count();
-        $recordsFiltered = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
-            ->orWhere('nickname', 'like', '%' . $request->search["value"] . '%')
-            ->orWhere('email', 'like', '%' . $request->search["value"] . '%')
-            ->count();
 
         $orderColumn = 'created_at';
         $orderDir = 'desc';
@@ -215,15 +212,28 @@ class MitraController extends Controller
                 $orderColumn = 'email';
             }
         }
-        $mitras = Mitras::where('name', 'like', '%' . $request->search["value"] . '%')
-            ->orWhere('nickname', 'like', '%' . $request->search["value"] . '%')
-            ->orWhere('email', 'like', '%' . $request->search["value"] . '%')
-            ->orderByRaw($orderColumn . ' ' . $orderDir)
-            ->skip($request->start)
-            ->take($request->length)
-            ->get();
+        $searchkeyword = $request->search['value'];
+        $mitras = Mitras::all();
+        if ($searchkeyword != null) {
+            $mitras = $mitras->filter(function ($q) use (
+                $searchkeyword
+            ) {
+                return Str::contains(strtolower($q['name']), strtolower($searchkeyword)) ||
+                    Str::contains(strtolower($q['email']), strtolower($searchkeyword)) ||
+                    Str::contains(strtolower($q['nickname']), strtolower($searchkeyword));
+            });
+        }
+        $recordsFiltered = $mitras->count();
+
+        if ($orderDir == 'asc') {
+            $mitras = $mitras->sortBy($orderColumn)->skip($request->start)
+                ->take($request->length);
+        } else {
+            $mitras = $mitras->sortByDesc($orderColumn)->skip($request->start)
+                ->take($request->length);
+        }
         $mitrasArray = array();
-        $i = 1;
+        $i = $request->start + 1;
         foreach ($mitras as $mitra) {
             $mitraData = array();
             $mitraData["index"] = $i;

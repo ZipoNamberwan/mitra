@@ -112,7 +112,7 @@ class DashboardController extends Controller
             }
 
             $mitrasArray = array();
-            $i = 1;
+            $i = $request->start + 1;
             foreach ($mitras as $mitra) {
                 $mitraData = array();
                 $mitraData["index"] = $i;

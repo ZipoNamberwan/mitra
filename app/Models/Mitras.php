@@ -30,7 +30,7 @@ class Mitras extends Model
     }
     public function surveys()
     {
-        return $this->belongsToMany(Surveys::class, 'mitras_surveys', 'mitra_id', 'survey_id', 'email', 'id')->withPivot('status_id', 'assessment_id');
+        return $this->belongsToMany(Surveys::class, 'mitras_surveys', 'mitra_id', 'survey_id', 'email', 'id')->withPivot('id', 'status_id', 'assessment_id', 'phone_survey');
     }
     public function avgrating()
     {

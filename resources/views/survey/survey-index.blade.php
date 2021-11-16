@@ -73,6 +73,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
+                                <th>Status</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Berakhir</th>
                                 <th>Action</th>
@@ -114,6 +115,23 @@
                 "responsivePriority": 1,
                 "width": "12%",
                 "data": "name",
+            },
+            {
+                "responsivePriority": 1,
+                "width": "5%",
+                "data": "status",
+                "render": function(data, type, row) {
+                    if (type == 'display') {
+                        if (data == "1") {
+                            return '<span class="badge badge-' + row.status_color + '">' + row.status_name + '</span>';
+                        } else if (data == "2") {
+                            return '<span class="badge badge-' + row.status_color + '">' + row.status_name + '</span>';
+                        } else {
+                            return '<span class="badge badge-' + row.status_color + '">' + row.status_name + '</span>';
+                        }
+                    }
+                    return data;
+                }
             },
             {
                 "responsivePriority": 1,

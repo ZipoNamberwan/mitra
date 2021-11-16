@@ -103,7 +103,6 @@ class AssessmentController extends Controller
             $survey = Surveys::find($request->id);
             $mitras = $survey->mitras;
             $recordsTotal = count($mitras);
-            $recordsFiltered = $mitras->where('name', 'like', '%' . $request->search["value"] . '%')->count();
 
             $orderColumn = 'name';
             $orderDir = 'desc';
@@ -127,6 +126,7 @@ class AssessmentController extends Controller
                     return Str::contains(strtolower($q['name']), strtolower($searchkeyword));
                 });
             }
+            $recordsFiltered = $mitras->count();
             if ($orderDir == 'asc') {
                 $mitras = $mitras->sortBy($orderColumn)->skip($request->start)
                     ->take($request->length);
@@ -136,7 +136,7 @@ class AssessmentController extends Controller
             }
 
             $mitrasArray = array();
-            $i = 1;
+            $i = $request->start + 1;
             foreach ($mitras as $mitra) {
                 $mitraData = array();
                 $mitraData["index"] = $i;

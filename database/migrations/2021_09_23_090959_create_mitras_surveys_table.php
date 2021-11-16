@@ -23,6 +23,7 @@ class CreateMitrasSurveysTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->unsignedBigInteger('assessment_id')->nullable();
             $table->foreign('assessment_id')->references('id')->on('assessments');
+            $table->string('phone_survey', 30)->nullable();
         });
     }
 

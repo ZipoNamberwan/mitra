@@ -100,7 +100,7 @@
                                             <th>#</th>
                                             <th>Nama</th>
                                             <th>Email</th>
-                                            <th>No HP Utama</th>
+                                            <th>No HP</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>

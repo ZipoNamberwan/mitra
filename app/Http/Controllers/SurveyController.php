@@ -105,17 +105,27 @@ class SurveyController extends Controller
             ->orderByRaw($orderColumn . ' ' . $orderDir)
             ->get();
         $surveysArray = array();
-        $i = 1;
+        $i = $request->start + 1;
         foreach ($surveys as $survey) {
             $surveyData = array();
             $surveyData["index"] = $i;
             $surveyData["name"] = $survey->name;
             $surveyData["start_date"] = $survey->start_date;
             $surveyData["end_date"] = $survey->end_date;
-            if ($now > new DateTime($survey->end_date)) {
-                $surveyData["can_assess"] = true;
+            $surveyData["can_assess"] = false;
+            if ($now < new DateTime($survey->start_date)) {
+                $surveyData["status"] = "1";
+                $surveyData["status_name"] = "Belum Mulai";
+                $surveyData["status_color"] = "secondary";
+            } else if ($now >= new DateTime($survey->start_date) && $now <= new DateTime($survey->end_date)) {
+                $surveyData["status"] = "2";
+                $surveyData["status_name"] = "Sedang Berjalan";
+                $surveyData["status_color"] = "info";
             } else {
-                $surveyData["can_assess"] = false;
+                $surveyData["status"] = "3";
+                $surveyData["status_name"] = "Sudah Selesai";
+                $surveyData["status_color"] = "success";
+                $surveyData["can_assess"] = true;
             }
             $surveyData["id"] = $survey->id;
             $surveysArray[] = $surveyData;

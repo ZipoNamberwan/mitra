@@ -32,8 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
     Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 
-    Route::get('/exportmitra', [App\Http\Controllers\MitraController::class, 'MitrasExport']);
-
     Route::post('/recruitments/accept', [App\Http\Controllers\RecruitmentController::class, 'accept']);
     Route::post('/recruitments/reject', [App\Http\Controllers\RecruitmentController::class, 'reject']);
 
@@ -43,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
 
     Route::get('/download', [App\Http\Controllers\DownloadController::class, 'index']);
+    Route::post('/download', [App\Http\Controllers\DownloadController::class, 'create']);
 
     Route::resources([
         'mitras' => MitraController::class,
