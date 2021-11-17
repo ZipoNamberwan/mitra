@@ -238,8 +238,8 @@
     
 
     <script type="text/javascript">
-        var labels = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        var data = [];
+        var labels = {!! json_encode($label) !!};
+        var data = ["200", "550", "300"];
         var ctx = document.getElementById("mataChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -247,7 +247,7 @@
                 labels: labels,
                 datasets: [{
                     label: 'Statistik User',
-                    backgroundColor: '#008080',
+                    backgroundColor: '#0080FF',
                     borderColor: '#00FA9A',
                     data: data
                 }],

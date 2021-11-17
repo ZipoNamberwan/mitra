@@ -38,7 +38,14 @@ class DashboardController extends Controller
                 $currentsurveys[] = $survey;
         }
 
-        return view('home', compact('total_mitra', 'currentsurveys', 'mitras'));
+        $mitras = Mitras::all();
+        $kecamatan = Subdistricts::all();
+        $label = [];
+
+        foreach($kecamatan as $sd){
+            $label [] = $sd->name;
+        }
+        return view('home', compact('total_mitra', 'currentsurveys', 'mitras', 'label'));
 
         $record = Subdistricts::select()
         ->where('created_at', '>', Carbon::today()->subDay(6))
