@@ -33,6 +33,7 @@ Route::get('/mitra-edit/{$id}', [App\Http\Controllers\MitraController::class, 'e
 Route::get('/mitra-update/{$id}', [App\Http\Controllers\MitraController::class, 'update']);
 Route::get('/mitras/village/{id}', [App\Http\Controllers\MitraController::class, 'getVillage']);
 Route::get('/surveys/{id}/rate', [App\Http\Controllers\AssessmentController::class, 'getSurveyMitra', 'edit']);
+Route::get('loginuser', [App\Http\Controllers\LoginController::class, 'login']);
 
 Route::get('/recruitment/mitras_surveys/{id}', [App\Http\Controllers\RecruitmentController::class, 'json']);
 
