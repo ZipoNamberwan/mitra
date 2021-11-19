@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Mitras extends Model
@@ -14,7 +13,6 @@ class Mitras extends Model
     protected $guarded = [];
     protected $keyType = 'string';
     public $incrementing = false;
-    use SoftDeletes;
 
     public function educationdetail()
     {
@@ -40,15 +38,8 @@ class Mitras extends Model
         }
         return '-';
     }
-
     public function phonenumbers()
     {
         return $this->hasMany(PhoneNumbers::class, 'mitra_id', 'email');
     }
-    // public function total()
-    // {
-    // 	$sql = "SELECT * FROM mitras";
-    // 	$query = $this->db->query($sql);
-    // 	return $query->num_rows();
-    // }
 }

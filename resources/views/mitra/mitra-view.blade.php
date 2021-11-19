@@ -38,7 +38,7 @@
                     <div class="col-lg-3 order-lg-2">
                         <div class="card-profile-image">
                             <a href="#">
-                                <img src="{{$mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png')}}" class="rounded-circle">
+                                <img src="{{$mitra->photo != null ? asset('storage/' . $mitra->photo) : asset('storage/images/profile.png')}}" class="rounded-circle image-profile">
                             </a>
                         </div>
                     </div>
@@ -46,7 +46,11 @@
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                     <div class="d-flex justify-content-between">
                         <a href="/mitras/{{$mitra->email}}/edit" class="btn btn-sm btn-success mr-4">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger float-right">Hapus</a>
+                        <form id="formdelete" onsubmit="deletemitra('{{$mitra->email}}','{{$mitra->name}}')" method="POST" action="/mitras/{{$mitra->email}}">
+                            @method("delete")
+                            @csrf
+                            <button class="btn btn-sm btn-danger float-right" type="submit" data-toggle="tooltip" data-original-title="Hapus Data">Hapus</button>
+                        </form>
                     </div>
                 </div>
                 <div class="text-center">
@@ -149,6 +153,7 @@
 <script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 <script src="/assets/vendor/momentjs/moment-with-locales.js"></script>
+<script src="/assets/vendor/sweetalert2/dist/sweetalert2.js"></script>
 
 <script>
     function getAge(dateString) {
@@ -164,5 +169,25 @@
     }
 
     document.getElementById("age").innerHTML = getAge("{{$mitra->birthdate}}");
+</script>
+
+<script>
+    function deletemitra($id, $name) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Yakin Hapus Mitra Ini?',
+            text: $name,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('formdelete').submit();
+            }
+        })
+    }
 </script>
 @endsection

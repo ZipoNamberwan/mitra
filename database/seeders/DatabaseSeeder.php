@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             AreaSeeder::class,
             UserSeeder::class,
+            CounterSeeder::class,
             ContentTestingSeeder::class
         ]);
     }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Mitras;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class MitrasFactory extends Factory
 {
@@ -18,9 +19,12 @@ class MitrasFactory extends Factory
     public function definition()
     {
         $sexvalues = ['L', 'P'];
+        $mitracounter = DB::table('counter')->where('id', 'mitras_counter')->first()->value + 1;
+        DB::table('counter')->where('id', 'mitras_counter')
+            ->update(['value' => $mitracounter]);
         return [
             'email' => $this->faker->unique()->safeEmail(),
-            'code' => $this->faker->numberBetween(340000000, 340099999),
+            'code' => sprintf("%05s", $mitracounter),
             'name' => $this->faker->name(),
             'nickname' => $this->faker->name(),
             'sex' => $sexvalues[$this->faker->numberBetween(0, 1)],

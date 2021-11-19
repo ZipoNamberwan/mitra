@@ -191,25 +191,6 @@
 </script>
 
 <script>
-    function unduhmitra($id, $name) {
-        event.preventDefault();
-        Swal.fire({
-            title: 'Yakin Unduh Mitra Ini?',
-            text: $name,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('formunduh' + $id).submit();
-            }
-        })
-    }
-</script>
-<script>
     function changeStatus($id, $email) {
         var checkboxes = document.getElementsByName('published' + email);
         var loading = document.getElementById('loading-background');

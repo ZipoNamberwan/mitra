@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Mitras;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PhoneNumbersFactory extends Factory
@@ -14,10 +15,17 @@ class PhoneNumbersFactory extends Factory
      */
     public function definition()
     {
+        $mitra = Mitras::factory()->create();
+        User::create([
+            'name' => $mitra->name,
+            'email' => $mitra->email,
+            'password' => '',
+            'avatar' => $mitra->photo
+        ]);
         return [
             'phone' => $this->faker->phoneNumber,
             'is_main' => true,
-            'mitra_id' => Mitras::factory()->create(),
+            'mitra_id' => $mitra->email,
         ];
     }
 }

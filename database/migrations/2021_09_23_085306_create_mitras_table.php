@@ -31,7 +31,6 @@ class CreateMitrasTable extends Migration
             $table->unsignedBigInteger('subdistrict');
             $table->foreign('subdistrict')->references('id')->on('subdistricts');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

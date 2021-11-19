@@ -169,7 +169,10 @@
                         '@method("delete")' +
                         '@csrf' +
                         "<button class=\"btn btn-icon btn-outline-danger btn-sm\" type=\"submit\" data-toggle=\"tooltip\" data-original-title=\"Hapus Data\">" +
-                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button></form>";
+                        "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button>" +
+                        "</form>" +
+                        "<input id=\"link" + data + "\" type=\"hidden\" value=\"test\">" +
+                        "<button onclick=\"copy('" + data + "','dasdadsadas')\" class=\"btn btn-icon btn-outline-primary btn-sm\"><span class=\"btn-inner--icon\"><i class=\"fas fa-link\"></i></span></button>";
                     if (row.can_assess) {
                         html = html +
                             "<a href=\"/surveys/" + data + "/assessment\" class=\"btn btn-outline-success btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Nilai Mitra\">" +
@@ -186,6 +189,12 @@
             }
         }
     });
+</script>
+
+<script>
+    function copy(id, text) {
+        navigator.clipboard.writeText(text);
+    }
 </script>
 
 <script>

@@ -44,25 +44,8 @@
                   <div class="col-md-14 mb-3">
                     <label class="form-control-label" for="email">E-mail* <small>Email harus menggunakan akun GMAIL</small></label>
                     <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="validationCustom03" placeholder="email@gmail.com" value="{{@old('email', $mitra->email)}}">
+                    
                     @error('email')
-                    <div class="invalid-feedback">
-                      {{$message}}
-                    </div>
-                    @enderror
-                  </div>
-                  <!-- <div class="col-md-14 mb-3">
-                    <label class="form-control-label" for="phone">Nomor Handphone*</label>
-                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="validationCustom03" value="{{@old('phone')}}">
-                    @error('phone')
-                    <div class="invalid-feedback">
-                      {{$message}}
-                    </div>
-                    @enderror
-                  </div> -->
-                  <div class="col-md-14 mb-3 ">
-                    <label class="form-control-label " for="validationCustom03">Kode Mitra*</label>
-                    <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" id="validationCustom03" readonly value="{{@old('code', $mitra->code)}}">
-                    @error('code')
                     <div class="invalid-feedback">
                       {{$message}}
                     </div>
@@ -88,7 +71,7 @@
                   </div>
                   <div class="col-md-14 mb-3">
                     <label class="form-control-label" for="">Foto</label>
-                    <img class="img-preview img-fluid mb-3 col-sm-5" src="{{asset('storage/' . $mitra->photo)}}" style="display:block">
+                    <img class="img-preview img-fluid mb-3 col-sm-5 image-preview" src="@if($mitra->photo != null) {{asset('storage/' . $mitra->photo)}} @endif" style="display:block">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="photo" name="photo" lang="en" onchange="previewPhoto()" accept="image/*">
                       <label class="custom-file-label" for="customFileLang" id="photolabel">Pilih Gambar</label>

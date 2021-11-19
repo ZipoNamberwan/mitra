@@ -11,8 +11,10 @@ use App\Models\Mitras;
 use App\Models\Educations;
 use App\Models\PhoneNumbers;
 use App\Models\Subdistricts;
+use App\Models\User;
 use App\Models\Villages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class MitraController extends Controller
@@ -37,7 +39,6 @@ class MitraController extends Controller
         return view('mitra.mitra-create', [
             'educations' => Educations::all(),
             'subdistricts' => Subdistricts::all(),
-            'code' => sprintf("%05s", count(Mitras::withTrashed()->get()) + 1),
         ]);
     }
     public function getVillage($id)
@@ -56,9 +57,8 @@ class MitraController extends Controller
     {
 
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:mitras,email',
             'phone' => 'required',
-            'code' => 'required',
             'name' => 'required',
             'sex' => 'required',
             'education' => 'required',
@@ -75,10 +75,13 @@ class MitraController extends Controller
             $path = $image->store('images', 'public');
         }
 
+        $mitracounter = DB::table('counter')->where('id', 'mitras_counter')->first()->value + 1;
+        DB::table('counter')->where('id', 'mitras_counter')
+            ->update(['value' => $mitracounter]);
         $mitra = Mitras::create([
             'email' => $request->email,
-            'code' => $request->code,
             'name' => $request->name,
+            'code' => sprintf("%05s", $mitracounter),
             'nickname' => $request->nickname,
             'sex' => $request->sex,
             'photo' => $path,
@@ -88,7 +91,6 @@ class MitraController extends Controller
             'address' => $request->address,
             'village' => $request->village,
             'subdistrict' => $request->subdistrict
-
         ]);
 
         PhoneNumbers::create([
@@ -96,6 +98,23 @@ class MitraController extends Controller
             'is_main' => true,
             'mitra_id' => $mitra->email
         ]);
+
+        $user = User::where('email', $request->email)->first();
+        if ($user == null) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => '',
+                'avatar' => $mitra->photo
+            ]);
+        } else {
+            $data = ([
+                'email' => $request->email,
+                'name' => $request->name,
+                'avatar' => $mitra->photo,
+            ]);
+            $user->update($data);
+        }
 
         return redirect('/mitras')->with('success-create', 'Data Mitra telah direkam!');
     }
@@ -140,11 +159,8 @@ class MitraController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'email' => 'required|email',
-            // 'phone' => 'required',
-            'code' => 'required',
             'name' => 'required',
             'sex' => 'required',
             'education' => 'required',
@@ -164,7 +180,6 @@ class MitraController extends Controller
         $mitra = Mitras::where('email', $id)->first();
         $data = ([
             'email' => $request->email,
-            'code' => $request->code,
             'name' => $request->name,
             'nickname' => $request->nickname,
             'sex' => $request->sex,
@@ -177,6 +192,23 @@ class MitraController extends Controller
             'subdistrict' => $request->subdistrict
         ]);
         $mitra->update($data);
+
+        $user = User::where('email', $id)->first();
+        if ($user == null) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => '',
+                'avatar' => $mitra->photo
+            ]);
+        } else {
+            $data = ([
+                'email' => $request->email,
+                'name' => $request->name,
+                'avatar' => $mitra->photo,
+            ]);
+            $user->update($data);
+        }
 
         return redirect('/mitras')->with('success-create', 'Data Mitra telah direkam!');
     }
@@ -191,6 +223,10 @@ class MitraController extends Controller
     {
         $mitra = Mitras::find($id);
         $mitra->delete();
+        $user = User::where('email', $id)->first();
+        if ($user != null) {
+            $user->delete();
+        }
         return redirect('/mitras')->with('success-delete', 'Data Mitra telah dihapus!');
     }
 

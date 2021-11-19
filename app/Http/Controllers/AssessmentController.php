@@ -138,29 +138,31 @@ class AssessmentController extends Controller
             $mitrasArray = array();
             $i = $request->start + 1;
             foreach ($mitras as $mitra) {
-                $mitraData = array();
-                $mitraData["index"] = $i;
-                $mitraData["name"] = $mitra->name;
-                $assessmentid = DB::table('mitras_surveys')
-                    ->where('id', '=', $mitra->pivot->id)
-                    ->first()->assessment_id;
-                if ($assessmentid != null) {
-                    $assessment = Assessments::find($assessmentid);
-                    $value = ($assessment->cooperation
-                        + $assessment->communication
-                        + $assessment->dicipline
-                        + $assessment->itskill
-                        + $assessment->integrity) / 5;
+                if ($mitra->pivot->status_id == 2) {
+                    $mitraData = array();
+                    $mitraData["index"] = $i;
+                    $mitraData["name"] = $mitra->name;
+                    $assessmentid = DB::table('mitras_surveys')
+                        ->where('id', '=', $mitra->pivot->id)
+                        ->first()->assessment_id;
+                    if ($assessmentid != null) {
+                        $assessment = Assessments::find($assessmentid);
+                        $value = ($assessment->cooperation
+                            + $assessment->communication
+                            + $assessment->dicipline
+                            + $assessment->itskill
+                            + $assessment->integrity) / 5;
 
-                    $mitraData["value"] = $value;
-                } else {
-                    $mitraData["value"] = 7;
+                        $mitraData["value"] = $value;
+                    } else {
+                        $mitraData["value"] = 7;
+                    }
+
+                    $mitraData["idpivot"] = $mitra->pivot->id;
+                    $mitraData["id"] = $mitra->email;
+                    $mitrasArray[] = $mitraData;
+                    $i++;
                 }
-
-                $mitraData["idpivot"] = $mitra->pivot->id;
-                $mitraData["id"] = $mitra->email;
-                $mitrasArray[] = $mitraData;
-                $i++;
             }
             return json_encode([
                 "draw" => $request->draw,
