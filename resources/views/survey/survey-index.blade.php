@@ -86,6 +86,9 @@
             </div>
         </div>
     </div>
+
+    <div id="snackbar">Link Sudah Disalin...</div>
+
 </div>
 
 @endsection
@@ -172,7 +175,7 @@
                         "<span class=\"btn-inner--icon\"><i class=\"fas fa-trash-alt\"></i></span></button>" +
                         "</form>" +
                         "<input id=\"link" + data + "\" type=\"hidden\" value=\"test\">" +
-                        "<button onclick=\"copy('" + data + "','dasdadsadas')\" class=\"btn btn-icon btn-outline-primary btn-sm\"><span class=\"btn-inner--icon\"><i class=\"fas fa-link\"></i></span></button>";
+                        "<button onclick=\"copy('" + data + "','" + row.link + "')\" class=\"btn btn-icon btn-outline-primary btn-sm\"><span class=\"btn-inner--icon\"><i class=\"fas fa-link\"></i></span></button>";
                     if (row.can_assess) {
                         html = html +
                             "<a href=\"/surveys/" + data + "/assessment\" class=\"btn btn-outline-success btn-sm\" role=\"button\" aria-pressed=\"true\" data-toggle=\"tooltip\" data-original-title=\"Nilai Mitra\">" +
@@ -194,6 +197,12 @@
 <script>
     function copy(id, text) {
         navigator.clipboard.writeText(text);
+
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function() {
+            x.className = x.className.replace("show", "");
+        }, 3000);
     }
 </script>
 

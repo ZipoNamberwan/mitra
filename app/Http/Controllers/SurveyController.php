@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Surveys;
 use Illuminate\Http\Request;
 use DateTime;
-
+use Illuminate\Support\Str;
 
 class SurveyController extends Controller
 {
@@ -106,6 +106,12 @@ class SurveyController extends Controller
             ->get();
         $surveysArray = array();
         $i = $request->start + 1;
+
+        $key = 'hQQ3cyzRp3obvAnUa29woJ6MchjHawPg'; // 32 chars
+        $iv = '8tgsqR86OSSUBC5t'; // 16 chars
+        $method = 'aes-256-cbc';
+        $base_url_frontend = "http://localhost:8080/survey-register/";
+
         foreach ($surveys as $survey) {
             $surveyData = array();
             $surveyData["index"] = $i;
@@ -113,6 +119,7 @@ class SurveyController extends Controller
             $surveyData["start_date"] = $survey->start_date;
             $surveyData["end_date"] = $survey->end_date;
             $surveyData["can_assess"] = false;
+            $surveyData["link"] = $base_url_frontend . Str::replace('/', '*', openssl_encrypt($survey->id, $method, $key, 0, $iv));
             if ($now < new DateTime($survey->start_date)) {
                 $surveyData["status"] = "1";
                 $surveyData["status_name"] = "Belum Mulai";
