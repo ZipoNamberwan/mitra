@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
 
+    Route::get('/exportmitra', [App\Http\Controllers\DownloadController::class, 'MitrasExport']);
+    Route::get('/exportsurvey', [App\Http\Controllers\DownloadController::class, 'SurveysExport']);
+
     Route::get('/download', [App\Http\Controllers\DownloadController::class, 'index']);
     Route::post('/download', [App\Http\Controllers\DownloadController::class, 'create']);
 
