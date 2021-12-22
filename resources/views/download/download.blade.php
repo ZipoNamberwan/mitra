@@ -85,13 +85,6 @@
 <script>
     function onTypeChange() {
         var type = document.getElementById('type');
-        if(type.options[type.selectedIndex].value = "1"){
-            type.submit("/exportmitra");
-        } else (type.options[type.selectedIndex].value = "2")
-            type.submit("/exportsurvey");
-        }
-
-
         var survey = document.getElementById('survey');
 
         if (type.options[type.selectedIndex].value != "3") {
