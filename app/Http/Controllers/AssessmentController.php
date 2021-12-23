@@ -35,7 +35,7 @@ class AssessmentController extends Controller
                     ->update(['assessment_id' => $assessment->id]);
             }
         }
-        return view('survey.survey-assessment', compact('idsurvey'));
+        return view('survey.survey-assessment', ['idsurvey' => $idsurvey, 'surveyname' => $survey->name]);
     }
 
     public function assess(Request $request)
