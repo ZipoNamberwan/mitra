@@ -44,10 +44,10 @@
                                 <label class="form-control-label" for="type">Jenis Laporan</label>
                                 <select onchange="onTypeChange()" id="type" class="form-control @error('type') is-invalid @enderror" data-toggle="select" name="type">
                                     <option value="1" {{ old('type') == '1' ? 'selected' : '' }}>1. Biodata Mitra</option>
-                                    <option value="2" {{ old('type') == '2' ? 'selected' : '' }}>2. Mitra Survey yang Sedang Berjalan</option>
-                                    <option value="3" {{ old('type') == '3' ? 'selected' : '' }}>3. Mitra Survey Tertentu</option>
-                                    <option value="4" {{ old('type') == '4' ? 'selected' : '' }}>4. Daftar Survey</option>
-                                    <option value="5" {{ old('type') == '5' ? 'selected' : '' }}>5. Statistik Mitra</option>
+                                    <!-- <option value="2" {{ old('type') == '2' ? 'selected' : '' }}>2. Mitra Survey yang Sedang Berjalan</option> -->
+                                    <option value="3" {{ old('type') == '3' ? 'selected' : '' }}>2. Mitra Survey Tertentu</option>
+                                    <option value="4" {{ old('type') == '4' ? 'selected' : '' }}>3. Daftar Survey</option>
+                                    <!-- <option value="5" {{ old('type') == '5' ? 'selected' : '' }}>5. Statistik Mitra</option> -->
                                 </select>
                                 @error('type')
                                 <div class="error-feedback">

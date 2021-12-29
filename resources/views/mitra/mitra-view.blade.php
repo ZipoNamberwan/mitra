@@ -97,9 +97,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">No HP</label>
                                     <p>
-                                        @foreach($mitra->phonenumbers as $phone)
-                                        {{$phone->phone}},
-                                        @endforeach
+                                        {{$mitra->phonenumbers->implode('phone', '; ')}}
                                     </p>
                                 </div>
                             </div>
@@ -132,8 +130,10 @@
                     <div class="pl-lg-4">
                         @if(count($mitra->surveys) > 0)
                         <p>
-                            @foreach($mitra->surveys as $survey)
-                            {{$survey->name}},
+                            @foreach ($mitra->surveys as $survey)
+                            @if ($survey->pivot->status_id == 2)
+                            {{ $survey->name }},
+                            @endif
                             @endforeach
                         </p>
                         @else
