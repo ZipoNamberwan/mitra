@@ -33,8 +33,8 @@ class MitrasFactory extends Factory
             'birthdate' => $this->faker->date,
             'profession' => $this->faker->text,
             'address' => $this->faker->address,
-            'village' => $this->faker->numberBetween(1, 7),
-            'subdistrict' => $this->faker->numberBetween(1, 3),
+            'village' => $this->faker->numberBetween(1, 330),
+            'subdistrict' => $this->faker->numberBetween(1, 24),
         ];
     }
 }

@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div id="snackbar">Link Sudah Disalin...</div>
+    <div id="snackbar">Link Pendafataran Sudah Disalin...</div>
 
 </div>
 
